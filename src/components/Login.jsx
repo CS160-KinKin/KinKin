@@ -4,16 +4,9 @@ function Login() {
     return (
         <div className="Login">
             <div class="container">
-                <div class="row align-items-center my-5">
-                    <div class="col-lg-7">
-                        <img
-                            class="img-fluid rounded mb-4 mb-lg-0"
-                            src="http://placehold.it/900x400"
-                            alt=""
-                        />
-                    </div>
+                <div class="align-items-center my-5">
                     <div class="col-lg-5">
-                        <h1 class="font-weight-light">About</h1>
+                        <h1 class="font-weight-light">Log in</h1>
                         <p>
                             This is where the google login will be
                         </p>

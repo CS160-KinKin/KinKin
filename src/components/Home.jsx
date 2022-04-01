@@ -1,8 +1,10 @@
 import React from "react";
+import {Navigation} from "./index";
 
 function Home() {
   return (
     <div className="home">
+      <Navigation />
       <div class="container">
         <div class="row align-items-center my-5">
           <div class="col-lg-7">
