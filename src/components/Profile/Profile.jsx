@@ -1,6 +1,9 @@
 import React from "react";
 import ClientProfile from "./ClientProfile";
-import {Navigation} from "./index";
+import PTProfile from "./PTProfile";
+import {Navigation} from "../index";
+import EditClient from "./EditClient";
+import EditPT from "./EditPT";
 
 function Profile() {
   return (
@@ -17,10 +20,14 @@ function Profile() {
           </div>
           <div class="col-lg-5">
             <h1 class="font-weight-light">Profile</h1>
-            <p>
-              This is the client's profile page.
-            </p>
-            <ClientProfile />
+            This is an example card of the Client side profile.
+            <ClientProfile /><br />
+            This is an example card of the PT side profile.
+            <PTProfile /><br />
+            This is the edit page of the client profile.
+            <EditClient /><br />
+            This is the edit page of the PT profile.
+            <EditPT />
           </div>
         </div>
       </div>
