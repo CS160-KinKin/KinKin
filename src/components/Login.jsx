@@ -9,14 +9,18 @@ function Login() {
         ? JSON.parse(localStorage.getItem('loginData'))
         : null
     );
+
     const handleFailure = (result) => {
         console.log(result);
     }
+
+    console.log("test")
+    
     const handleLogin = async (googleData) => {
-        const res = await fetch('/api/google-login', {
+        const res = await fetch('/api/google-login', { 
             method: 'POST',
             body: JSON.stringify({
-                token: googleData.tokenId,
+                token: googleData.tokenId, 
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -24,10 +28,13 @@ function Login() {
         });
 
         const data = await res.json();
+        console.log(data)
+        console.log("test")
         setLoginData(data);
         localStorage.setItem('loginData', JSON.stringify(data));
 
     }
+
     const handleLogout = () => {
       localStorage.removeItem('loginData');
       setLoginData(null);
