@@ -35,7 +35,7 @@ function Login() {
     return (
         <div>
             <Navigation />
-            <div class = "center">
+            <div className = "center">
                 {
                     loginData ? (
                         <div>
