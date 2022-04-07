@@ -23,6 +23,9 @@ export default class CreateWorkoutTask extends Component {
         };
     }
 
+    /*
+    We need the user in place to decide how to route programs
+    */
     componentDidMount() {
         axios
         .get("http://localhost:3000/workout")
@@ -81,7 +84,7 @@ export default class CreateWorkoutTask extends Component {
         console.log(task);
 
         axios
-            .post("http://localhost:3000/workout/add", task)
+            .post("http://localhost:5000/workouts/add", task)
             .then((res) => console.log(res.data));
         
         window.location = "/";
