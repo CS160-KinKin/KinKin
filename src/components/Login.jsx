@@ -1,18 +1,21 @@
 import React from "react";
+import {NavLink} from "react-router-dom";
+import {Footer, Navigation} from "./index";
+import GoogleLogin from "react-google-login";
 
 function Login() {
     return (
-        <div className="Login">
-            <div class="container">
-                <div class="align-items-center my-5">
-                    <div class="col-lg-5">
-                        <h1 class="font-weight-light">Log in</h1>
-                        <p>
-                            This is where the google login will be
-                        </p>
-                    </div>
-                </div>
-            </div>
+
+        <div>
+            <Navigation />
+                <GoogleLogin
+                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                    buttonText={"Log in with Google"}
+                    onSuccess={handleLogin}
+                >
+                </GoogleLogin>
+            <Footer />
+
         </div>
     );
 }
