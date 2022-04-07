@@ -16,16 +16,17 @@ const UserSchema = new Schema({
     required: true
   },
   rating: {
-    type: Int,
+    type: Int
   },
   location: {
-    type: String,
+    type: String
   },
   image: {
-
+    data: Buffer, 
+    contentType: String 
   },
   onlineStatus: {
-
+    type: Boolean
   },
   createdAt: {
     type: Date,
