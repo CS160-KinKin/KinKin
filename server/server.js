@@ -13,16 +13,14 @@ app.use(express.json());
 
 const db = process.env.ATLAS_URI;
 mongoose.connect(db, {useNewUrlParser:true})
+
 const connection = mongoose.connection;
 connection.once('open', () => {
   console.log('mongo db connection established')
 })
-// app.use(require("../src/"));// whats this on
-// get driver connection
-// const dbo = require("./db/conn");
+
 
 app.listen(port, () => {
   // perform a database connection when server starts
-  
   console.log(`Server is running on port: ${port}`);
 });
