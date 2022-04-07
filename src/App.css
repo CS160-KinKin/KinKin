@@ -2,3 +2,7 @@
 .orange {
   background-color: orange;
 }
+.center {
+  padding: 400px 0;
+  text-align: center;
+}
