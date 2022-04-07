@@ -27,6 +27,11 @@ function Navigation() {
                   log-in
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/workout">
+                  Workout
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
