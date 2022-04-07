@@ -25,20 +25,24 @@ export default class EditWorkoutTask extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:3000/workout/" + this.props.match.params.id)
+      .get("http://localhost:5000/workouts/" + this.props.match.params.id)
       .then((response) => {
         this.setState({
           title: response.data.title,
           client: response.data.client,
           description: response.data.description,
           duration: response.data.duration,
-          date: response.data.date,
+          date: new Date(esponse.data.date),
         });
       })
       .catch(function (error) {
         console.log(error);
       });
   }
+    
+  /* 
+  Map user's workout list here
+  */
 
   onChangeTitle(e) {
     this.setState({
@@ -84,7 +88,7 @@ export default class EditWorkoutTask extends Component {
     console.log(task);
 
     axios
-      .post("http://localhost:3000/workout/update", task)
+      .post("http://localhost:5000/workouts/update", task)
       .then((res) => console.log(res.data));
 
     window.location = "/";
