@@ -1,10 +1,14 @@
+const { Double } = require('mongodb');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const PTSchema = new Schema({
   username: {
     type: String,
-    unique: true,
+    required: true
+  },
+  email: {
+    type: String,
     required: true
   },
   publicName: {
@@ -15,8 +19,11 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  rating: {
-    type: Int
+  postiveRatingCount: {
+    type: Integer
+  },
+  negativeRatingCount: {
+    type: Integer
   },
   location: {
     type: String
@@ -31,10 +38,14 @@ const UserSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  specialties: String,
+  rate: Double,
+  availableTimes: Array,
+  requests: Array
 }, 
   {
-    collection: 'User'
+    collection: 'PT'
   },
   {
     timestamps: true
@@ -42,7 +53,7 @@ const UserSchema = new Schema({
 );
 
 module.exports =
-  mongoose.models && mongoose.models.User
-    ? mongoose.models.User
-    : mongoose.model('User', UserSchema);
+  mongoose.models && mongoose.models.PT
+    ? mongoose.models.PT
+    : mongoose.model('PT', PTSchema);
 
