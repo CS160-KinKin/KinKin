@@ -7,6 +7,6 @@ const STATUS_CODES = {
   CONFLICT: 409
 };
 
-const GET_USER_INFO_ROUTE = process.env.CONTROL_SERVER_URL + "/userInfo";
+const GET_USER_INFO_ENDPOINT = "/userInfo/";
 
-export {STATUS_CODES, GET_USER_INFO_ROUTE};
+export {STATUS_CODES, GET_USER_INFO_ENDPOINT};

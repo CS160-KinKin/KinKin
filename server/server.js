@@ -10,11 +10,11 @@ require("dotenv").config({ path: "./config.env" });
 
 const app = express();
 const router = express.Router();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
 
-app.use("/", router);
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+app.use("/", router);
 
 const db = process.env.ATLAS_URI;
 mongoose.connect(db, {useNewUrlParser:true})
@@ -24,13 +24,17 @@ connection.once('open', () => {
   console.log('mongo db connection established')
 })
 
-router.get("/userInfo", (req, res) => {
-  const googleTokenInfo = getGoogleTokenInfo(req.body.tokenId);
+router.post("/userInfo", async (req, res) => {
+  if (!req.body) {
+    res.status(STATUS_CODES.BAD_REQUEST).send("Missing tokenId");
+    return;
+  }
+  const googleTokenInfo = await getGoogleTokenInfo(req.body.tokenId);
   if (!googleTokenInfo) {
     res.status(STATUS_CODES.UNAUTHORIZED).send("Invalid token");
     return;
   }
-  if (googleTokenInfo.email_verified !== "true") {
+  if (!googleTokenInfo.email_verified) {
     res.status(STATUS_CODES.UNAUTHORIZED).send("Email not verified with Google");
     return;
   }
@@ -38,7 +42,7 @@ router.get("/userInfo", (req, res) => {
     {
       email: googleTokenInfo.email
     },
-    process.env.SECRET_KEY,
+    process.env.JWT_KEY,
     {
       expiresIn: "24h",
     }

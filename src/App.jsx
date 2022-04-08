@@ -1,4 +1,4 @@
-import {About, Profile, Home, Login, NotFound, UserDashboard} from "../components";
+import {About, Profile, Home, Login, NotFound, UserDashboard} from "./components";
 import React, {useState} from "react";
 import {
   Routes,
@@ -9,15 +9,14 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import User from "../util/User";
+import User from "./util/User";
 
 function App() {
   const [user, setUser] = useState(new User());
-  if (user) {
+  if (user.email) {
     return <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/About" element={<About/>}/>
-      <Route path="/Login" element={<Login/>}/>
       <Route
         path="/UserDashboard"
         element={<UserDashboard />}
@@ -25,7 +24,7 @@ function App() {
       <Route path="*" element={<NotFound/>}/>
     </Routes>
   }
-  return <Login />;
+  return <Login user={user} setUser={x => setUser(x)} />;
 }
 //
 // function Layout() {

@@ -1,3 +1,8 @@
+const {OAuth2Client} = require('google-auth-library');
+require("dotenv").config({ path: "./config.env" });
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
 /**
  * Get a user's email and email verification from a Google token.
  * @param {string | null} tokenId Google Token ID
@@ -6,17 +11,15 @@
  */
 async function getGoogleTokenInfo(tokenId) {
   if (!tokenId) return null;
-  const res = await fetch('https://oauth2.googleapis.com/tokeninfo', {
-      method: 'GET',
-      body: JSON.stringify({
-        id_token: tokenId,
-      }),
-      headers: {
-          'Content-Type': 'application/json',
-      }
-  });
-  if (parseInt(res.exp) < Date.now()) return null;
-  return res;
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: tokenId,
+      audience: process.env.GOOGLE_CLIENT_ID
+    });
+    return ticket.getPayload();
+  } catch {
+    return null;
+  }
 }
 
 module.exports = {getGoogleTokenInfo};
