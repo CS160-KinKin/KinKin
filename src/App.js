@@ -8,13 +8,25 @@ import {
     useLocation,
     Navigate,
     Outlet,
+    Router,
 } from "react-router-dom";
+
+import WorkoutList from "./components/Workout/workout-list";
+import EditWorkoutTask from "./components/Workout/edit-workout-task";
+import CreateWorkoutTask from "./components/Workout/create-workout-task";
 
 import './App.css';
 
 function App() {
     return (
-        <Login />
+      <Router>
+        <div className="container">
+          <br />
+          <Route path="/workouts" exact component={WorkoutList} />
+          <Route path="/workouts/add" component={CreateWorkoutTask} />
+          <Route path="/workouts/update" component={EditWorkoutTask} />
+        </div>
+      </Router>
     );
 }
 
