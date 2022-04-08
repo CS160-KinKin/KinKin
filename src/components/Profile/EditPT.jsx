@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import axios from "axios";
+import axios from "axios";
 
 class EditPT extends Component {
     constructor(props) {
@@ -26,9 +26,9 @@ class EditPT extends Component {
         };
     }
 
-    /*componentDidMount() {
+    componentDidMount() {
         axios
-            .get("https://localhost:3000/profile/" + this.props.match.params.id)
+            .get("https://localhost:3000/profile")
             .then((response) => {
                 this.setState({
                     name: response.data.name,
@@ -44,7 +44,7 @@ class EditPT extends Component {
             .catch(function (error) {
                 console.log(error);
             });
-    }*/
+    }
 
     onChangeName(e) {
         this.setState({
@@ -94,7 +94,7 @@ class EditPT extends Component {
         });
     }
 
-    /*onSubmit(e) {
+    onSubmit(e) {
         e.preventDefault();
 
         const task = {
@@ -115,7 +115,7 @@ class EditPT extends Component {
             .then((res) => console.log(res.data));
 
         window.location = "/";
-    }*/
+    }
 
     render() {
         return (
