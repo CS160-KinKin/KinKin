@@ -23,9 +23,12 @@ export default class CreateWorkoutTask extends Component {
         };
     }
 
+<<<<<<< HEAD
     /*
     We need the user in place to decide how to route programs
     */
+=======
+>>>>>>> 7d773257bb22e780a2fbc95fe08c1dbcc6c2fea3
     componentDidMount() {
         axios
         .get("http://localhost:3000/workout")
@@ -84,7 +87,11 @@ export default class CreateWorkoutTask extends Component {
         console.log(task);
 
         axios
+<<<<<<< HEAD
             .post("http://localhost:5000/workouts/add", task)
+=======
+            .post("http://localhost:3000/workout/add", task)
+>>>>>>> 7d773257bb22e780a2fbc95fe08c1dbcc6c2fea3
             .then((res) => console.log(res.data));
         
         window.location = "/";
