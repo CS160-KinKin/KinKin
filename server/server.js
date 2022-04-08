@@ -19,6 +19,9 @@ connection.once('open', () => {
   console.log('mongo db connection established')
 })
 
+const clientsRouter = require("./endpoints/routes/client");
+
+app.use('/clients', clientsRouter)
 
 app.listen(port, () => {
   // perform a database connection when server starts
