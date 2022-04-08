@@ -1,4 +1,4 @@
-import {About, Profile, Home, Login, NotFound} from "./components";
+import {About, Profile, Marketplace, Home, Login, NotFound} from "./components";
 import {Route, Routes} from "react-router-dom";
 import React from "react";
 
@@ -9,6 +9,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path ="/Profile" element={<Profile />} />
+          <Route path ="/Marketplace" element={<Marketplace />} />
           <Route path ="/About" element={<About />} />
           <Route path ="/Login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
