@@ -28,7 +28,7 @@ function Navigation() {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/workout">
+                <NavLink className="nav-link" to="/workouts">
                   Workout
                 </NavLink>
               </li>

@@ -32,7 +32,7 @@ export default class EditWorkoutTask extends Component {
           client: response.data.client,
           description: response.data.description,
           duration: response.data.duration,
-          date: new Date(esponse.data.date),
+          date: new Date(response.data.date),
         });
       })
       .catch(function (error) {
@@ -86,7 +86,6 @@ export default class EditWorkoutTask extends Component {
     };
 
     console.log(task);
-
     axios
       .post("http://localhost:5000/workouts/update", task)
       .then((res) => console.log(res.data));
