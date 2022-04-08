@@ -1,18 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
+import {NavLink} from "react-router-dom";
+import {Footer, Navigation} from "./index";
+import GoogleLogin from "react-google-login";
 
 function Login() {
+    const [loginData, setLoginData] = useState(
+        localStorage.getItem('loginData')
+        ? JSON.parse(localStorage.getItem('loginData'))
+        : null
+    );
+    const handleFailure = (result) => {
+        console.log(result);
+    }
+    const handleLogin = async (googleData) => {
+        const res = await fetch('/api/google-login', {
+            method: 'POST',
+            body: JSON.stringify({
+                token: googleData.tokenId,
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        const data = await res.json();
+        setLoginData(data);
+        localStorage.setItem('loginData', JSON.stringify(data));
+
+    }
+    const handleLogout = () => {
+      localStorage.removeItem('loginData');
+      setLoginData(null);
+    }
     return (
-        <div className="Login">
-            <div class="container">
-                <div class="align-items-center my-5">
-                    <div class="col-lg-5">
-                        <h1 class="font-weight-light">Log in</h1>
-                        <p>
-                            This is where the google login will be
-                        </p>
-                    </div>
-                </div>
+        <div>
+            <Navigation />
+            <div className = "center">
+                {
+                    loginData ? (
+                        <div>
+                        <h3>logged in</h3>
+                        <button onClick={handleLogout}>logout</button>
+                        </div>
+                    ) : (
+                    <GoogleLogin
+                        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                        buttonText="Log in with Google"
+                        onSuccess={handleLogin}
+                        onFailure={handleFailure}
+                        cookiePolicy={'single_host_origin'}
+                    >
+                    </GoogleLogin>
+                    )}
             </div>
+            <Footer />
+
         </div>
     );
 }
