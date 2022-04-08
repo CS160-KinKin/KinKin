@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+//import axios from "axios";
 
 class EditClient extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class EditClient extends Component {
     };
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     axios
       .get("https://localhost:3000/profile/" + this.props.match.params.id)
       .then((response) => {
@@ -35,7 +35,7 @@ class EditClient extends Component {
       .catch(function (error) {
         console.log(error);
       });
-  }
+  }*/
 
   onChangeName(e) {
     this.setState({
@@ -67,7 +67,7 @@ class EditClient extends Component {
     });
   }
 
-  onSubmit(e) {
+  /*onSubmit(e) {
     e.preventDefault();
 
     const task = {
@@ -85,7 +85,7 @@ class EditClient extends Component {
       .then((res) => console.log(res.data));
 
     window.location = "/";
-  }
+  }*/
 
   render() {
     return (
