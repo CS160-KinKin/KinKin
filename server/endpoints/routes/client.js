@@ -18,8 +18,9 @@ router.get('/test', (req,res) => {
 router.post('/add', (req,res) => {
   const newClient = new Client({
     email: req.body.email,
+    name: req.body.name,
+    bio: req.body.location,
     language: req.body.language,
-    publicName: req.body.publicName,
     location: req.body.location,
     image: req.body.image,
     interests: req.body.interests,
@@ -43,6 +44,5 @@ router.get('/:username',(req,res) => {
   .then(client => res.json(client))
   .catch(err => res.status(BAD_REQUEST).json('User not found'))
 })
-
 
 module.exports = router;

@@ -11,6 +11,9 @@ const ClientSchema = new Schema({
   language: {
     type: String,
   },
+  bio: {
+    type: String,
+  },
   postiveRatingCount: {
     type: Number
   },
