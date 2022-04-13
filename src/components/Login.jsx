@@ -2,60 +2,36 @@ import React, { useState } from "react";
 import {NavLink} from "react-router-dom";
 import {Footer, Navigation} from "./index";
 import GoogleLogin from "react-google-login";
+import User from "../util/User"
 
-function Login() {
-    const [loginData, setLoginData] = useState(
-        localStorage.getItem('loginData')
-        ? JSON.parse(localStorage.getItem('loginData'))
-        : null
-    );
+function Login(props) {
+
     const handleFailure = (result) => {
         console.log(result);
     }
     const handleLogin = async (googleData) => {
-        const res = await fetch('/api/google-login', {
-            method: 'POST',
-            body: JSON.stringify({
-                token: googleData.tokenId,
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-
-        const data = await res.json();
-        setLoginData(data);
-        localStorage.setItem('loginData', JSON.stringify(data));
-
+        const user = new User();
+        await user.fetchInfo(googleData.tokenId);
+        props.setUser(user);
     }
     const handleLogout = () => {
-      localStorage.removeItem('loginData');
-      setLoginData(null);
+        props.setUser(new User());
     }
     return (
-        <div>
+        <>
             <Navigation />
             <div className = "center">
-                {
-                    loginData ? (
-                        <div>
-                        <h3>logged in</h3>
-                        <button onClick={handleLogout}>logout</button>
-                        </div>
-                    ) : (
-                    <GoogleLogin
-                        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                        buttonText="Log in with Google"
-                        onSuccess={handleLogin}
-                        onFailure={handleFailure}
-                        cookiePolicy={'single_host_origin'}
-                    >
-                    </GoogleLogin>
-                    )}
+                <GoogleLogin
+                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                    buttonText="Log in with Google"
+                    onSuccess={handleLogin}
+                    onFailure={handleFailure}
+                    cookiePolicy={'single_host_origin'}
+                / >
             </div>
             <Footer />
 
-        </div>
+        </>
     );
 }
 
