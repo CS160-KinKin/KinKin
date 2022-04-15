@@ -1,4 +1,4 @@
-import {About, Profile, Home, Login, NotFound, UserDashboard} from "./components";
+import {About, Profile, Marketplace, Home, Login, NotFound, UserDashboard} from "./components";
 import React, {useState} from "react";
 import {
   Routes,
@@ -17,6 +17,7 @@ function App() {
     return <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/About" element={<About/>}/>
+      <Route path ="/Marketplace" element={<Marketplace />} />
       <Route
         path="/UserDashboard"
         element={<UserDashboard />}
