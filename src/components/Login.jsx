@@ -1,19 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
+import {NavLink} from "react-router-dom";
+import {Footer, Navigation} from "./index";
+import GoogleLogin from "react-google-login";
+import User from "../util/User"
 
-function Login() {
+function Login(props) {
+
+    const handleFailure = (result) => {
+        console.log(result);
+    }
+    const handleLogin = async (googleData) => {
+        const user = new User();
+        await user.fetchInfo(googleData.tokenId);
+        props.setUser(user);
+    }
+    const handleLogout = () => {
+        props.setUser(new User());
+    }
     return (
-        <div className="Login">
-            <div class="container">
-                <div class="align-items-center my-5">
-                    <div class="col-lg-5">
-                        <h1 class="font-weight-light">Log in</h1>
-                        <p>
-                            This is where the google login will be
-                        </p>
-                    </div>
-                </div>
+        <>
+            <Navigation />
+            <div className = "center">
+                <GoogleLogin
+                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                    buttonText="Log in with Google"
+                    onSuccess={handleLogin}
+                    onFailure={handleFailure}
+                    cookiePolicy={'single_host_origin'}
+                / >
             </div>
-        </div>
+            <Footer />
+
+        </>
     );
 }
 
