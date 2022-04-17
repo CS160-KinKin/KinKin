@@ -49,6 +49,8 @@ router.post("/userInfo", async (req, res) => {
   );
   res.status(STATUS_CODES.OK).send({
     email: googleTokenInfo.email,
+    name: googleTokenInfo.name, 
+    picture: googleTokenInfo.picture,
     existingUser: false, // todo
     token
   });

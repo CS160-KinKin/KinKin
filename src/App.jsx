@@ -1,4 +1,5 @@
-import {About, Profile, Home, Login, NotFound, UserDashboard} from "./components";
+import {About, Profile, Home, Login, NotFound, UserDashboard, Chat} from "./components";
+
 import React, {useState} from "react";
 import {
   Routes,
@@ -21,11 +22,13 @@ function App() {
         path="/UserDashboard"
         element={<UserDashboard />}
       />
+      <Route path="/Chat" element={<Chat user={user}/>}/> {/* pass in user info to chat */}
       <Route path="*" element={<NotFound/>}/>
     </Routes>
-  }
+  } 
   return <Login user={user} setUser={x => setUser(x)} />;
 }
+
 //
 // function Layout() {
 //     return (
