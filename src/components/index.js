@@ -1,8 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-
 export { default as Navigation } from "./Navigation";
 export { default as Footer } from "./Footer";
 export { default as Login } from "./Login";
@@ -11,10 +6,3 @@ export { default as About } from "./About";
 export { default as NotFound } from "./NotFound";
 export { default as Profile } from "./Profile/Profile";
 export { default as UserDashboard } from "./UserDashboard";
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
