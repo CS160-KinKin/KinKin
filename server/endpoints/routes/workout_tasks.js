@@ -1,14 +1,16 @@
-    const router = require("express").Router();
-    let WorkoutTask = require("../models/workouttask.model");
+const express = require("express");
+const WorkoutTask = require("../models/workouttask.model");
+const {STATUS_CODES} = require("../../util/constants");
+
+const router = express.Router();
 
 router.route("/").get((req, res) => {
-        console.log("hi there");
-        WorkoutTask.find()
-            .then((tasks) => res.json(tasks))
-            .catch((err) => res.status(400).json("Error: " + err));
-    });
+    WorkoutTask.find()
+        .then((tasks) => res.status(STATUS_CODES.OK).json(tasks))
+        .catch((err) => res.status(STATUS_CODES.BAD_REQUEST).json("Error: " + err));
+});
 
-    router.route("/add").post((req, res) => {
+router.route("/add").post((req, res) => {
     const title = req.body.title;
     const client = req.body.client;
     const description = req.body.description;
@@ -25,23 +27,23 @@ router.route("/").get((req, res) => {
 
     newWorkoutTask
         .save()
-        .then(() => res.json("Workout Task added!"))
-        .catch((err) => res.status(400).json("Error: " + err));
-    });
+        .then(() => res.status(STATUS_CODES.OK).json("Workout Task added!"))
+        .catch((err) => res.status(STATUS_CODES.BAD_REQUEST).json("Error: " + err));
+});
 
-    router.route("/:id").get((req, res) => {
+router.route("/:id").get((req, res) => {
     WorkoutTask.findById(req.params.id)
-        .then((WorkoutTask) => res.json(WorkoutTask))
-        .catch((err) => res.status(400).json("Error: " + err));
-    });
+        .then((WorkoutTask) => res.status(STATUS_CODES.OK).json(WorkoutTask))
+        .catch((err) => res.status(STATUS_CODES.BAD_REQUEST).json("Error: " + err));
+});
 
-    router.route("/:id").delete((req, res) => {
+router.route("/:id").delete((req, res) => {
     WorkoutTask.findByIdAndDelete(req.params.id)
-        .then(() => res.json("Workout Task deleted."))
-        .catch((err) => res.status(400).json("Error: " + err));
-    });
+        .then(() => res.status(STATUS_CODES.OK).json("Workout Task deleted."))
+        .catch((err) => res.status(STATUS_CODES.BAD_REQUEST).json("Error: " + err));
+});
 
-    router.route("/update/:id").post((req, res) => {
+router.route("/update/:id").post((req, res) => {
     WorkoutTask.findById(req.params.id)
         .then((task) => {
             task.title = req.body.title;
@@ -52,10 +54,10 @@ router.route("/").get((req, res) => {
 
             task
                 .save()
-                .then(() => res.json("Workout Task updated!"))
-                .catch((err) => res.status(400).json("Error: " + err));
+                .then(() => res.status(STATUS_CODES.OK).json("Workout Task updated!"))
+                .catch((err) => res.status(STATUS_CODES.BAD_REQUEST).json("Error: " + err));
         })
-        .catch((err) => res.status(400).json("Error: " + err));
-    });
+        .catch((err) => res.status(STATUS_CODES.BAD_REQUEST).json("Error: " + err));
+});
 
-    module.exports = router;
+module.exports = router;
