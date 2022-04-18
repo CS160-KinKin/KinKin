@@ -11,14 +11,13 @@ const WorkoutTask = (props) => (
     <td>{props.workouttask.date.substring(0, 10)}</td>
     <td>
       <Link to={"/edit/" + props.workouttask._id}>edit</Link> |{" "}
-      <a
-        href="#"
+      <button
         onClick={() => {
           props.deleteWorkoutTask(props.workouttask._id);
         }}
       >
         Delete
-      </a>
+      </button>
     </td>
   </tr>
 );
@@ -34,7 +33,7 @@ export default class WorkoutList extends Component {
 
     componentDidMount() {
         axios
-            .get("http://localhost:5000/workouts/")
+            .get(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts/")
             .then((response) => {
                 this.setState({ tasks: response.data });
             })
@@ -44,12 +43,12 @@ export default class WorkoutList extends Component {
     }
 
     deleteWorkoutTask(id) {
-        axios.delete("http://localhost:5000/workouts/" + id).then((response) => {
+        axios.delete(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts/" + id).then((response) => {
             console.log(response.data);
         });
 
         this.setState({
-            tasks: this.state.tasks.filter((el) => el._id == id),
+            tasks: this.state.tasks.filter((el) => el._id === id),
         });
     }
 

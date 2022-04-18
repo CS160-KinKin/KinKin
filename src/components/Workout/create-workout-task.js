@@ -28,7 +28,7 @@ export default class CreateWorkoutTask extends Component {
     */
     componentDidMount() {
         axios
-        .get("http://localhost:3000/workout")
+        .get(process.env.REACT_APP_CONTROL_SERVER_URL + "/workout")
         .then((response) => {
             this.setState({
                 title: response.data.title,
@@ -84,7 +84,7 @@ export default class CreateWorkoutTask extends Component {
         console.log(task);
 
         axios
-            .post("http://localhost:5000/workouts/add", task)
+            .post(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts/add", task)
             .then((res) => console.log(res.data));
         
         window.location = "/";

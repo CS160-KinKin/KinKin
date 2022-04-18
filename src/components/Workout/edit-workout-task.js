@@ -25,7 +25,7 @@ export default class EditWorkoutTask extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/workouts/" + this.props.match.params.id)
+      .get(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts/" + this.props.match.params.id)
       .then((response) => {
         this.setState({
           title: response.data.title,
@@ -87,7 +87,7 @@ export default class EditWorkoutTask extends Component {
 
     console.log(task);
     axios
-      .post("http://localhost:5000/workouts/update", task)
+      .post(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts/update", task)
       .then((res) => console.log(res.data));
 
     window.location = "/";
