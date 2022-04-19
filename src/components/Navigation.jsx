@@ -1,13 +1,17 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 
+const toggleLogInModal = async () => {
+  
+}
+
 function Navigation() {
   return (
     <div className="navigation">
       <nav className="navbar navbar-expand navbar-dark orange">
         <div className="container">
           <NavLink className="navbar-brand" to="/">
-            Kin Kin
+            <b>Kin Kin</b>
           </NavLink>
           <div>
             <ul className="navbar-nav ml-auto">
@@ -24,9 +28,10 @@ function Navigation() {
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/login">
-                  log-in
+                  Log In
                 </NavLink>
               </li>
+              {/* <button className="btn" onClick={toggleLogInModal}>Log In</button> */}
             </ul>
           </div>
         </div>

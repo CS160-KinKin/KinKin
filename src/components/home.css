@@ -1,0 +1,17 @@
+.home {
+    background-image: 
+    url(
+  "https://cf.ltkcdn.net/exercise/images/orig/246845-1600x1030-how-become-personal-fitness-trainer.jpg");
+    /* background-size: "cover"; */
+    /* height: 100vh; */
+    /* margin-top: -70px; */
+    /* font-size:50px; */
+    position: absolute;
+      top: 0;
+      z-index: -1;
+      height: 100vh;
+      width: 100vw;
+      object-fit: cover;
+      opacity: 0.5;
+    background-repeat:no-repeat; 
+  }

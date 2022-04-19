@@ -3,6 +3,7 @@ import {NavLink} from "react-router-dom";
 import {Footer, Navigation} from "./index";
 import GoogleLogin from "react-google-login";
 import User from "../util/User"
+import image from "../assets/pt.jpg";
 
 function Login(props) {
 
@@ -20,14 +21,16 @@ function Login(props) {
     return (
         <>
             <Navigation />
-            <div className = "center">
-                <GoogleLogin
-                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                    buttonText="Log in with Google"
-                    onSuccess={handleLogin}
-                    onFailure={handleFailure}
-                    cookiePolicy={'single_host_origin'}
-                / >
+            <div className="home-container">
+                <div className = "center">
+                    <GoogleLogin
+                        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                        buttonText="Log in with Google"
+                        onSuccess={handleLogin}
+                        onFailure={handleFailure}
+                        cookiePolicy={'single_host_origin'}
+                    / >
+                </div>
             </div>
             <Footer />
 
