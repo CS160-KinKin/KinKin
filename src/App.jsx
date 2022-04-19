@@ -17,7 +17,7 @@ import CreateWorkoutTask from "./components/Workout/create-workout-task";
 
 function App() {
   const [user, setUser] = useState(new User());
-  if (user.email) {
+  if (user.token) {
     return <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/About" element={<About/>}/>
