@@ -19,3 +19,27 @@ code {
   padding: 400px 0;
   text-align: center;
 }
+
+.left-container {
+  width: 300px;
+  min-width: 300px;
+  min-height: 500px;
+  border: 1px solid darkorange;
+  border-radius: 5px;
+}
+
+.right-container {
+  width: 500px;
+  min-width: 500px;
+  min-height: 500px;
+  border: 1px solid darkorange;
+  border-radius: 5px;
+}
+
+.contain {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 30px auto;
+  justify-content: center;
+}
