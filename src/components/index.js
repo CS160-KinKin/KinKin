@@ -6,3 +6,4 @@ export { default as About } from "./About";
 export { default as NotFound } from "./NotFound";
 export { default as Profile } from "./Profile/Profile";
 export { default as UserDashboard } from "./UserDashboard";
+export { default as Chat } from "./Chat"
