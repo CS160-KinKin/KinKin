@@ -1,4 +1,4 @@
-import ProfileInfoBox from "./ProfileInfoBox";
+import ProfileInfoBox from "../ProfileInfoBox";
 import CurrentProfile from "./CurrentProfile";
 
 function EditProfilePage() {

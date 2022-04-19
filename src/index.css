@@ -43,3 +43,13 @@ code {
   margin: 30px auto;
   justify-content: center;
 }
+
+.form {
+  margin: 20px;
+}
+
+.btn {
+  margin: 20px auto;
+  color: white;
+  background-color: black;
+}

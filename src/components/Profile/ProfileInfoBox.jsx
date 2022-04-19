@@ -6,8 +6,13 @@ function ProfileInfoBox() {
     const [birthday, setBirthday] = useState('')
     const [userStatus, setUserStatus] = useState('')
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+        //API to backend
+    }
+
     return (
-        <form>
+        <form className="form">
             <div>
                 <div>Birthday</div>
                 <input
@@ -30,6 +35,23 @@ function ProfileInfoBox() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
+                <div>these</div>
+                <input
+                    type='text'
+                    placeholder='these'
+                />
+                <div>are</div>
+                <input
+                    type='text'
+                    placeholder='are'
+                />
+                <div>placeholders</div>
+                <input
+                    type='text'
+                    placeholder='placeholders'
+                />
+                <div></div>
+                <input type='submit' value='submit' className='btn' />
             </div>
         </form>
     )
