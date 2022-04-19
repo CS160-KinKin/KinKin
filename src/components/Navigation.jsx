@@ -32,6 +32,11 @@ function Navigation() {
                 </NavLink>
               </li>
               {/* <button className="btn" onClick={toggleLogInModal}>Log In</button> */}
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/chat">
+                  Chat
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
