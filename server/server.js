@@ -41,7 +41,8 @@ router.post("/userInfo", async (req, res) => {
   }
   const token = jwt.sign(
     {
-      email: googleTokenInfo.email
+      email: googleTokenInfo.email,
+      userId: googleTokenInfo.sub
     },
     process.env.JWT_KEY,
     {
@@ -50,6 +51,7 @@ router.post("/userInfo", async (req, res) => {
   );
   res.status(STATUS_CODES.OK).send({
     email: googleTokenInfo.email,
+    userId: googleTokenInfo.sub,
     existingUser: false, // todo
     token
   });

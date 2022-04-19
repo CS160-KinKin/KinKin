@@ -4,16 +4,16 @@ import axios from "axios";
 
 const WorkoutTask = (props) => (
   <tr>
-    <td>{props.workouttask.title}</td>
-    <td>{props.workouttask.client}</td>
-    <td>{props.workouttask.description}</td>
-    <td>{props.workouttask.duration}</td>
-    <td>{props.workouttask.date.substring(0, 10)}</td>
+    <td>{props.task.title}</td>
+    <td>{props.task.client}</td>
+    <td>{props.task.description}</td>
+    <td>{props.task.duration}</td>
+    <td>{props.task.date.substring(0, 10)}</td>
     <td>
-      <Link to={"/edit/" + props.workouttask._id}>edit</Link> |{" "}
+      <Link to={"/edit/" + props.task._id}>edit</Link> |{" "}
       <button
         onClick={() => {
-          props.deleteWorkoutTask(props.workouttask._id);
+          props.deleteWorkoutTask(props.task._id);
         }}
       >
         Delete
@@ -32,6 +32,7 @@ export default class WorkoutList extends Component {
     }
 
     componentDidMount() {
+        console.log("querying");
         axios
             .get(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts/")
             .then((response) => {
@@ -53,6 +54,7 @@ export default class WorkoutList extends Component {
     }
 
     workoutList() {
+        console.log(this.state.tasks);
         return this.state.tasks.map((currenttask) => {
             return (
                 <WorkoutTask
