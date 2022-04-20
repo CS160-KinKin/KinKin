@@ -5,8 +5,6 @@ const UserSchema = new Schema(
   {
     _id: {
       type: String,
-      unique: true,
-      required: true,
     },
     username: {
       type: String,
@@ -19,6 +17,7 @@ const UserSchema = new Schema(
     },
   },
   {
+    _id: false,
     collection: 'User',
   },
   {
@@ -26,7 +25,4 @@ const UserSchema = new Schema(
   }
 );
 
-module.exports =
-  mongoose.models && mongoose.models.User
-    ? mongoose.models.User
-    : mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
