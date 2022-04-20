@@ -1,4 +1,5 @@
-import {About, Profile, Home, Login, NotFound, UserDashboard} from "./components";
+import {About, Profile, Home, Login, NotFound, UserDashboard, Chat} from "./components";
+
 import React, {useState} from "react";
 import {
     Routes,
@@ -28,9 +29,10 @@ function App() {
       <Route path="/workouts" exact element={<WorkoutList user={user} />} />
       <Route path="/workouts/add" element={<CreateWorkoutTask user={user} />} />
       <Route path="/workouts/update" element={<EditWorkoutTask user={user} />} />
+      <Route path="/Chat" element={<Chat user={user}/>}/> {/* pass in user info to chat */}
       <Route path="*" element={<NotFound/>}/>
     </Routes>
-  }
+  } 
   return <Login user={user} setUser={x => setUser(x)} />;
 }
 
