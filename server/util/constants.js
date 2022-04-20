@@ -1,4 +1,3 @@
-
 const STATUS_CODES = {
   OK: 200,
   BAD_REQUEST: 400,
@@ -12,10 +11,7 @@ const COLORS = {
   // todo
 };
 
-const API_URL = "http://localhost:3001"
-
 module.exports = {
   STATUS_CODES,
-  COLORS,
-  API_URL
+  COLORS
 };
