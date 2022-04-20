@@ -32,6 +32,11 @@ function Navigation() {
                   Workout
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/chat">
+                  Chat
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
