@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -7,7 +6,7 @@ export default class EditWorkoutTask extends Component {
   constructor(props) {
     super(props);
 
-    this.onchangeTitle = this.onchangeTitle.bind(this);
+    this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeClient = this.onChangeClient.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeDuration = this.onChangeDuration.bind(this);
@@ -23,21 +22,8 @@ export default class EditWorkoutTask extends Component {
     };
   }
 
-  componentDidMount() {
-    axios
-      .get(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts/" + this.props.match.params.id)
-      .then((response) => {
-        this.setState({
-          title: response.data.title,
-          client: response.data.client,
-          description: response.data.description,
-          duration: response.data.duration,
-          date: new Date(response.data.date),
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  async componentDidMount() {
+    // todo
   }
     
   /* 
@@ -77,20 +63,9 @@ export default class EditWorkoutTask extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const task = {
-      title: this.state.title,
-      client: this.state.client,
-      description: this.state.description,
-      duration: this.state.duration,
-      date: this.state.date,
-    };
+    // todo
 
-    console.log(task);
-    axios
-      .post(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts/update", task)
-      .then((res) => console.log(res.data));
-
-    window.location = "/";
+    window.location = "/workouts";
   }
 
   render() {
@@ -100,13 +75,13 @@ export default class EditWorkoutTask extends Component {
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Title: </label>
-            <select
-              ref="userInput"
+            <input
+              ref="text"
               required
               className="form-control"
               value={this.state.title}
               onChange={this.onChangeTitle}
-            ></select>
+            / >
           </div>
           <div className="form-group">
             <label>Client: </label>

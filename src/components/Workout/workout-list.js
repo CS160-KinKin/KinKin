@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { getWorkoutsByPtId, deleteWorkoutTask } from "../../util/workouts";
 
 const WorkoutTask = (props) => (
   <tr>
@@ -31,30 +31,27 @@ export default class WorkoutList extends Component {
         this.state = { tasks: [] };
     }
 
-    componentDidMount() {
-        console.log("querying");
-        axios
-            .get(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts/")
-            .then((response) => {
-                this.setState({ tasks: response.data });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    async componentDidMount() {
+        try {
+            const tasks = await getWorkoutsByPtId(this.props.user.token);
+            this.setState({tasks});
+        } catch (err) {
+            console.log(err.message);
+        }
     }
 
-    deleteWorkoutTask(id) {
-        axios.delete(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts/" + id).then((response) => {
-            console.log(response.data);
-        });
-
-        this.setState({
-            tasks: this.state.tasks.filter((el) => el._id === id),
-        });
+    async deleteWorkoutTask(id) {
+        try {
+            await deleteWorkoutTask(this.props.user.token, id);
+            this.setState({
+                tasks: this.state.tasks.filter((el) => el._id === id),
+            });
+        } catch (err) {
+            console.log(err.message);
+        }
     }
 
     workoutList() {
-        console.log(this.state.tasks);
         return this.state.tasks.map((currenttask) => {
             return (
                 <WorkoutTask

@@ -5,37 +5,34 @@ const {verifyToken} = require("../../util/auth");
 
 const router = express.Router();
 
-router.route("/").post(verifyToken, async (req, res) => {
+router.route("/get").post(verifyToken, async (req, res) => {
     try {
         const ptId = req.user.userId;
-        const tasks = await WorkoutTask.find({pt: {userId: ptId}});
+        const tasks = await WorkoutTask.find({pt: ptId});
         return res.status(STATUS_CODES.OK).send(tasks);
     } catch (err) {
-        return res.status(STATUS_CODES.BAD_REQUEST).send(err);
+        return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
     }
 });
 
 router.route("/").put(verifyToken, async (req, res) => {
     try {
-        const {title, clientId, description} = req.body;
-        const duration = Number(req.body.duration);
-        const date = new Date(req.body.date);
+        const {title, clientId, description, duration, date} = req.body;
         const ptId = req.user.userId;
+
         // todo: verify that the pt has the clientId in their client list
 
-        console.log(req.body);
-
-        const newWorkoutTask = await WorkoutTask.create({
+        const task = await WorkoutTask.create({
             title,
-            client: {userId: clientId},
-            pt: {userId: ptId},
+            client: clientId,
+            pt: ptId,
             description,
             duration,
             date,
         });
-        return res.status(STATUS_CODES.OK).send(newWorkoutTask);
+        return res.status(STATUS_CODES.OK).send(task);
     } catch (err) {
-        return res.status(STATUS_CODES.BAD_REQUEST).send(err);
+        return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
     }
 });
 
@@ -43,26 +40,26 @@ router.route("/").delete(verifyToken, async (req, res) => {
     try {
         const taskId = req.body.id;
         const ptId = req.user.userId;
-        const res = await WorkoutTask.findOneAndDelete({pt: {userId: ptId}, _id: taskId});
-        return res.status(STATUS_CODES.OK).send(res);
+        const task = await WorkoutTask.findOneAndDelete({pt : ptId, _id: taskId});
+        return res.status(STATUS_CODES.OK).send(task);
     } catch (err) {
-        return res.status(STATUS_CODES.BAD_REQUEST).send(err);
+        return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
     }
 });
 
-router.route("/update").post(verifyToken, async (req, res) => {
+router.route("/").post(verifyToken, async (req, res) => {
     try {
         const taskId = req.body.id;
         const ptId = req.user.userId;
-        const task = await WorkoutTask.findOne({pt: {userId: ptId}, _id: taskId});
+        const task = await WorkoutTask.findOne({pt: ptId, _id: taskId});
         task.title = req.body.title || task.title;
         task.description = req.body.description || task.description;
-        task.duration = Number(req.body.duration) || task.duration;
-        task.date = new Date(req.body.date) || task.date;
+        task.duration = req.body.duration || task.duration;
+        task.date = req.body.date || task.date;
         await task.save();
         return res.status(STATUS_CODES.OK).send(task);
     } catch (err) {
-        return res.status(STATUS_CODES.BAD_REQUEST).send(err);
+        return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
     }
 });
 

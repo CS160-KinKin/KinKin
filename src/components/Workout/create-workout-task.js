@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { createWorkoutTask } from "../../util/workouts";
 
 export default class CreateWorkoutTask extends Component {
     constructor(props) {
         super(props);
 
-        this.onchangeTitle = this.onchangeTitle.bind(this);
+        this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeClient = this.onChangeClient.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeDuration = this.onChangeDuration.bind(this);
@@ -27,17 +27,7 @@ export default class CreateWorkoutTask extends Component {
     We need the user in place to decide how to route programs
     */
     componentDidMount() {
-        axios
-        .get(process.env.REACT_APP_CONTROL_SERVER_URL + "/workout")
-        .then((response) => {
-            this.setState({
-                title: response.data.title,
-                client: response.data.client,
-            });
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+        // todo
     }
 
     onChangeTitle(e) {
@@ -75,19 +65,15 @@ export default class CreateWorkoutTask extends Component {
         
         const task = {
             title: this.state.title,
-            client: this.state.client,
+            clientId: this.state.client,
             description: this.state.description,
             duration: this.state.duration,
             date: this.state.date,
         };
 
-        console.log(task);
-
-        axios
-            .post(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts/add", task)
-            .then((res) => console.log(res.data));
+        createWorkoutTask(this.props.user.token, task);
         
-        window.location = "/";
+        window.location = "/workouts";
     }
 
     render() {
@@ -97,13 +83,13 @@ export default class CreateWorkoutTask extends Component {
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <label>Title: </label>
-                <select
-                  ref="userInput"
+                <input
+                  ref="text"
                   required
                   className="form-control"
                   value={this.state.title}
                   onChange={this.onChangeTitle}
-                ></select>
+                / >
               </div>
               <div className="form-group">
                 <label>Client: </label>

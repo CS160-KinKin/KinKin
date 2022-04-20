@@ -25,9 +25,9 @@ function App() {
         path="/UserDashboard"
         element={<UserDashboard />}
       />
-      <Route path="/workouts" exact component={WorkoutList} />
-      <Route path="/workouts/add" component={CreateWorkoutTask} />
-      <Route path="/workouts/update" component={EditWorkoutTask} />
+      <Route path="/workouts" exact element={<WorkoutList user={user} />} />
+      <Route path="/workouts/add" element={<CreateWorkoutTask user={user} />} />
+      <Route path="/workouts/update" element={<EditWorkoutTask user={user} />} />
       <Route path="*" element={<NotFound/>}/>
     </Routes>
   }
