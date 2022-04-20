@@ -21,13 +21,10 @@ function Profile() {
           <div class="col-lg-5">
             <h1 class="font-weight-light">Profile</h1>
             This is an example card of the Client side profile.
-            <ClientProfile /><br />
+            <ClientProfile name="Bob" bio="My Bio" interests="My Interests" /><br />
             This is an example card of the PT side profile.
-            <PTProfile /><br />
-            This is the edit page of the client profile.
-            <EditClient /><br />
-            This is the edit page of the PT profile.
-            <EditPT />
+            <PTProfile name="Steve" bio="My Bio" specialties="My Specialties"
+              style="My Training Style" pricing="$100" hours="My Hours" /><br />
           </div>
         </div>
       </div>

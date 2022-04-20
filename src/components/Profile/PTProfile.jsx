@@ -1,23 +1,23 @@
 import React from "react";
 
-function PTProfile() {
+function PTProfile(props) {
   return (
     <div class="card">
       <p>
         <img src="blank-profile.png" alt="Profile Picture" width="100" />
-        PT Name
+        {props.name}
       </p>
       <hr size="1" width="100%" color="black" />
       <h4>Bio</h4>
-      <p>This is my bio.</p>
+      <p>{props.bio}</p>
       <h4>Specialites</h4>
-      <p>tag tag tag</p>
+      <p>{props.specialties}</p>
       <h4>Training Style</h4>
-      <p>Description of training style.</p>
+      <p>{props.style}</p>
       <h4>Pricing</h4>
-      <p>$100-200/month</p>
+      <p>{props.pricing}</p>
       <h4>Working Hours</h4>
-      <p>MWF 12pm-5pm</p>
+      <p>{props.hours}</p>
     </div>
   );
 }
