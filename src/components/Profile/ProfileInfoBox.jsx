@@ -4,7 +4,9 @@ function ProfileInfoBox() {
     //pass in props here? for default name values etc,
     const [name, setName] = useState('')
     const [birthday, setBirthday] = useState('')
-    const [userStatus, setUserStatus] = useState('')
+    const [isPT, setPT] = useState(false)
+    const [isClient, setClient] = useState(false)
+
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -21,13 +23,6 @@ function ProfileInfoBox() {
                 value={birthday}
                 onChange={(e) => setBirthday(e.target.value)}
                 />
-                <div>Status</div>
-                <input
-                    type='text'
-                    placeholder='click box here?'
-                    value={userStatus}
-                    onChange={(e) => setUserStatus(e.target.value)}
-                />
                 <div>Name</div>
                 <input
                     type='text'
@@ -35,20 +30,24 @@ function ProfileInfoBox() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <div>these</div>
+                <div>ph</div>
                 <input
                     type='text'
-                    placeholder='these'
+                    placeholder='ph'
                 />
-                <div>are</div>
+                <div>Do you want to be a trainer?</div>
                 <input
-                    type='text'
-                    placeholder='are'
+                    type='checkbox'
+                    checked={isPT}
+                    value={isPT}
+                    onChange={(e) => setPT(e.currentTarget.checked)}
                 />
-                <div>placeholders</div>
+                <div>Do you want to be a client?</div>
                 <input
-                    type='text'
-                    placeholder='placeholders'
+                    type='checkbox'
+                    checked={isClient}
+                    value={isClient}
+                    onChange={(e) => setClient(e.currentTarget.checked)}
                 />
                 <div></div>
                 <input type='submit' value='submit' className='btn' />
