@@ -1,48 +1,47 @@
 const express = require('express');
 const router = express.Router();
-
-const axios = require('axios');
-
+const { verifyToken } = require('../../util/auth');
 const User = require('../models/Client');
 const Client = require('../models/Client');
+const { OK, BAD_REQUEST, NOT_FOUND } =
+  require('../../util/constants').STATUS_CODES;
 
-const { OK, BAD_REQUEST, UNAUTHORIZED, FORBIDDEN, NOT_FOUND, CONFLICT } 
-= require('../../util/constants').STATUS_CODES;
+router.put('/', verifyToken, async (req, res) => {
+  try {
+    const { bio, language, location, interests, trainingGoals } =
+      req.body;
+    const newClient = await Client.create({
+      _id: req.user.userId,
+      bio,
+      language,
+      location,
+      interests,
+      trainingGoals,
+    });
+    res.status(OK).send(newClient);
+  } catch (err) {
+    res.status(BAD_REQUEST).send(err.message);
+  }
+});
 
-// does auth handle
+router.post('/get', verifyToken, async (req, res) => {
+  try {
+    const clientDoc = await Client.findById(req.user.userId);
+    return res.status(OK).send(clientDoc);
+  } catch (err) {
+    return res.status(BAD_REQUEST).send(err.message);
+  }
+});
 
-router.get('/test', (req,res) => {
-  res.send('testing hi')
-})
-
-router.post('/add', (req,res) => {
-  const newClient = new Client({
-    email: req.body.email,
-    name: req.body.name,
-    bio: req.body.location,
-    language: req.body.language,
-    location: req.body.location,
-    image: req.body.image,
-    interests: req.body.interests,
-    trainingGoals: req.body.trainingGoals
-  })
-  newClient.save()
-  .then((p) => res.json(p))
-  .catch(err => res.status(BAD_REQUEST).json('Error: ' + err))
-})
-
-
-
-router.get('/', (req,res) => {
-  User.find()
-  .then(users => res.json(users))
-  .catch(err => res.status(BAD_REQUEST).json('Error: ' + err))
-})
-
-router.get('/:username',(req,res) => {
-  Client.findById(req.params.username)
-  .then(client => res.json(client))
-  .catch(err => res.status(BAD_REQUEST).json('User not found'))
-})
+router.get('/get/:username', verifyToken, async (req, res) => {
+  try {
+    const { username } = req.params;
+    const userDoc = await User.find({ username });
+    const clientDoc = await Client.findById(userDoc._id);
+    return res.status(OK).send(clientDoc);
+  } catch (err) {
+    return res.status(NOT_FOUND).send(err.message);
+  }
+});
 
 module.exports = router;

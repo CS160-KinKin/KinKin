@@ -2,53 +2,49 @@ const { Double } = require('mongodb');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const PTSchema = new Schema({
-  username: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
-  publicName: {
-    type: String,
-    required: true
-  },
-  language: {
-    type: String,
-    required: true
-  },
-  postiveRatingCount: {
-    type: Integer
-  },
-  negativeRatingCount: {
-    type: Integer
-  },
-  location: {
-    type: String
-  },
-  image: {
-    data: Buffer, 
-    contentType: String 
-  },
-  onlineStatus: {
-    type: Boolean
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  specialties: String,
-  rate: Double,
-  availableTimes: Array,
-  requests: Array
-}, 
+const PTSchema = new Schema(
   {
-    collection: 'PT'
+    _id: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    language: {
+      type: String,
+    },
+    bio: {
+      type: String,
+    },
+    positiveRatingCount: {
+      type: Number,
+    },
+    negativeRatingCount: {
+      type: Number,
+    },
+    location: {
+      type: String,
+    },
+    requests: {
+      type: Array,
+      of: String,
+      ref: 'PT',
+    },
+    specialties: {
+      type: Array,
+      of: String,
+    },
+    rate: {
+      type: Number,
+    },
+    availableTimes: {
+      type: Array, // todo
+    },
   },
   {
-    timestamps: true
+    collection: 'PT',
+  },
+  {
+    timestamps: true,
   }
 );
 
@@ -56,4 +52,3 @@ module.exports =
   mongoose.models && mongoose.models.PT
     ? mongoose.models.PT
     : mongoose.model('PT', PTSchema);
-

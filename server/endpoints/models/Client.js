@@ -2,11 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ClientSchema = new Schema({
-  email: {
+  _id: {
     type: String,
-  },
-  name: {
-    type: String,
+    unique: true,
+    required: true,
   },
   language: {
     type: String,
@@ -14,7 +13,7 @@ const ClientSchema = new Schema({
   bio: {
     type: String,
   },
-  postiveRatingCount: {
+  positiveRatingCount: {
     type: Number
   },
   negativeRatingCount: {
@@ -23,27 +22,21 @@ const ClientSchema = new Schema({
   location: {
     type: String
   },
-  image: {
-    data: Buffer, 
-    contentType: String 
-  },
-  onlineStatus: {
-    type: Boolean
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
   interests: {
-    type: Array
+    type: Array,
+    of: String
   },
   trainingGoals: {
     type: String
   },
   records: {
-    type: Array
+    type: Array // todo
   },
-  requests: Array
+  requests: {
+    type: Array,
+    of: String,
+    ref: "PT"
+  }
 }, 
   {
     collection: 'Client'
