@@ -25,7 +25,7 @@ connection.once('open', () => {
   console.log('mongo db connection established')
 })
 
-router.post("/userInfo", async (req, res) => {
+router.post("/auth", async (req, res) => {
   if (!req.body) {
     res.status(STATUS_CODES.BAD_REQUEST).send("Missing tokenId");
     return;
