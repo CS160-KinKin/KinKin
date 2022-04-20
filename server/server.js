@@ -51,10 +51,8 @@ router.post("/auth", async (req, res) => {
   );
   res.status(STATUS_CODES.OK).send({
     email: googleTokenInfo.email,
-    userId: googleTokenInfo.sub,
     name: googleTokenInfo.name, 
     picture: googleTokenInfo.picture,
-    existingUser: false, // todo
     token
   });
 });
