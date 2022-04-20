@@ -1,4 +1,3 @@
-const { Double } = require('mongodb');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -6,11 +5,11 @@ const PTSchema = new Schema(
   {
     _id: {
       type: String,
-      unique: true,
-      required: true,
+      ref: 'User',
     },
-    language: {
-      type: String,
+    languages: {
+      type: Array,
+      of: String,
     },
     bio: {
       type: String,
@@ -23,6 +22,11 @@ const PTSchema = new Schema(
     },
     location: {
       type: String,
+    },
+    clients: {
+      type: Array,
+      of: String,
+      ref: 'User',
     },
     requests: {
       type: Array,
@@ -41,6 +45,7 @@ const PTSchema = new Schema(
     },
   },
   {
+    _id: false,
     collection: 'PT',
   },
   {
@@ -48,7 +53,4 @@ const PTSchema = new Schema(
   }
 );
 
-module.exports =
-  mongoose.models && mongoose.models.PT
-    ? mongoose.models.PT
-    : mongoose.model('PT', PTSchema);
+module.exports = mongoose.model('PT', PTSchema);
