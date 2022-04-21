@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const PointSchema = require('./Point');
 
 const PtSchema = new Schema(
   {
@@ -21,7 +22,7 @@ const PtSchema = new Schema(
       type: Number,
     },
     location: {
-      type: String,
+      type: PointSchema,
     },
     clients: {
       type: Array,

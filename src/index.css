@@ -13,9 +13,17 @@ code {
 }
 
 .orange {
-  background-color: orange;
+  background-color: dodgerblue;
 }
 .center {
   padding: 400px 0;
   text-align: center;
+}
+
+.navbar-brand {
+  font-size: 40px;
+}
+
+.nav-item {
+  font-size: 30px;
 }
