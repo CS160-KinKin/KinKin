@@ -1,16 +1,14 @@
-import React from "react";
-import {Navigation} from "./index";
-import {Footer} from "./index";
+import React from 'react';
+import { Navigation, Footer } from './index';
 
-function UserDashboard() {
-    return (
-        <div className="home default">
-            <Navigation />
-            <div>Fill in later</div>
-
-            <Footer />
-        </div>
-    );
+function UserDashboard(props) {
+  return (
+    <>
+      <Navigation {...props} />
+      <div className='container'>Fill in later</div>
+      <Footer />
+    </>
+  );
 }
 
 export default UserDashboard;

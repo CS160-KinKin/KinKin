@@ -5,10 +5,10 @@ import {Navigation} from "../index";
 import EditClient from "./EditClient";
 import EditPT from "./EditPT";
 
-function Profile() {
+function Profile(props) {
   return (
     <div className="profile">
-      <Navigation />
+      <Navigation {...props} />
       <div className="container">
         <div className="row align-items-center my-5">
           <div className="col-lg-7">

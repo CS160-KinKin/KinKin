@@ -1,7 +1,24 @@
-const {OAuth2Client} = require('google-auth-library');
+const jwt = require('jsonwebtoken');
+const {OAuth2Client} = require("google-auth-library");
+const {STATUS_CODES} = require("./constants");
+
 require("dotenv").config({ path: "./config.env" });
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+const verifyToken = (req, res, next) => {
+  const token = req.headers["x-access-token"];
+  if (!token) {
+    return res.status(STATUS_CODES.FORBIDDEN).json("Missing token");
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
+    req.user = decoded;
+  } catch (err) {
+    return res.status(STATUS_CODES.BAD_REQUEST).send("Invalid Token");
+  }
+  return next();
+};
 
 /**
  * Get a user's email and email verification from a Google token.
@@ -22,4 +39,4 @@ async function getGoogleTokenInfo(tokenId) {
   }
 }
 
-module.exports = {getGoogleTokenInfo};
+module.exports = {getGoogleTokenInfo, verifyToken};

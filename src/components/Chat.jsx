@@ -9,10 +9,9 @@ import React from "react";
 import {Navigation} from "./index";
 
 const ChatApp = (props) => {
-    console.log(props.user)
     return (
         <>
-        <Navigation />
+        <Navigation {...props} />
         <div className={styles.App}>
             <SendBirdApp 
                 appId={process.env.REACT_APP_SENDBIRD_ID} 
