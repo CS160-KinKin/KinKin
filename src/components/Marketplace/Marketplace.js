@@ -105,7 +105,6 @@ export default class Marketplace extends Component {
 
   async getMarketplace() {
     // get PT data from database using filters
-    console.log(this.props.user);
     try {
       const list = await getPTsByFilters(this.props.user.token, {
         language: this.languageFilter,

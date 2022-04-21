@@ -87,7 +87,6 @@ router.post('/search', verifyToken, async (req, res) => {
     const matchDocs = [];
     for await (const doc of Pt.find(filters)) {
       try {
-        console.log(doc);
         const user = await User.findById(doc._id);
         matchDocs.push({
           name: user.publicName,
@@ -104,7 +103,6 @@ router.post('/search', verifyToken, async (req, res) => {
         console.log(error.message);
       }
     }
-    console.log(matchDocs);
     return res.status(OK).send(matchDocs);
   } catch (err) {
     return res.status(BAD_REQUEST).send(err.message);
