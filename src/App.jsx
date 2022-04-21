@@ -36,6 +36,7 @@ function App() {
   };
 
   if (user.token) {
+    console.log(user.token);
     return (
       <Routes>
         <Route

@@ -1,43 +1,34 @@
 import React, { Component } from "react";
-import axios from "axios";
+import Select from 'react-select';
 
 export default class FilterSearch extends Component {
-    constructor(porps) {
+    constructor(props) {
         super(props);
 
         // Setting up functions
         this.onChangeLanguage = this.onChangeLanguage.bind(this);
-        this.onChangeLocation = this.onChangeLocation.bind(this);
-        this.onChangeSpecialties = this.onChangeSpecialties.bind(this);
-        this.onChangeRate = this.onChangeRate.bind(this);
+        //this.onChangeLocation = this.onChangeLocation.bind(this);
+        this.onChangeMaxDistance = this.onChangeMaxDistance.bind(this);
+        this.onChangeSpecialty = this.onChangeSpecialty.bind(this);
+        this.onChangeMinRate = this.onChangeMinRate.bind(this);
+        this.onChangeMaxRate = this.onChangeMaxRate.bind(this);
         this.onChangeAvailability = this.onChangeAvailability.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         // Setting up state
         this.state = {
-            language: "",
-            location: "",
-            specialties: "",
-            rate: 0,
-            availability: 0,
+            language: null,
+            //location: null,
+            maxDistance: null,
+            specialty: null,
+            minRate: null,
+            maxRate: null,
+            availability: [],
         };
     }
 
     componentDidMount() {
-        /*axios
-            .get(process.env.REACT_APP_CONTROL_SERVER_URL + "/marketplace/" + this.props.match.params.id)
-            .then((response) => {
-                this.setState({
-                    language: response.data.language,
-                    location: response.data.location,
-                    specialties: response.data.specialties,
-                    rate: response.data.rate,
-                    availability: response.data.availability,
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });*/
+        // TO DO
     }
 
     onChangeLanguage(e) {
@@ -46,27 +37,40 @@ export default class FilterSearch extends Component {
         });
     }
 
-    onChangeLocation(e) {
+    /*onChangeLocation(e) {
         this.setState({
             location: e.target.value,
         });
-    }
+    }*/
 
-    onChangeSpecialties(e) {
+    onChangeMaxDistance(e) {
         this.setState({
-            specialties: e.target.value,
+            maxDistance: e.target.value,
         });
     }
 
-    onChangeRate(e) {
+    onChangeSpecialty(e) {
         this.setState({
-            rate: e.target.value,
+            specialty: e.target.value,
+        });
+    }
+
+    onChangeMinRate(e) {
+        this.setState({
+            minRate: e.target.value,
+        });
+    }
+
+    onChangeMaxRate(e) {
+        this.setState({
+            maxRate: e.target.value,
         });
     }
 
     onChangeAvailability(e) {
+        let value = Array.from(e.target.selectedOptions, (option) => option.value);
         this.setState({
-            availability: e.target.value,
+            availability: value,
         });
     }
 
@@ -75,87 +79,81 @@ export default class FilterSearch extends Component {
 
         const searchFilters = {
             language: this.state.language,
-            location: this.state.location,
-            specialties: this.state.specialties,
-            rate: this.state.rate,
+            //location: this.state.location,
+            maxDistance: this.state.maxDistance,
+            specialty: this.state.specialty,
+            minRate: this.state.minRate,
+            maxRate: this.state.maxRate,
             availability: this.state.availability,
         };
-
-        console.log(searchFilters);
-        axios
-            .post(process.env.REACT_APP_CONTROL_SERVER_URL + "/marketplace/search-filters", searchFilters)
-            .then((res) => console.log(res.data));
-
-        this.setState({ language: "",
-                        location: "",
-                        specialties: "",
-                        rate: 0,
-                        availability: 0 })
-
-        //window.location = "/marketplace";
     }
 
     render() {
         return (
-            <div>
+            <>
                 <h4>PT Search Filters</h4>
                 <form onSubmit={this.onSubmit}>
-                    <div class="form-group">
-                        <label>Language: </label>
-                        <select
-                            ref="userInput"
-                            required
-                            className="form-control"
-                            value={this.state.title}
-                            onChange={this.onChangeTitle}
-                        ></select>
-                    </div>
-                    <div className="form-group">
-                        <label>Location: </label>
+                    <label>Select a language:
+                        <select value={this.state.language} onChange={this.onChangeLanguage} >
+                            <option value="english" selected>English</option>
+                            <option value="french">French</option>
+                            <option value="german">German</option>
+                            <option value="japanese">Japanese</option>
+                            <option value="mandarin">Mandarin</option>
+                            <option value="spanish">Spanish</option>
+                        </select>
+                    </label>
+                    <br />
+                    <label>Maximum Distance (m):
+                        <input
+                            type="number"
+                            value={this.state.maxDistance}
+                            onChange={this.onChangeMaxDistance}
+                        />
+                    </label>
+                    <br />
+                    <label>Specialty:
                         <input
                             type="text"
-                            required
-                            className="form-control"
-                            value={this.state.client}
-                            onChange={this.onChangeClient}
+                            value={this.state.specialty}
+                            onChange={this.onChangeSpecialty}
                         />
-                    </div>
-                    <div className="form-group">
-                        <label>Specialties: </label>
+                    </label>
+                    <br />
+                    <label>Minimum Rate ($):
                         <input
-                            type="text"
-                            className="form-control"
-                            value={this.state.description}
-                            onChange={this.onChangeDescription}
+                            type="number"
+                            value={this.state.minRate}
+                            onChange={this.onChangeMinRate}
                         />
-                    </div>
-                    <div className="form-group">
-                        <label>Rate: </label>
+                    </label>
+                    <br />
+                    <label>Maximum Rate ($):
                         <input
-                            type="text"
-                            className="form-control"
-                            value={this.state.duration}
-                            onChange={this.onChangeDuration}
+                            type="number"
+                            value={this.state.maxRate}
+                            onChange={this.onChangeMaxRate}
                         />
-                    </div>
-                    <div className="form-group">
-                        <label>Available days/week</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={this.state.duration}
-                            onChange={this.onChangeDuration}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input
-                            type="submit"
-                            value="PT search filter log"
-                            className="btn btn-primary"
-                        />
-                    </div>
+                    </label>
+                    <br />
+                    <label>Select available days:
+                        <select value={this.state.availability} onChange={this.onChangeAvailability} >
+                            <option value="monday">Monday</option>
+                            <option value="tuesday">Tueday</option>
+                            <option value="wednesday">Wednesday</option>
+                            <option value="thursday">Thursday</option>
+                            <option value="friday">Friday</option>
+                            <option value="saturday">Saturday</option>
+                            <option value="sunday">Sunday</option>
+                        </select>
+                    </label>
+                    <br />
+                    <input
+                        type="submit"
+                        value="Search PTs"
+                    />
                 </form>
-            </div>
+            </>
         );
     }
 }

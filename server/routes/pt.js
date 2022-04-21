@@ -75,32 +75,36 @@ router.get('/get/:username', verifyToken, async (req, res) => {
   }
 });
 
-router.get('/search', verifyToken, async (req, res) => {
+router.post('/search', verifyToken, async (req, res) => {
   try {
-    const { location, minRate, maxRate, availability } = req.query;
-    const language = req.query.language.toUpperCase();
-    const specialty = req.query.specialty.toUpperCase();
-    const filters = [];
+    const { location, maxDistance, minRate, maxRate, availability } = req.query;
+    const filters = {};
+    if (req.query.language) filters.languages = req.query.language.toUpperCase();
+    if (req.query.specialty) filters.specialties = req.query.specialty.toUpperCase();
+    if (availability && availability.length) filters.availableDays = { $in: availability };
+    if (location) filters.location = { $near: { $geometry: location, $maxDistance: maxDistance, $minDistance: 0 } };
+    if (minRate <= maxRate) filters.rate = { $gte: minRate, $lte: maxRate };
     const matchDocs = [];
-    if (language) {
-      filters.push(doc => doc.languages.includes(language));
-    }
-    if (location) {
-      filters.push(doc => doc.location.);
-    }
-    if (language) {
-      filters.push(doc => doc.languages.includes(language));
-    }
-    for await (const doc of User.find()) {
-      let goodBoy = true;
-      for (const filter of filters ) {
-        if (!filter(doc)) { 
-          goodBoy = false; 
-          break;
-        }
+    for await (const doc of Pt.find(filters)) {
+      try {
+        console.log(doc);
+        const user = await User.findById(doc._id);
+        matchDocs.push({
+          name: user.publicName,
+          languages: doc.languages,
+          specialties: doc.specialties,
+          bio: doc.bio,
+          location: doc.location,
+          rate: doc.rate,
+          availableDays: doc.availableDays,
+          positiveRatingCount: doc.positiveRatingCount,
+          negativeRatingCount: doc.negativeRatingCount
+        });
+      } catch (error) {
+        console.log(error.message);
       }
-      if (goodBoy) matchDocs.push(doc);
     }
+    console.log(matchDocs);
     return res.status(OK).send(matchDocs);
   } catch (err) {
     return res.status(BAD_REQUEST).send(err.message);
