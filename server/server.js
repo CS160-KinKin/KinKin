@@ -9,13 +9,19 @@ require("dotenv").config({ path: "./config.env" });
 
 const app = express();
 const router = express.Router();
-const workoutRouter = require('./endpoints/routes/workout_tasks')
+const workoutRouter = require('./routes/workout_tasks')
+const userRouter = require("./routes/user");
+const clientRouter = require("./routes/client");
+const pTRouter = require("./routes/pt");
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(cors());
 app.use("/", router);
 app.use('/workouts', workoutRouter);
+app.use('/user', userRouter);
+app.use('/client', clientRouter);
+app.use('/pt', pTRouter);
 
 const db = process.env.ATLAS_URI;
 mongoose.connect(db, { useNewUrlParser: true});

@@ -1,14 +1,14 @@
 const express = require("express");
 const WorkoutTask = require("../models/workouttask.model");
-const {STATUS_CODES} = require("../../util/constants");
-const {verifyToken} = require("../../util/auth");
+const {STATUS_CODES} = require("../util/constants");
+const {verifyToken} = require("../util/auth");
 
 const router = express.Router();
 
 router.route("/get").post(verifyToken, async (req, res) => {
     try {
         const ptId = req.user.userId;
-        const tasks = await WorkoutTask.find({pt: ptId});
+        const tasks = await WorkoutTask.findById(ptId);
         return res.status(STATUS_CODES.OK).send(tasks);
     } catch (err) {
         return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
