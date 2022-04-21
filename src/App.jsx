@@ -18,13 +18,11 @@ import {
   NotFound,
   UserDashboard,
   Chat,
-} from './components';
-import Request from './components/Requests/Request';
-import {
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
-} from './components/Workout';
+} from './components';
+import Request from './components/Requests/Request';
 
 function App() {
   const [user, setUser] = useState(new User());
