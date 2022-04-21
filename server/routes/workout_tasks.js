@@ -1,7 +1,7 @@
 const express = require("express");
 const WorkoutTask = require("../models/workouttask.model");
-const {STATUS_CODES} = require("../../util/constants");
-const {verifyToken} = require("../../util/auth");
+const {STATUS_CODES} = require("../util/constants");
+const {verifyToken} = require("../util/auth");
 
 const router = express.Router();
 

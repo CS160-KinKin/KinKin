@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const pointSchema = require('./Point');
 
-const PTSchema = new Schema(
+const ClientSchema = new Schema(
   {
     _id: {
       type: String,
@@ -21,36 +22,32 @@ const PTSchema = new Schema(
       type: Number,
     },
     location: {
-      type: String,
+      type: pointSchema,
     },
-    clients: {
+    interests: {
       type: Array,
       of: String,
-      ref: 'User',
+    },
+    trainingGoals: {
+      type: String,
+    },
+    pt: {
+      type: String,
+      ref: 'Pt',
     },
     requests: {
       type: Array,
       of: String,
-      ref: 'PT',
-    },
-    specialties: {
-      type: Array,
-      of: String,
-    },
-    rate: {
-      type: Number,
-    },
-    availableTimes: {
-      type: Array, // todo
+      ref: 'Pt',
     },
   },
   {
     _id: false,
-    collection: 'PT',
+    collection: 'Client',
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model('PT', PTSchema);
+module.exports = mongoose.model('Client', ClientSchema);
