@@ -1,6 +1,6 @@
-import {STATUS_CODES, GET_USER_INFO_ENDPOINT} from "./constants";
+import {POST_AUTH_ENDPOINT} from "./constants";
 
-const getUserInfoUrl = process.env.REACT_APP_CONTROL_SERVER_URL + GET_USER_INFO_ENDPOINT;
+const getUserInfoUrl = process.env.REACT_APP_CONTROL_SERVER_URL + POST_AUTH_ENDPOINT;
 
 export default class User {
   async fetchInfo(googleTokenId) {

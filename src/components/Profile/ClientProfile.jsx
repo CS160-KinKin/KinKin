@@ -2,9 +2,9 @@ import React from "react";
 
 function ClientProfile(props) {
   return (
-    <div class="card">
+    <div className="card">
       <p>
-        <img src="blank-profile.png" alt="Profile Picture" width="100" />
+        <img src="blank-profile.png" alt="Profile" width="100" />
         {props.name}
       </p>
       <hr size="1" width="100%" color="black" />

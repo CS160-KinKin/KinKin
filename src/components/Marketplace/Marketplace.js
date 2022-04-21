@@ -5,7 +5,7 @@ import axios from "axios";
 
 export default class Marketplace extends Component {
   constructor(props) {
-    super(props);4
+    super(props);
 
     this.state = {
       PTList: [],

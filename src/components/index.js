@@ -7,3 +7,4 @@ export { default as NotFound } from "./NotFound";
 export { default as Profile } from "./Profile/Profile";
 export { default as Marketplace } from "./Marketplace/Marketplace";
 export { default as UserDashboard } from "./UserDashboard";
+export { default as Chat } from "./Chat"
