@@ -5,6 +5,7 @@ export default class FilterSearch extends Component {
     constructor(porps) {
         super(props);
 
+        // Setting up functions
         this.onChangeLanguage = this.onChangeLanguage.bind(this);
         this.onChangeLocation = this.onChangeLocation.bind(this);
         this.onChangeSpecialties = this.onChangeSpecialties.bind(this);
@@ -12,6 +13,7 @@ export default class FilterSearch extends Component {
         this.onChangeAvailability = this.onChangeAvailability.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
+        // Setting up state
         this.state = {
             language: "",
             location: "",
@@ -71,7 +73,7 @@ export default class FilterSearch extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const task = {
+        const searchFilters = {
             language: this.state.language,
             location: this.state.location,
             specialties: this.state.specialties,
@@ -79,12 +81,18 @@ export default class FilterSearch extends Component {
             availability: this.state.availability,
         };
 
-        console.log(task);
-        /*axios
-            .post(process.env.REACT_APP_CONTROL_SERVER_URL + "/marketplace/filter", task)
-            .then((res) => console.log(res.data));*/
+        console.log(searchFilters);
+        axios
+            .post(process.env.REACT_APP_CONTROL_SERVER_URL + "/marketplace/search-filters", searchFilters)
+            .then((res) => console.log(res.data));
 
-        window.location = "/marketplace";
+        this.setState({ language: "",
+                        location: "",
+                        specialties: "",
+                        rate: 0,
+                        availability: 0 })
+
+        //window.location = "/marketplace";
     }
 
     render() {
