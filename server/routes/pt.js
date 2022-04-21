@@ -100,7 +100,10 @@ router.post('/search', verifyToken, async (req, res) => {
           negativeRatingCount: doc.negativeRatingCount
         });
       } catch (error) {
-        console.log(error.message);
+        console.error(
+          'routes/pt.js found missing User doc: ' +
+          error.message
+        );
       }
     }
     return res.status(OK).send(matchDocs);
