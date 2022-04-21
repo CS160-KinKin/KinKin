@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const getUserInfoUrl = process.env.REACT_APP_CONTROL_SERVER_URL;
+import { SEARCH_PT_ENDPOINT } from './constants';
 
 /**
  * Queries PTs based on filters.
@@ -9,7 +8,7 @@ const getUserInfoUrl = process.env.REACT_APP_CONTROL_SERVER_URL;
  */
  const getPTsByFilters = async (token, filters) => {
     const res = await axios.post(
-      process.env.REACT_APP_CONTROL_SERVER_URL + '/pt/search',
+      process.env.REACT_APP_CONTROL_SERVER_URL + SEARCH_PT_ENDPOINT,
       { params: filters },
       { headers: { 'x-access-token': token, 'content-type': 'application/json' } }
     );

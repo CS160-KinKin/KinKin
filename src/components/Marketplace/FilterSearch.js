@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Select from 'react-select';
+import { getClient } from '../../util/client';
 
 export default class FilterSearch extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ export default class FilterSearch extends Component {
         // Setting up state
         this.state = {
             language: null,
-            //location: null,
+            location: null,
             maxDistance: null,
             specialty: null,
             minRate: null,
@@ -27,8 +28,9 @@ export default class FilterSearch extends Component {
         };
     }
 
-    componentDidMount() {
-        // TO DO
+    async componentDidMount() {
+        const client = await getClient(this.props.user.token);
+        this.setState({ location: client.location });
     }
 
     onChangeLanguage(e) {
@@ -77,15 +79,15 @@ export default class FilterSearch extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const searchFilters = {
+        this.props.getMarketplace({
             language: this.state.language,
-            //location: this.state.location,
+            location: this.state.location,
             maxDistance: this.state.maxDistance,
             specialty: this.state.specialty,
             minRate: this.state.minRate,
             maxRate: this.state.maxRate,
             availability: this.state.availability,
-        };
+        });
     }
 
     render() {
