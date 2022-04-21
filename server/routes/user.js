@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { verifyToken } = require('../../util/auth');
+const { verifyToken } = require('../util/auth');
 const User = require('../models/User');
-const { STATUS_CODES } = require('../../util/constants');
+const { STATUS_CODES } = require('../util/constants');
 
 router.put('/', verifyToken, async (req, res) => {
   try {

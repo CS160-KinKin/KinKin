@@ -1,23 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const { verifyToken } = require('../../util/auth');
+const { verifyToken } = require('../util/auth');
 const User = require('../models/User');
-const PT = require('../models/PT');
+const Client = require('../models/Client');
 const { OK, BAD_REQUEST, NOT_FOUND } =
-  require('../../util/constants').STATUS_CODES;
+  require('../util/constants').STATUS_CODES;
 
 router.put('/', verifyToken, async (req, res) => {
   try {
-    const { bio, languages, location, specialties, rate, availableTimes } =
+    const { bio, languages, location, interests, trainingGoals } =
       req.body;
-    const doc = await PT.create({
+    const doc = await Client.create({
       _id: req.user.userId,
       bio,
       languages,
       location,
-      specialties,
-      rate,
-      availableTimes
+      interests,
+      trainingGoals,
     });
     res.status(OK).send(doc);
   } catch (err) {
@@ -27,24 +26,24 @@ router.put('/', verifyToken, async (req, res) => {
 
 router.route('/').delete(verifyToken, async (req, res) => {
   try {
-    const doc = await PT.findByIdAndDelete(req.user.userId);
-    if (!doc) return res.status(STATUS_CODES.NOT_FOUND).send();
+    const doc = await Client.findByIdAndDelete(req.user.userId);
+    if (!doc) return res.status(NOT_FOUND).send();
     return res.status(OK).send(doc);
   } catch (err) {
-    return res.status(NOT_FOUND).send(err.message);
+    return res.status(BAD_REQUEST).send(err.message);
   }
 });
 
 router.route('/').post(verifyToken, async (req, res) => {
   try {
-    const doc = await PT.findById(req.user.userId);
+    const doc = await Client.findById(req.user.userId);
     if (!doc) return res.status(NOT_FOUND).send();
     doc.languages = req.body.languages || doc.languages;
     doc.bio = req.body.bio || doc.bio;
     doc.location = req.body.location || doc.location;
     doc.rate = req.body.rate || doc.rate;
-    doc.specialties = req.body.specialties || doc.specialties;
-    doc.availableTimes = req.body.availableTimes || doc.availableTimes;
+    doc.interests = req.body.interests || doc.interests;
+    doc.trainingGoals = req.body.trainingGoals || doc.trainingGoals;
     await doc.save();
     return res.status(OK).send(doc);
   } catch (err) {
@@ -54,7 +53,7 @@ router.route('/').post(verifyToken, async (req, res) => {
 
 router.post('/get', verifyToken, async (req, res) => {
   try {
-    const doc = await PT.findById(req.user.userId);
+    const doc = await Client.findById(req.user.userId);
     if (!doc) return res.status(NOT_FOUND).send();
     return res.status(OK).send(doc);
   } catch (err) {
@@ -67,9 +66,9 @@ router.get('/get/:username', verifyToken, async (req, res) => {
     const { username } = req.params;
     const userDoc = await User.find({ username });
     if (!userDoc) return res.status(NOT_FOUND).send();
-    const pTDoc = await PT.findById(userDoc._id);
-    if (!pTDoc) return res.status(NOT_FOUND).send();
-    return res.status(OK).send(pTDoc);
+    const clientDoc = await Client.findById(userDoc._id);
+    if (!clientDoc) return res.status(NOT_FOUND).send();
+    return res.status(OK).send(clientDoc);
   } catch (err) {
     return res.status(BAD_REQUEST).send(err.message);
   }

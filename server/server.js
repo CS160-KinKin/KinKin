@@ -9,10 +9,10 @@ require("dotenv").config({ path: "./config.env" });
 
 const app = express();
 const router = express.Router();
-const workoutRouter = require('./endpoints/routes/workout_tasks')
-const userRouter = require("./endpoints/routes/user");
-const clientRouter = require("./endpoints/routes/client");
-const pTRouter = require("./endpoints/routes/pt");
+const workoutRouter = require('./routes/workout_tasks')
+const userRouter = require("./routes/user");
+const clientRouter = require("./routes/client");
+const pTRouter = require("./routes/pt");
 const port = process.env.PORT || 3001;
 
 app.use(express.json());

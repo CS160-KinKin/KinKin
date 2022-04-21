@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ClientSchema = new Schema(
+const PtSchema = new Schema(
   {
     _id: {
       type: String,
@@ -23,30 +23,34 @@ const ClientSchema = new Schema(
     location: {
       type: String,
     },
-    interests: {
+    clients: {
       type: Array,
       of: String,
-    },
-    trainingGoals: {
-      type: String,
-    },
-    pt: {
-      type: String,
-      ref: 'PT',
+      ref: 'User',
     },
     requests: {
       type: Array,
       of: String,
-      ref: 'PT',
+      ref: 'Pt',
+    },
+    specialties: {
+      type: Array,
+      of: String,
+    },
+    rate: {
+      type: Number,
+    },
+    availableTimes: {
+      type: Array, // todo
     },
   },
   {
     _id: false,
-    collection: 'Client',
+    collection: 'Pt',
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model('Client', ClientSchema);
+module.exports = mongoose.model('Pt', PtSchema);
