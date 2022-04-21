@@ -7,50 +7,56 @@ export default class Marketplace extends Component {
   constructor(props) {
     super(props);
 
+    // Setting up state
     this.state = {
-      PTList: [],
-      languageFilter: "",
-      locationFilter: "",
-      specialtiesFilter: "",
-      rateFilter: 0,
-      availabilityFilter: 0,
+      PTList: [1, 1, 1],
+      languageFilter: null,
+      locationFilter: null,
+      specialtiesFilter: null,
+      minRateFilter: null,
+      maxRateFilter: null,
+      availabilityFilter: null
     }
   }
 
   componentDidMount() {
-    axios
+    /*axios
       .get(process.env.REACT_APP_CONTROL_SERVER_URL + "/marketplace/filters")
       .then((response) => {
         this.setState({
-          PTList: this.getMarketplace,
-          language: response.data.language,
-          location: response.data.location,
-          specialties: response.data.specialties,
-          rate: response.data.rate,
-          availability: response.data.availability,
+          //PTList: this.getMarketplace,
+          languageFilter: response.data.language,
+          locationFilter: response.data.location,
+          specialtiesFilter: response.data.specialties,
+          minRateFilter: response.data.minRate,
+          maxRateFilter: response.data.maxRate,
+          availabilityFilter: response.data.availability
         });
       })
       .catch(function (error) {
         console.log(error);
-      });
+      });*/
   }
 
   sendRequest() {
     alert("Request sent to PT.");
+    // Request routing to be implemented
   }
 
   sendMessage() {
     alert("Request sent to PT.");
+    // Message routing to be implemented
   }
 
   getMarketplace() {
     // get PT data from database using filters
-    axios.get('/PT', {
+    axios.post(process.env.REACT_APP_CONTROL_SERVER_URL + '/pt/search', {
       params: {
         language: this.languageFilter,
         location: this.locationFilter,
         specialties: this.specialtiesFilter,
-        rate: this.rateFilter,
+        minRate: this.minRateFilter,
+        maxRate: this.maxRateFilter,
         availableTimes: this.availabilityFilter
       }
     })
@@ -85,7 +91,7 @@ export default class Marketplace extends Component {
 
               {this.state.PTList.map((PT) => {
                 return (<div>
-                  <PTProfile name={PT.name} bio={PT.bio} specialties={PT.specialties} style={PT.style} rate={PT.rate} hours={PT.hours} />
+                  <PTProfile />
                   <button onClick={this.sendRequest}>Request</button>
                   <button onClick={this.sendMessage}>Message</button>
                   <br /><br />

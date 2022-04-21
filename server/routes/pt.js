@@ -75,4 +75,36 @@ router.get('/get/:username', verifyToken, async (req, res) => {
   }
 });
 
+router.get('/search', verifyToken, async (req, res) => {
+  try {
+    const { location, minRate, maxRate, availability } = req.query;
+    const language = req.query.language.toUpperCase();
+    const specialty = req.query.specialty.toUpperCase();
+    const filters = [];
+    const matchDocs = [];
+    if (language) {
+      filters.push(doc => doc.languages.includes(language));
+    }
+    if (location) {
+      filters.push(doc => doc.location.);
+    }
+    if (language) {
+      filters.push(doc => doc.languages.includes(language));
+    }
+    for await (const doc of User.find()) {
+      let goodBoy = true;
+      for (const filter of filters ) {
+        if (!filter(doc)) { 
+          goodBoy = false; 
+          break;
+        }
+      }
+      if (goodBoy) matchDocs.push(doc);
+    }
+    return res.status(OK).send(matchDocs);
+  } catch (err) {
+    return res.status(BAD_REQUEST).send(err.message);
+  }
+});
+
 module.exports = router;
