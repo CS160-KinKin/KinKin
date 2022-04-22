@@ -13,6 +13,8 @@ import {
   CreateWorkoutTask,
   Navigation,
   Footer,
+  Marketplace,
+  Request,
 } from './components';
 
 describe('app renders', function () {
@@ -74,5 +76,11 @@ describe('Footer renders', function () {
 describe('CreateWorkoutTask renders', function () {
   it('should render!', function () {
     const wrapper = shallow(<CreateWorkoutTask />);
+  });
+});
+
+describe('Request renders', function () {
+  it('should render!', function () {
+    const wrapper = shallow(<Request />);
   });
 });
