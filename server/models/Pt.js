@@ -23,6 +23,7 @@ const PtSchema = new Schema(
     },
     location: {
       type: PointSchema,
+      index: '2dsphere',
     },
     clients: {
       type: Array,
@@ -41,8 +42,13 @@ const PtSchema = new Schema(
     rate: {
       type: Number,
     },
-    availableTimes: {
-      type: Array, // todo
+    availableDays: {
+      type: Array,
+      of: { 
+        type: String, 
+        required: true,
+        enum: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] 
+      },
     },
   },
   {

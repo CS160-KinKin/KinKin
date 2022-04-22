@@ -1,17 +1,20 @@
 import React from "react";
 import {render, screen, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Chat from '../Chat'
+import Login from '../Login'
 import { BrowserRouter } from "react-router-dom"
 import '@testing-library/jest-dom'
 
-describe('chat', () => {
-    test('render chat component', () => {
-        
-        const user = {email: "test@email.com"}
 
+describe('login', () => {
+    test('render login component', () => {
+    
         render(
             <BrowserRouter>
-                <Chat user={user}/>
+                <Login />
             </BrowserRouter>
         )
+        
+        expect(screen.getByText("Log in with Google")).toBeInTheDocument();
+    })
+})

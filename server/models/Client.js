@@ -23,6 +23,7 @@ const ClientSchema = new Schema(
     },
     location: {
       type: PointSchema,
+      index: '2dsphere',
     },
     interests: {
       type: Array,

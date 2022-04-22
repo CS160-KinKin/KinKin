@@ -18,11 +18,15 @@ import {
   NotFound,
   UserDashboard,
   Chat,
+  Profile,
+  Marketplace,
+  Request
+} from './components';
+import {
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
 } from './components';
-import Request from './components/Requests/Request';
 
 function App() {
   const [user, setUser] = useState(new User());
@@ -41,6 +45,14 @@ function App() {
         <Route
           path='/About'
           element={<About user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/Profile'
+          element={<Profile user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/Marketplace'
+          element={<Marketplace user={user} handleLogout={handleLogout} />}
         />
         <Route
           path='/UserDashboard'
