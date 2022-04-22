@@ -12,14 +12,10 @@ const createTokens = async (userId, payload) => {
   const tokenDoc = await Token.create({ userId });
   payload.id = tokenDoc._id;
   payload.userId = userId;
-  const session = jwt.sign(
-    payload,
-    process.env.JWT_KEY,
-    {
-      expiresIn: '7d',
-    }
-  );
-  Token.deleteMany({
+  const session = jwt.sign(payload, process.env.JWT_KEY, {
+    expiresIn: '7d',
+  });
+  await Token.deleteMany({
     $and: [{ _id: { $ne: tokenDoc._id } }, { userId }],
   });
   // const refresh = jwt.sign(
@@ -119,11 +115,12 @@ const handleLogin = async (req, res) => {
 };
 
 const handleLogout = async (req, res) => {
-  if (!req.user || !req.user.token) {
+  try {
+    await Token.deleteMany({ userId: req.user.userId });
+    return res.status(STATUS_CODES.OK).send();
+  } catch {
     return res.status(STATUS_CODES.FORBIDDEN).send('Missing token');
   }
-  Token.deleteMany({ userId: req.user.userId });
-  return res.status(STATUS_CODES.OK).send();
 };
 
 module.exports = { getGoogleTokenInfo, verifyToken, handleLogin, handleLogout };
