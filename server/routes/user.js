@@ -6,11 +6,14 @@ const { STATUS_CODES } = require('../util/constants');
 
 router.put('/', verifyToken, async (req, res) => {
   try {
-    const { username, publicName } = req.body;
+    const { publicName, pictureUrl } = req.body;
+    const username = req.body.username.toLowerCase();
     const doc = await User.create({
       _id: req.user.userId,
       username,
       publicName,
+      email: req.user.email,
+      pictureUrl,
     });
     res.status(STATUS_CODES.OK).send(doc);
   } catch (err) {
@@ -32,8 +35,10 @@ router.route('/').post(verifyToken, async (req, res) => {
   try {
     const doc = await User.findById(req.user.userId);
     if (!doc) return res.status(STATUS_CODES.NOT_FOUND).send();
+    doc.email = req.user.email || doc.email;
     doc.username = req.body.username || doc.username;
     doc.publicName = req.body.publicName || doc.publicName;
+    doc.pictureUrl = req.body.pictureUrl || doc.pictureUrl;
     await doc.save();
     return res.status(STATUS_CODES.OK).send(doc);
   } catch (err) {

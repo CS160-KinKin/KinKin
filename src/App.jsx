@@ -32,6 +32,7 @@ function App() {
   const [user, setUser] = useState(new User());
 
   const handleLogout = () => {
+    user.logout();
     setUser(new User());
   };
 
