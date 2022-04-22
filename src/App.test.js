@@ -18,16 +18,18 @@ import {
 describe('app renders', function () {
   it('should render!', function () {
     const wrapper = shallow(<App />);
+    expect(wrapper.find("Route"))//renders routes
   });
 });
 
 describe('About renders', function () {
   it('should render!', function () {
     const wrapper = shallow(<About />);
+    expect(wrapper.find("h1").text()).toEqual("About");
   });
 });
 
-describe('Chat renders', function () {
+describe('Navigation renders', function () {
   it('should render!', function () {
     const wrapper = shallow(<Navigation />);
   });
@@ -63,7 +65,7 @@ describe('EditWorkoutTask renders', function () {
   });
 });
 
-describe('Login renders', function () {
+describe('Footer renders', function () {
   it('should render!', function () {
     const wrapper = shallow(<Footer />);
   });
