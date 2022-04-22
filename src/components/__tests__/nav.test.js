@@ -12,9 +12,23 @@ describe('Navigation', () => {
             </BrowserRouter>
         )
         
-        //screen.debug() // html output of app component
-        //screen.getByRole('') // outputs different accessible roles 
         expect(screen.getByText('Kin Kin')).toBeInTheDocument();
+
+
+        const user = {
+            token: "someToken"
+        }
+
+        render(
+            <BrowserRouter>
+                <Navigation user={user}/>
+            </BrowserRouter>
+        )
+
+        // testing, if after loging in, can see newly rendered nav links 
+        expect(screen.getByText('Chat')).toBeInTheDocument();
     })
 })
 
+//screen.debug() // html output of app component
+//screen.getByRole('') // outputs different accessible roles 
