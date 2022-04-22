@@ -12,8 +12,7 @@ describe('Navigation', () => {
             </BrowserRouter>
         )
         
-        expect(screen.getByText('Kin Kin')).toBeInTheDocument();
-
+        expect(screen.queryByText('Chat')).toBeNull();
 
         const user = {
             token: "someToken"
