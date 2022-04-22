@@ -8,10 +8,14 @@ import '@testing-library/jest-dom'
 describe('chat', () => {
     test('render chat component', () => {
         
-        const user = {email: "test@email.com"}
+        const user = {email: "test@email.com"};
 
         render(
             <BrowserRouter>
                 <Chat user={user}/>
             </BrowserRouter>
-        )
+        );
+
+        expect(screen.getByText('Kin Kin')).toBeInTheDocument();
+    })
+});

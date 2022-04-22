@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow } from "enzyme";
-import App from "./App.jsx";
+import { shallow } from 'enzyme';
+import App from './App.jsx';
 import {
   About,
   Home,
@@ -12,20 +12,20 @@ import {
   EditWorkoutTask,
   CreateWorkoutTask,
   Navigation,
-  Footer
+  Footer,
 } from './components';
 
 describe('app renders', function () {
   it('should render!', function () {
     const wrapper = shallow(<App />);
-    expect(wrapper.find("Route"))//renders routes
+    expect(wrapper.find('Route')).toBeTruthy();
   });
 });
 
 describe('About renders', function () {
   it('should render!', function () {
     const wrapper = shallow(<About />);
-    expect(wrapper.find("h1").text()).toEqual("About");
+    expect(wrapper.find('h1').text()).toEqual('About');
   });
 });
 
