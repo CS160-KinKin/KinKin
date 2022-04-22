@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 function Navigation(props) {
   return (
-    <nav className='navbar navbar-expand navbar-dark orange'>
+    <nav className='row header navbar navbar-expand navbar-dark blue'>
       <div className='container'>
         <NavLink className='navbar-brand' to='/'>
           <b>Kin Kin</b>

@@ -8,3 +8,7 @@ export { default as Profile } from "./Profile/Profile";
 export { default as Marketplace } from "./Marketplace/Marketplace";
 export { default as UserDashboard } from "./UserDashboard";
 export { default as Chat } from "./Chat";
+export { default as CreateWorkoutTask } from './Workout/create-workout-task';
+export { default as EditWorkoutTask } from './Workout/edit-workout-task';
+export { default as WorkoutList } from './Workout/workout-list';
+

@@ -1,16 +1,12 @@
-import React from "react";
+import React from 'react';
 
 function Footer() {
   return (
-    <div className="footer">
-      <footer className="py-5 bg-dark fixed-bottom">
-        <div className="container">
-          <p className="m-0 text-center text-white">
-            Developed By
-          </p>
-        </div>
-      </footer>
-    </div>
+    <footer className='row footer py-5 bg-dark'>
+      <div className='container'>
+        <p className='m-0 text-center text-white'>Developed By</p>
+      </div>
+    </footer>
   );
 }
 
