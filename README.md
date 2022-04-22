@@ -8,8 +8,9 @@
 4. Fill in details of `.env`
 5. `npm i`
 6. `npm start`
-7. `cd server`
-8. `cp config.env.example config.env`
-9. Fill in details of `config.env`
-10. `npm i`
-11. `npm start`
+7. Open a new terminal
+8. `cd server`
+9. `cp config.env.example config.env`
+10. Fill in details of `config.env`
+11. `npm i`
+12. `npm start`
