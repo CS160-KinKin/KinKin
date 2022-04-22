@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navigation } from "../index";
+import { Navigation, Footer } from "../index";
 import PTProfile from "../Profile/PTProfile";
 import FilterSearch from "./FilterSearch";
 import { getPTsByFilters } from "../../util/pt";
@@ -42,7 +42,7 @@ export default class Marketplace extends Component {
   render() {
     return (
       <>
-        <Navigation />
+        <Navigation {...this.props} />
         <div className="container">
           <div className="row align-items-center my-5">
             <div className="col-lg-5">
@@ -60,6 +60,7 @@ export default class Marketplace extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </>
     );
   }

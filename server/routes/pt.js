@@ -81,7 +81,7 @@ router.post('/search', verifyToken, async (req, res) => {
     const filters = {};
     if (req.body.query.language) filters.languages = req.body.query.language.toUpperCase();
     if (req.body.query.specialty) filters.specialties = req.body.query.specialty.toUpperCase();
-    if (availability && availability.length) filters.availableDays = { $all: availability };
+    if (availability && availability.length) filters.availableDays = { $in: availability };
     if (location) filters.location = { $near: { $geometry: location, $maxDistance: maxDistance, $minDistance: 0 } };
     if (minRate && maxRate && minRate <= maxRate) filters.rate = { $gte: minRate, $lte: maxRate };
     else if (minRate) filters.rate = { $gte: minRate };

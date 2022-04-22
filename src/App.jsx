@@ -19,15 +19,14 @@ import {
   UserDashboard,
   Chat,
   Profile,
-  Marketplace
+  Marketplace,
+  Request
 } from './components';
-import Request from './components/Requests/Request';
 import {
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
 } from './components';
-import Request from './components/Requests/Request';
 
 function App() {
   const [user, setUser] = useState(new User());
@@ -37,7 +36,6 @@ function App() {
   };
 
   if (user.token) {
-    console.log(user.token);
     return (
       <Routes>
         <Route
