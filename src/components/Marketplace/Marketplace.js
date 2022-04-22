@@ -16,7 +16,7 @@ export default class Marketplace extends Component {
   }
 
   componentDidMount() {
-    this.getMarketplace();
+    if (this.props.user.token) this.getMarketplace();
   }
 
   sendRequest() {
