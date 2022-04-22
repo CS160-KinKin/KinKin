@@ -7,7 +7,14 @@ const STATUS_CODES = {
   CONFLICT: 409,
 };
 
+const CONVERT = {
+  WEEK_TO_SECONDS: 604800,
+};
+
+const USER_ATTRIBUTES = ['token', 'email', 'publicName', 'username', 'pictureUrl'];
+
 const POST_AUTH_ENDPOINT = '/auth';
+const POST_LOGOUT_ENDPOINT = '/logout';
 const GET_WORKOUTS_ENDPOINT = '/workouts/get';
 const MUTATE_WORKOUTS_ENDPOINT = '/workouts';
 const SEARCH_PT_ENDPOINT = '/pt/search';
@@ -25,7 +32,10 @@ const DAYS_OF_WEEK = [
 
 export {
   STATUS_CODES,
+  CONVERT,
+  USER_ATTRIBUTES,
   POST_AUTH_ENDPOINT,
+  POST_LOGOUT_ENDPOINT,
   GET_WORKOUTS_ENDPOINT,
   MUTATE_WORKOUTS_ENDPOINT,
   SEARCH_PT_ENDPOINT,
