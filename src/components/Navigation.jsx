@@ -22,6 +22,16 @@ function Navigation(props) {
           </li>
           {props.user && props.user.token ? (
             <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/profile">
+                  Profile
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/marketplace">
+                  Marketplace
+                </NavLink>
+              </li>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/workouts'>
                   Workout

@@ -10,14 +10,20 @@ function PTProfile(props) {
       <hr size="1" width="100%" color="black" />
       <h4>Bio</h4>
       <p>{props.bio}</p>
+      <h4>Languages</h4>
+      <p>{props.languages.join(', ')}</p>
       <h4>Specialites</h4>
-      <p>{props.specialties}</p>
-      <h4>Training Style</h4>
-      <p>{props.training}</p>
-      <h4>Pricing</h4>
-      <p>{props.pricing}</p>
-      <h4>Working Hours</h4>
-      <p>{props.hours}</p>
+      <p>{props.specialties.join(', ')}</p>
+      <h4>Rate</h4>
+      <p>${props.rate}</p>
+      <h4>Available Days</h4>
+      <p>{props.availableDays.join(', ')}</p>
+      <h4>Location</h4>
+      <p>{props.location}</p>
+      <h4>Positive Rating Count</h4>
+      <p>{props.positiveRatingCount}</p>
+      <h4>Negative Rating Count</h4>
+      <p>{props.negativeRatingCount}</p>
     </div>
   );
 }
