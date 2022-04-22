@@ -9,7 +9,7 @@ import { SEARCH_PT_ENDPOINT } from './constants';
  const getPTsByFilters = async (token, filters) => {
     const res = await axios.post(
       process.env.REACT_APP_CONTROL_SERVER_URL + SEARCH_PT_ENDPOINT,
-      { params: filters },
+      { query: filters },
       { headers: { 'x-access-token': token, 'content-type': 'application/json' } }
     );
     return res.data;

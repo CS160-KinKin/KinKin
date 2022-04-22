@@ -77,13 +77,15 @@ router.get('/get/:username', verifyToken, async (req, res) => {
 
 router.post('/search', verifyToken, async (req, res) => {
   try {
-    const { location, maxDistance, minRate, maxRate, availability } = req.query;
+    const { location, maxDistance, minRate, maxRate, availability } = req.body.query;
     const filters = {};
-    if (req.query.language) filters.languages = req.query.language.toUpperCase();
-    if (req.query.specialty) filters.specialties = req.query.specialty.toUpperCase();
-    if (availability && availability.length) filters.availableDays = { $in: availability };
+    if (req.body.query.language) filters.languages = req.body.query.language.toUpperCase();
+    if (req.body.query.specialty) filters.specialties = req.body.query.specialty.toUpperCase();
+    if (availability && availability.length) filters.availableDays = { $all: availability };
     if (location) filters.location = { $near: { $geometry: location, $maxDistance: maxDistance, $minDistance: 0 } };
-    if (minRate <= maxRate) filters.rate = { $gte: minRate, $lte: maxRate };
+    if (minRate && maxRate && minRate <= maxRate) filters.rate = { $gte: minRate, $lte: maxRate };
+    else if (minRate) filters.rate = { $gte: minRate };
+    else if (maxRate) filters.rate = { $lte: maxRate };
     const matchDocs = [];
     for await (const doc of Pt.find(filters)) {
       try {

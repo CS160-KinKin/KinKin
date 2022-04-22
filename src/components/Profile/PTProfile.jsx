@@ -1,7 +1,6 @@
 import React from "react";
 
 function PTProfile(props) {
-  console.log(props);
   return (
     <div className="card">
       <p>

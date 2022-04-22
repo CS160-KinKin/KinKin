@@ -29,8 +29,8 @@ export default class FilterSearch extends Component {
     }
 
     async componentDidMount() {
-        const client = await getClient(this.props.user.token);
-        this.setState({ location: client.location });
+        //const client = await getClient(this.props.user.token);
+        //this.setState({ location: client.location });
     }
 
     onChangeLanguage(e) {
@@ -139,14 +139,14 @@ export default class FilterSearch extends Component {
                     </label>
                     <br />
                     <label>Select available days:
-                        <select value={this.state.availability} onChange={this.onChangeAvailability} >
-                            <option value="monday">Monday</option>
-                            <option value="tuesday">Tueday</option>
-                            <option value="wednesday">Wednesday</option>
-                            <option value="thursday">Thursday</option>
-                            <option value="friday">Friday</option>
-                            <option value="saturday">Saturday</option>
-                            <option value="sunday">Sunday</option>
+                        <select multiple size={7} value={this.state.availability} onChange={this.onChangeAvailability} >
+                            <option value="MON">Monday</option>
+                            <option value="TUE">Tueday</option>
+                            <option value="WED">Wednesday</option>
+                            <option value="THU">Thursday</option>
+                            <option value="FRI">Friday</option>
+                            <option value="SAT">Saturday</option>
+                            <option value="SUN">Sunday</option>
                         </select>
                     </label>
                     <br />

@@ -29,13 +29,6 @@ export default class Marketplace extends Component {
     // Message routing to be implemented
   }
 
-  onChangeAvailability(e) {
-    let value = Array.from(e.target.selectedOptions, (option) => option.value);
-    this.setState({
-      availabilityFilter: value,
-    });
-  }
-
   async getMarketplace(filters={}) {
     // get PT data from database using filters
     try {
@@ -54,7 +47,7 @@ export default class Marketplace extends Component {
           <div className="row align-items-center my-5">
             <div className="col-lg-5">
               <h1 className="font-weight-light">Marketplace</h1>
-              <FilterSearch user={this.props.user} getMarketplace /><br />
+              <FilterSearch user={this.props.user} getMarketplace={this.getMarketplace} /><br />
               <h4> List of suggested PT's for you:</h4>
               {this.state.PTList.map((PT) => {
                 return (<div>
