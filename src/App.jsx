@@ -18,6 +18,11 @@ import {
   NotFound,
   UserDashboard,
   Chat,
+  Profile,
+  Marketplace
+} from './components';
+import Request from './components/Requests/Request';
+import {
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
@@ -32,6 +37,7 @@ function App() {
   };
 
   if (user.token) {
+    console.log(user.token);
     return (
       <Routes>
         <Route
@@ -41,6 +47,14 @@ function App() {
         <Route
           path='/About'
           element={<About user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/Profile'
+          element={<Profile user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/Marketplace'
+          element={<Marketplace user={user} handleLogout={handleLogout} />}
         />
         <Route
           path='/UserDashboard'
