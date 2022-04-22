@@ -25,10 +25,13 @@ function Profile(props) {
               <PTProfile
                 name='PT Name'
                 bio='Bio Description'
-                specialties='My Specialties'
-                training='My Training Style'
-                pricing='My Pricing'
-                hours='My Hours'
+                languages={['English', 'French']}
+                specialties={['Specialty 1', 'Specialty 2']}
+                rate='100'
+                availableDays={['MON', 'TUE']}
+                location=''
+                positiveRatingCount='0'
+                negativeRatingCount='0'
               />
               <br />
               This is the edit page of the client profile.
