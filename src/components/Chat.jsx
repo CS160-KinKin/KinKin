@@ -17,8 +17,8 @@ const ChatApp = (props) => {
           <SendBirdApp
             appId={process.env.REACT_APP_SENDBIRD_ID}
             userId={props.user.email}
-            nickname={props.user.name}
-            profileUrl={props.user.picture}
+            nickname={props.user.publicName}
+            profileUrl={props.user.pictureUrl}
           />
         </div>
       </div>

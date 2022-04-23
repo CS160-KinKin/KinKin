@@ -15,6 +15,13 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      required: true,
+    },
+    pictureUrl: {
+      type: String,
+    },
   },
   {
     _id: false,

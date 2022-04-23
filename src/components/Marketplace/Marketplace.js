@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navigation } from "../index";
+import { Navigation, Footer } from "../index";
 import PTProfile from "../Profile/PTProfile";
 import FilterSearch from "./FilterSearch";
 import { getPTsByFilters } from "../../util/pt";
@@ -17,7 +17,7 @@ export default class Marketplace extends Component {
   }
 
   componentDidMount() {
-    this.getMarketplace();
+    if (this.props.user.token) this.getMarketplace();
   }
 
   async sendRequest(pt_id) {
@@ -36,13 +36,6 @@ export default class Marketplace extends Component {
     // Message routing to be implemented
   }
 
-  onChangeAvailability(e) {
-    let value = Array.from(e.target.selectedOptions, (option) => option.value);
-    this.setState({
-      availabilityFilter: value,
-    });
-  }
-
   async getMarketplace(filters={}) {
     // get PT data from database using filters
     try {
@@ -56,12 +49,12 @@ export default class Marketplace extends Component {
   render() {
     return (
       <>
-        <Navigation />
+        <Navigation {...this.props} />
         <div className="container">
           <div className="row align-items-center my-5">
             <div className="col-lg-5">
               <h1 className="font-weight-light">Marketplace</h1>
-              <FilterSearch user={this.props.user} getMarketplace /><br />
+              <FilterSearch user={this.props.user} getMarketplace={this.getMarketplace} /><br />
               <h4> List of suggested PT's for you:</h4>
               {this.state.PTList.map((PT) => {
                 return (<div>
@@ -74,6 +67,7 @@ export default class Marketplace extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </>
     );
   }

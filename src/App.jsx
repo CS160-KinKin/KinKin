@@ -19,9 +19,9 @@ import {
   UserDashboard,
   Chat,
   Profile,
-  Marketplace
+  Marketplace,
+  Request
 } from './components';
-import Request from './components/Requests/Request';
 import {
   WorkoutList,
   EditWorkoutTask,
@@ -32,11 +32,11 @@ function App() {
   const [user, setUser] = useState(new User());
 
   const handleLogout = () => {
+    user.logout();
     setUser(new User());
   };
 
   if (user.token) {
-    console.log(user.token);
     return (
       <Routes>
         <Route
