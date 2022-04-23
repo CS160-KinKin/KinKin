@@ -1,30 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import RequestComponent from './RequestComponent';
 import { Footer, Navigation } from '../index';
+import { getRequests } from "../../util/pt";
+import { acceptRequest } from "../../util/pt";
 
 const Request = (props) => {
-  const FirstName = 'FirstName';
-  const LastName = 'LastName';
+  
+  const [requests, setRequests] = useState([]);
+
+  const getTrainingRequests = async () => {
+    try {
+      const response = await getRequests(props.user.token);
+      //console.log(response);
+      setRequests(response);
+    //   console.log(requests);
+    }
+    catch (err) {
+      console.log(err.message);
+    }
+  }
+
+  useEffect(() => {
+    getTrainingRequests();
+  });
 
   return (
     <>
       <Navigation {...props} />
       <div className='row content'>
-        {/* NEED TO CONDITIONALLY RENDER THESE COMPONENTS */}
-        {/* Fetch from DB: This user's list of requests, should return the names of those client users which we can render */}
-        {/* OnClick method on pt page should send the name of the client to the DB */}
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
-        <RequestComponent FirstName={FirstName} LastName={LastName} />
+        
+      {requests.map((request, index) =>
+            (<RequestComponent key={index} user={props.user} name={request} />))}
+        
       </div>
       <Footer />
     </>

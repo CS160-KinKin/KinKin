@@ -12,6 +12,11 @@ const GET_WORKOUTS_ENDPOINT = '/workouts/get';
 const MUTATE_WORKOUTS_ENDPOINT = '/workouts';
 const SEARCH_PT_ENDPOINT = '/pt/search';
 const GET_CLIENT_ENDPOINT = '/client/get';
+const ADD_PTREQUEST_ENDPOINT = '/pt/addptrequest';
+const ADD_CLIENT_REQUEST_ENDPOINT = '/pt/addclientrequest';
+const GET_REQUESTS_ENDPOINT = '/pt/getrequests';
+const ACCEPT_REQUEST_ENDPOINT = '/pt/acceptrequest';
+const DELETE_REQUEST_ENDPOINT = '/pt/deleterequest';
 
 export {
   STATUS_CODES,
@@ -20,4 +25,9 @@ export {
   MUTATE_WORKOUTS_ENDPOINT,
   SEARCH_PT_ENDPOINT,
   GET_CLIENT_ENDPOINT,
+  ADD_PTREQUEST_ENDPOINT,
+  ADD_CLIENT_REQUEST_ENDPOINT,
+  GET_REQUESTS_ENDPOINT,
+  ACCEPT_REQUEST_ENDPOINT,
+  DELETE_REQUEST_ENDPOINT
 };

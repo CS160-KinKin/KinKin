@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Select from 'react-select';
+//import Select from 'react-select';
 import { getClient } from '../../util/client';
 
 export default class FilterSearch extends Component {

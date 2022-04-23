@@ -3,6 +3,7 @@ import { Navigation } from "../index";
 import PTProfile from "../Profile/PTProfile";
 import FilterSearch from "./FilterSearch";
 import { getPTsByFilters } from "../../util/pt";
+import { addRequest } from "../../util/pt";
 
 export default class Marketplace extends Component {
   constructor(props) {
@@ -19,9 +20,15 @@ export default class Marketplace extends Component {
     this.getMarketplace();
   }
 
-  sendRequest() {
-    alert("Request sent to PT.");
-    // Request routing to be implemented
+  async sendRequest(pt_id) {
+    try {
+      const response = await addRequest(this.props.user.token, pt_id);
+      alert("Request sent to PT.");
+    }
+    catch (err) {
+      console.log(err.message);
+    }
+    
   }
 
   sendMessage() {
@@ -59,7 +66,7 @@ export default class Marketplace extends Component {
               {this.state.PTList.map((PT) => {
                 return (<div>
                   <PTProfile {...PT} />
-                  <button onClick={this.sendRequest}>Request</button>
+                  <button onClick={() => this.sendRequest(PT.id)}>Request</button>
                   <button onClick={this.sendMessage}>Message</button>
                   <br /><br />
                 </div>)

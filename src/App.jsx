@@ -27,7 +27,6 @@ import {
   EditWorkoutTask,
   CreateWorkoutTask,
 } from './components';
-import Request from './components/Requests/Request';
 
 function App() {
   const [user, setUser] = useState(new User());
