@@ -46,13 +46,17 @@ function Navigation(props) {
                 <NavLink className='nav-link' to='/chat'>
                   Chat
                 </NavLink>
+              </li>                
+              <li className='nav-item'>
+                <NavLink className='nav-link' to='/healthinput'>
+                  Input
+                </NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink
                   className='nav-link'
                   to='/login'
-                  onClick={props.handleLogout}
-                >
+                  onClick={props.handleLogout}>
                   Logout
                 </NavLink>
               </li>

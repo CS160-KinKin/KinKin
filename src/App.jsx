@@ -21,7 +21,8 @@ import {
   Profile,
   Marketplace,
   Request,
-  Activity
+  Activity,
+  HealthInput
 } from './components';
 import {
   WorkoutList,
@@ -86,6 +87,10 @@ function App() {
         <Route
           path='/Chat'
           element={<Chat user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/healthinput'
+          element={<HealthInput user={user} handleLogout={handleLogout} />}
         />
         <Route path='*' element={<NotFound user={user} />} />
       </Routes>
