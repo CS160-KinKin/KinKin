@@ -20,7 +20,8 @@ import {
   Chat,
   Profile,
   Marketplace,
-  Request
+  Request,
+  Activity
 } from './components';
 import {
   WorkoutList,
@@ -54,6 +55,10 @@ function App() {
         <Route
           path='/Marketplace'
           element={<Marketplace user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/Activity'
+          element={<Activity user={user} handleLogout={handleLogout} />}
         />
         <Route
           path='/UserDashboard'

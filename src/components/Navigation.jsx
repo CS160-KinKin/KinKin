@@ -32,6 +32,11 @@ function Navigation(props) {
                   Marketplace
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/activity">
+                  Activity
+                </NavLink>
+              </li>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/workouts'>
                   Workout
