@@ -4,12 +4,12 @@ import "./activity.css";
 import {
     VictoryPie,
     VictoryLegend,
-    VictoryTheme,
     VictoryLabel,
     VictoryAxis,
     VictoryBar,
     VictoryChart,
-    VictoryStack
+    VictoryStack,
+    VictoryArea
 } from 'victory';
 
 const sharedAxisStyles = {
@@ -28,6 +28,49 @@ const navy = "#143F6B";
 const red = "#F55353";
 const orange = "#FEB139";
 const grey = "#EEEEEE";
+
+const weeklyData = [
+    { day: new Date(2020, 3, 1), calories: 300, walked: 3.5, ran: 0, cycled: 0, minutes: 45 },
+    { day: new Date(2020, 3, 2), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 20 },
+    { day: new Date(2020, 3, 3), calories: 300, walked: 0, ran: 4, cycled: 3, minutes: 60 },
+    { day: new Date(2020, 3, 4), calories: 450, walked: 1, ran: 0, cycled: 3, minutes: 100 },
+    { day: new Date(2020, 3, 5), calories: 150, walked: 0.5, ran: 1.5, cycled: 0, minutes: 50 },
+    { day: new Date(2020, 3, 6), calories: 30, walked: 0, ran: 0, cycled: 2, minutes: 60 },
+    { day: new Date(2020, 3, 7), calories: 170, walked: 2, ran: 2, cycled: 1, minutes: 70 },
+];
+
+const monthlyData = [
+    { day: new Date(2020, 3, 1), calories: 300, walked: 3.5, ran: 1, cycled: 0, minutes: 45 },
+    { day: new Date(2020, 3, 2), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 50 },
+    { day: new Date(2020, 3, 3), calories: 300, walked: 3, ran: 4, cycled: 3, minutes: 60 },
+    { day: new Date(2020, 3, 4), calories: 450, walked: 1, ran: 0.5, cycled: 0, minutes: 100 },
+    { day: new Date(2020, 3, 5), calories: 150, walked: 0.5, ran: 1.5, cycled: 0, minutes: 80 },
+    { day: new Date(2020, 3, 6), calories: 30, walked: 0.75, ran: 0.5, cycled: 0, minutes: 70 },
+    { day: new Date(2020, 3, 7), calories: 170, walked: 2, ran: 2, cycled: 1, minutes: 70 },
+    { day: new Date(2020, 3, 8), calories: 300, walked: 3.5, ran: 0.75, cycled: 2, minutes: 65 },
+    { day: new Date(2020, 3, 9), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 30 },
+    { day: new Date(2020, 3, 10), calories: 300, walked: 0.75, ran: 4, cycled: 3, minutes: 30 },
+    { day: new Date(2020, 3, 11), calories: 450, walked: 1, ran: 0.75, cycled: 3, minutes: 40 },
+    { day: new Date(2020, 3, 12), calories: 150, walked: 0.5, ran: 1.5, cycled: 4, minutes: 45 },
+    { day: new Date(2020, 3, 13), calories: 30, walked: 0.75, ran: 0.5, cycled: 2, minutes: 50 },
+    { day: new Date(2020, 3, 14), calories: 170, walked: 2, ran: 2, cycled: 1, minutes: 70 },
+    { day: new Date(2020, 3, 15), calories: 300, walked: 3.5, ran: 0.75, cycled: 1, minutes: 85 },
+    { day: new Date(2020, 3, 16), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 60 },
+    { day: new Date(2020, 3, 17), calories: 300, walked: 0.75, ran: 4, cycled: 3, minutes: 15 },
+    { day: new Date(2020, 3, 18), calories: 450, walked: 1, ran: 3, cycled: 3, minutes: 15 },
+    { day: new Date(2020, 3, 19), calories: 150, walked: 0.5, ran: 1.5, cycled: 0.5, minutes: 50 },
+    { day: new Date(2020, 3, 20), calories: 30, walked: 0.75, ran: 1, cycled: 2, minutes: 60 },
+    { day: new Date(2020, 3, 21), calories: 170, walked: 2, ran: 2, cycled: 1, minutes: 70 },
+    { day: new Date(2020, 3, 22), calories: 300, walked: 3.5, ran: 0.25, cycled: 0.5, minutes: 35 },
+    { day: new Date(2020, 3, 23), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 20 },
+    { day: new Date(2020, 3, 24), calories: 300, walked: 0.5, ran: 4, cycled: 3, minutes: 60 },
+    { day: new Date(2020, 3, 25), calories: 450, walked: 1.5, ran: 3.75, cycled: 3, minutes: 100 },
+    { day: new Date(2020, 3, 26), calories: 150, walked: 0.5, ran: 1.5, cycled: 1.5, minutes: 80 },
+    { day: new Date(2020, 3, 27), calories: 30, walked: 3, ran: 2, cycled: 2, minutes: 60 },
+    { day: new Date(2020, 3, 28), calories: 170, walked: 2, ran: 2, cycled: 1, minutes: 70 },
+    { day: new Date(2020, 3, 29), calories: 300, walked: 3.5, ran: 1, cycled: 0.5, minutes: 45 },
+    { day: new Date(2020, 3, 30), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 20 }
+];
 
 // calories burned daily
 const CaloriesDaily = (props) => (
@@ -106,9 +149,9 @@ const MinutesDaily = (props) => (
 
 const CaloriesWeekly = (props) => (
     <VictoryChart scale={{ x: "time" }}
-        domainPadding={10}
+        domainPadding={30}
         padding={{ top: 50, bottom: 50, left: 100, right: 10 }}
-        width={500} height={450}
+        width={650} height={450}
     >
         <VictoryLabel
             x={300}
@@ -118,6 +161,7 @@ const CaloriesWeekly = (props) => (
             text="Calories in the last week"
         />
         <VictoryBar
+            barRatio={0.7}
             style={{
                 data: { fill: navy },
             }}
@@ -140,9 +184,9 @@ const CaloriesWeekly = (props) => (
 
 const DistanceWeekly = (props) => (
     <VictoryChart scale={{ x: "time" }}
-        domainPadding={10}
+        domainPadding={30}
         padding={{ top: 50, bottom: 50, left: 100, right: 10 }}
-        width={500} height={450}
+        width={650} height={450}
     >
         <VictoryLabel
             x={300}
@@ -154,6 +198,7 @@ const DistanceWeekly = (props) => (
         <VictoryStack offset={20}
         >
             <VictoryBar
+                barRatio={0.7}
                 style={{
                     data: { fill: navy },
                 }}
@@ -162,6 +207,7 @@ const DistanceWeekly = (props) => (
                 y="walked"
             />
             <VictoryBar
+                barRatio={0.7}
                 style={{
                     data: { fill: red },
                 }}
@@ -170,6 +216,7 @@ const DistanceWeekly = (props) => (
                 y="ran"
             />
             <VictoryBar
+                barRatio={0.7}
                 style={{
                     data: { fill: orange },
                 }}
@@ -203,9 +250,9 @@ const DistanceWeekly = (props) => (
 
 const MinutesWeekly = (props) => (
     <VictoryChart scale={{ x: "time" }}
-        domainPadding={10}
+        domainPadding={30}
         padding={{ top: 50, bottom: 50, left: 100, right: 10 }}
-        width={500} height={450}
+        width={650} height={450}
     >
         <VictoryLabel
             x={300}
@@ -215,6 +262,7 @@ const MinutesWeekly = (props) => (
             text="Minutes in the last week"
         />
         <VictoryBar
+            barRatio={0.7}
             style={{
                 data: { fill: navy },
             }}
@@ -225,6 +273,134 @@ const MinutesWeekly = (props) => (
         <VictoryAxis
             tickCount={7}
             tickFormat={date => days[date.getDay()]}
+            style={sharedAxisStyles}
+        />
+        <VictoryAxis
+            dependentAxis
+            label="Minutes Exercised"
+            style={sharedAxisStyles}
+        />
+    </VictoryChart>
+);
+
+const CaloriesMonthly = (props) => (
+    <VictoryChart scale={{ x: "time" }}
+        padding={{ top: 50, bottom: 50, left: 100, right: 10 }}
+        width={1000} height={450}
+    >
+        <VictoryLabel
+            x={300}
+            y={10}
+            style={[{ fontSize: 30 }]}
+            textAnchor="middle"
+            text="Calories in the last month"
+        />
+        <VictoryArea
+            style={{
+                data: { fill: navy },
+            }}
+            data={props.data}
+            x="day"
+            y="calories"
+        />
+        <VictoryAxis
+            tickCount={31}
+            tickFormat={date => date.getDate()}
+            style={sharedAxisStyles}
+        />
+        <VictoryAxis
+            dependentAxis
+            label="Calories Burned"
+            style={sharedAxisStyles}
+        />
+    </VictoryChart>
+);
+
+const DistanceMonthly = (props) => (
+    <VictoryChart scale={{ x: "time" }}
+        padding={{ top: 50, bottom: 50, left: 100, right: 10 }}
+        width={1000} height={450}
+    >
+        <VictoryLabel
+            x={300}
+            y={10}
+            style={[{ fontSize: 30 }]}
+            textAnchor="middle"
+            text="Distance in the last month"
+        />
+        <VictoryStack offset={20}
+        >
+            <VictoryArea
+                style={{
+                    data: { fill: navy },
+                }}
+                data={props.data}
+                x="day"
+                y="walked"
+            />
+            <VictoryArea
+                style={{
+                    data: { fill: red },
+                }}
+                data={props.data}
+                x="day"
+                y="ran"
+            />
+            <VictoryArea
+                style={{
+                    data: { fill: orange },
+                }}
+                data={props.data}
+                x="day"
+                y="cycled"
+            />
+            <VictoryAxis
+                tickCount={31}
+                tickFormat={date => date.getDate()}
+                style={sharedAxisStyles}
+            />
+            <VictoryAxis
+                dependentAxis
+                label="Distance in miles"
+                style={sharedAxisStyles}
+            />
+        </VictoryStack>
+        <VictoryLegend x={270} y={60}
+            standalone={false}
+            orientation="horizontal"
+            gutter={20}
+            style={{ border: { stroke: "black" } }}
+            colorScale={[navy, red, orange]}
+            data={[
+                { name: "Walked" }, { name: "Ran" }, { name: "Cycled" }
+            ]}
+        />
+    </VictoryChart>
+);
+
+const MinutesMonthly = (props) => (
+    <VictoryChart scale={{ x: "time" }}
+        padding={{ top: 50, bottom: 50, left: 100, right: 10 }}
+        width={1000} height={450}
+    >
+        <VictoryLabel
+            x={300}
+            y={10}
+            style={[{ fontSize: 30 }]}
+            textAnchor="middle"
+            text="Minutes in the last month"
+        />
+        <VictoryArea
+            style={{
+                data: { fill: navy },
+            }}
+            data={props.data}
+            x="day"
+            y="minutes"
+        />
+        <VictoryAxis
+            tickCount={31}
+            tickFormat={date => date.getDate()}
             style={sharedAxisStyles}
         />
         <VictoryAxis
@@ -276,45 +452,42 @@ export default class Activity extends Component {
                         <CaloriesWeekly
                             startDate="3/1"
                             endDate="3/7"
-                            data={[
-                                { day: new Date(2020, 3, 1), calories: 300 },
-                                { day: new Date(2020, 3, 2), calories: 400 },
-                                { day: new Date(2020, 3, 3), calories: 0 },
-                                { day: new Date(2020, 3, 4), calories: 150 },
-                                { day: new Date(2020, 3, 5), calories: 450 },
-                                { day: new Date(2020, 3, 6), calories: 30 },
-                                { day: new Date(2020, 3, 7), calories: 170 },
-                            ]}
+                            data={weeklyData}
                         />
                     </div>
                     <div>
                         <DistanceWeekly
                             startDate="3/1"
                             endDate="3/7"
-                            data={[
-                                { day: new Date(2020, 3, 1), walked: 3.5, ran: 0, cycled: 0 },
-                                { day: new Date(2020, 3, 2), walked: 1, ran: 2, cycled: 3 },
-                                { day: new Date(2020, 3, 3), walked: 0, ran: 4, cycled: 3 },
-                                { day: new Date(2020, 3, 4), walked: 1, ran: 0, cycled: 3 },
-                                { day: new Date(2020, 3, 5), walked: 0.5, ran: 1.5, cycled: 0 },
-                                { day: new Date(2020, 3, 6), walked: 0, ran: 0, cycled: 2 },
-                                { day: new Date(2020, 3, 7), walked: 2, ran: 2, cycled: 1 },
-                            ]}
+                            data={weeklyData}
                         />
                     </div>
                     <div>
                         <MinutesWeekly
                             startDate="3/1"
                             endDate="3/7"
-                            data={[
-                                { day: new Date(2020, 3, 1), minutes: 45 },
-                                { day: new Date(2020, 3, 2), minutes: 20 },
-                                { day: new Date(2020, 3, 3), minutes: 60 },
-                                { day: new Date(2020, 3, 4), minutes: 100 },
-                                { day: new Date(2020, 3, 5), minutes: 0 },
-                                { day: new Date(2020, 3, 6), minutes: 60 },
-                                { day: new Date(2020, 3, 7), minutes: 70 },
-                            ]}
+                            data={weeklyData}
+                        />
+                    </div>
+                    <div>
+                        <CaloriesMonthly
+                            startDate="3/1"
+                            endDate="3/7"
+                            data={monthlyData}
+                        />
+                    </div>
+                    <div>
+                        <DistanceMonthly
+                            startDate="3/1"
+                            endDate="3/7"
+                            data={monthlyData}
+                        />
+                    </div>
+                    <div>
+                        <MinutesMonthly
+                            startDate="3/1"
+                            endDate="3/7"
+                            data={monthlyData}
                         />
                     </div>
                 </div>
