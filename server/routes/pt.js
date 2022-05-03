@@ -121,16 +121,11 @@ router.post('/addptrequest', verifyToken, async (req, res) => {
     const pt_id = req.body.pt_id; // ID of PT that was requested
     const client_id = req.user.userId; // ID of client that made request
  
-    Pt.findByIdAndUpdate(pt_id,
+    await Pt.findByIdAndUpdate(pt_id,
       {$push: {requests: client_id}},
-      {safe: true, upsert: true},
-      function(err,doc) {
-        if(err){
-          console.log(err);
-        }else{
-          return res.status(OK).send(client_id);
-        }
-      });
+      {safe: true, upsert: false},
+      );
+      return res.status(OK);
   }
   catch (err) {
     return res.status(BAD_REQUEST).send(err.message);
@@ -145,14 +140,10 @@ router.post('/addclientrequest', verifyToken, async (req, res) => {
     
     Client.findByIdAndUpdate(client_id,
       {$push: {requests: pt_id}},
-      {safe: true, upsert: true},
-      function(err,doc) {
-        if(err){
-          console.log(err);
-        }else{
-          return res.status(OK).send(pt_id);
-        }
-      });
+      {safe: true, upsert: false},
+      );
+
+      return res.status(OK);
   }
   catch (err) {
     return res.status(BAD_REQUEST).send(err.message);
@@ -168,11 +159,11 @@ router.post('/getrequests', verifyToken, async (req, res) => {
 
     const requests = doc.requests;
     const names = [];
-    for await (const docs of User.findById(requests)) {
-      try {
-        const user = await User.findById(docs._id);
-        names.push(user.publicName);
-      }
+      
+    for await (const user of User.find({ _id: { $in: requests } })) {
+        try {
+          names.push(user.publicName);
+        }
       catch (err) {
         console.error('/getrequests found missing User doc: ' +
         err.message)
@@ -276,7 +267,7 @@ router.post('/deleterequest', verifyToken, async (req, res) => {
             {safe: true, upsert: true},
             function(err,doc) {
               if(err) {
-                console.log(err);
+                console.error(err);
               }
             });
 

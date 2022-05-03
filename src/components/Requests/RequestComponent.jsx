@@ -11,6 +11,7 @@ const RequestComponent = (props) => {
             alert("Request Accepted");
         }
         catch (err) {
+            alert("Could not accept request");
             console.log("not working" + err.message);
         }
     }
@@ -21,6 +22,7 @@ const RequestComponent = (props) => {
             alert("Request Rejected");
         }
         catch (err) {
+            alert("Could not reject request");
             console.log("not working" + err.message);
         }
     }

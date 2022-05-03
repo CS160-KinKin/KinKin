@@ -16,7 +16,7 @@ const Request = (props) => {
     //   console.log(requests);
     }
     catch (err) {
-      console.log(err.message);
+      console.error(err.message);
     }
   }
 
