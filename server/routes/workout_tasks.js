@@ -1,39 +1,46 @@
+const Client = require("../models/Client");
 const express = require("express");
 const WorkoutTask = require("../models/workouttask.model");
 const {STATUS_CODES} = require("../util/constants");
-const {verifyToken} = require("../util/auth");
-
+const { verifyToken } = require("../util/auth");
+const { OK, BAD_REQUEST, NOT_FOUND, UNAUTHORIZED, CONFLICT } =
+require("../util/constants").STATUS_CODES;
 const router = express.Router();
 
 router.route("/get").post(verifyToken, async (req, res) => {
     try {
-        const ptId = req.user.userId;
-        const tasks = await WorkoutTask.findById(ptId);
-        return res.status(STATUS_CODES.OK).send(tasks);
+        const id = req.user.userId;
+        const tasks = await WorkoutTask.find({ pt: id });
+        const cli_tasks = await WorkoutTask.find({ client: id });
+        return res.status(STATUS_CODES.OK).send({ pt: tasks , client: cli_tasks});
     } catch (err) {
         return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
     }
 });
 
 router.route("/").put(verifyToken, async (req, res) => {
-    try {
-        const {title, clientId, description, duration, date} = req.body;
-        const ptId = req.user.userId;
+  try {
+    const { title, clientId, description, duration, date } = req.body;
+    const ptId = req.user.userId;
 
-        // todo: verify that the pt has the clientId in their client list
+    const client = await Client.findById(clientId);
 
-        const task = await WorkoutTask.create({
-            title,
-            client: clientId,
-            pt: ptId,
-            description,
-            duration,
-            date,
-        });
-        return res.status(STATUS_CODES.OK).send(task);
-    } catch (err) {
-        return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
+    if (client == null) {
+      return res.status(STATUS_CODES.NOT_FOUND).send("Not a client");
     }
+
+    const task = await WorkoutTask.create({
+      title,
+      client: clientId,
+      pt: ptId,
+      description,
+      duration,
+      date,
+    });
+    return res.status(STATUS_CODES.OK).send(task);
+  } catch (err) {
+    return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
+  }
 });
 
 router.route("/").delete(verifyToken, async (req, res) => {

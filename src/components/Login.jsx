@@ -13,6 +13,7 @@ function Login(props) {
     const user = new User();
     await user.login(googleData.tokenId);
     props.setUser(user);
+    console.log(user.token);
     navigate(-1);
   };
   return (

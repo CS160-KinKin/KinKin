@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { updateWorkoutTask } from "../../util/workouts";
+import axios from "axios";
 
 export default class EditWorkoutTask extends Component {
   constructor(props) {
@@ -22,13 +24,24 @@ export default class EditWorkoutTask extends Component {
     };
   }
 
+  //pass the data from workouts to workout task components
   async componentDidMount() {
-    // todo
+    axios
+      .get(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts")
+      .then((response) => {
+        this.setState({
+          title: response.data.title,
+          pt: response.data.pt,
+          client: response.data.client,
+          description: response.data.description,
+          duration: response.data.duration,
+          date: response.data.date,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
-    
-  /* 
-  Map user's workout list here
-  */
 
   onChangeTitle(e) {
     this.setState({
@@ -54,16 +67,24 @@ export default class EditWorkoutTask extends Component {
     });
   }
 
-  onChangeDate(date) {
+  onChangeDate(e) {
     this.setState({
-      date: date,
+      date: e.target.value,
     });
   }
 
   onSubmit(e) {
     e.preventDefault();
+    
+    const task = {
+      title: this.state.title,
+      clientId: this.state.client,
+      description: this.state.description,
+      duration: this.state.duration,
+      date: this.state.date,
+    };
 
-    // todo
+    updateWorkoutTask(this.props.user.token, task);
 
     window.location = "/workouts";
   }

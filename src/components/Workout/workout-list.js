@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Footer, Navigation } from '../index';
-import { getWorkoutsByPtId, deleteWorkoutTask } from '../../util/workouts';
+import { getWorkouts, deleteWorkoutTask } from '../../util/workouts';
 
 const WorkoutTask = (props) => (
   <tr>
@@ -31,11 +31,11 @@ export default class WorkoutList extends Component {
 
     this.state = { tasks: [] };
   }
-
+  
   async componentDidMount() {
     try {
-      const tasks = await getWorkoutsByPtId(this.props.user.token);
-      this.setState({ tasks });
+      const { pt } = await getWorkouts(this.props.user.token);
+      this.setState({ tasks : pt });
     } catch (err) {
       console.log(err.message);
     }

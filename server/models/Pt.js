@@ -33,7 +33,7 @@ const PtSchema = new Schema(
     requests: {
       type: Array,
       of: String,
-      ref: 'Pt',
+      ref: 'Client',
     },
     specialties: {
       type: Array,
