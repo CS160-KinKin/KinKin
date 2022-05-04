@@ -1,0 +1,19 @@
+
+.request-btn {
+    margin-right: 50px;
+    margin-left: 40px;
+    margin-top: 10px;
+    background-color: dodgerblue;
+    width: 150px;
+    font-size: 20px;
+}
+
+.message-btn {
+    background-color: dodgerblue;
+    width: 150px;
+    font-size: 20px;
+}
+
+/* .pt-cards {
+    
+} */
