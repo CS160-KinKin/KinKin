@@ -3,8 +3,7 @@ import { Navigation, Footer } from "../index";
 import PTProfile from "../Profile/PTProfile";
 import FilterSearch from "./FilterSearch";
 import { getPTsByFilters } from "../../util/pt";
-import ChatContext from '../ChatContext'
-import ChatApp from '../Chat'
+import ChatButton from '../Chat/ChatButton' 
 
 export default class Marketplace extends Component {
   constructor(props) {
@@ -28,7 +27,6 @@ export default class Marketplace extends Component {
 
   sendMessage() {
     alert("Message sent to PT.");
-
     // Message routing to be implemented
   }
 
@@ -56,9 +54,7 @@ export default class Marketplace extends Component {
                 return (<div>
                   <PTProfile {...PT} />
                   <button onClick={this.sendRequest}>Request</button>
-                  <ChatContext.Provider value={PT.id}>
-                    <ChatApp />
-                  </ChatContext.Provider>
+                  <ChatButton user={this.props.user} pt={PT} message={"hi i am interested"}/>
                   <br /><br />
                 </div>)
               })}
