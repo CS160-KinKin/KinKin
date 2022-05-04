@@ -38,6 +38,18 @@ const DAYS_OF_WEEK = [
   { label: 'Sunday', value: 'SUN' },
 ];
 
+const SPECIALTIES = [
+  { label: 'Free Weights', value: 'Free Weights' },
+  { label: 'Jogging', value: 'Jogging' },
+  { label: 'Yoga', value: 'Yoga' },
+];
+
+const LANGUAGES = [
+  { label: 'English', value: 'English' },
+  { label: 'Spanish', value: 'Spanish' },
+  { label: 'French', value: 'French' },
+];
+
 export {
   STATUS_CODES,
   CONVERT,
@@ -49,4 +61,6 @@ export {
   SEARCH_PT_ENDPOINT,
   GET_CLIENT_ENDPOINT,
   DAYS_OF_WEEK,
+  SPECIALTIES,
+  LANGUAGES
 };
