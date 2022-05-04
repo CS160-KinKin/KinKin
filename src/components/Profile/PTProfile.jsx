@@ -1,18 +1,22 @@
-import React from "react";
+import React from 'react';
 
 function PTProfile(props) {
   return (
-    <div className="card">
+    <div className='card'>
       <p>
-        <img src="blank-profile.png" alt="Profile" width="100" />
+        <img
+          src={props.user.pictureUrl || 'blank-profile.png'}
+          alt='Profile'
+          width='100'
+        />
         {props.name}
       </p>
-      <hr size="1" width="100%" color="black" />
+      <hr size='1' width='100%' color='black' />
       <h4>Bio</h4>
       <p>{props.bio}</p>
       <h4>Languages</h4>
       <p>{props.languages.join(', ')}</p>
-      <h4>Specialites</h4>
+      <h4>Specialties</h4>
       <p>{props.specialties.join(', ')}</p>
       <h4>Rate</h4>
       <p>${props.rate}</p>

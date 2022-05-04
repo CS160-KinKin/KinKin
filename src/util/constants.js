@@ -26,8 +26,9 @@ const POST_AUTH_ENDPOINT = '/auth';
 const POST_LOGOUT_ENDPOINT = '/logout';
 const GET_WORKOUTS_ENDPOINT = '/workouts/get';
 const MUTATE_WORKOUTS_ENDPOINT = '/workouts';
-const SEARCH_PT_ENDPOINT = '/pt/search';
 const GET_CLIENT_ENDPOINT = '/client/get';
+const GET_PT_ENDPOINT = '/client/get';
+const SEARCH_PT_ENDPOINT = '/pt/search';
 const POST_REQUEST_ENDPOINT = '/pt/request';
 const GET_REQUESTS_ENDPOINT = '/pt/getrequests';
 const ACCEPT_REQUEST_ENDPOINT = '/pt/acceptrequest';
@@ -51,8 +52,9 @@ export {
   POST_LOGOUT_ENDPOINT,
   GET_WORKOUTS_ENDPOINT,
   MUTATE_WORKOUTS_ENDPOINT,
-  SEARCH_PT_ENDPOINT,
   GET_CLIENT_ENDPOINT,
+  GET_PT_ENDPOINT,
+  SEARCH_PT_ENDPOINT,
   POST_REQUEST_ENDPOINT,
   GET_REQUESTS_ENDPOINT,
   ACCEPT_REQUEST_ENDPOINT,

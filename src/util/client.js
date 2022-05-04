@@ -12,7 +12,7 @@ import { GET_CLIENT_ENDPOINT } from './constants';
       {},
       { headers: { 'x-access-token': token, 'content-type': 'application/json' } }
     );
-    return res.data;
+    return res;
   };
 
 export {

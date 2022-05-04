@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navigation, Footer } from '../index';
-import PTProfile from '../Profile/PTProfile';
+import PTProfile from '../Profile/PtProfilePage';
 import FilterSearch from './FilterSearch';
 import { getPTsByFilters } from '../../util/pt';
 import { addRequest } from '../../util/pt';
@@ -59,14 +59,12 @@ export default class Marketplace extends Component {
               />
               <br />
               <h4> List of suggested PT's for you:</h4>
-              {this.state.PTList.map((PT) => {
-                console.log(PT);
-                console.log(this.props.user.id);
-                if (PT.id !== this.props.user.id)
+              {this.state.PTList.map((Pt) => {
+                if (Pt.id !== this.props.user.id)
                   return (
                     <div>
-                      <PTProfile {...PT} />
-                      <button onClick={() => this.sendRequest(PT.id)}>
+                      <PTProfile user={this.props.user} Pt />
+                      <button onClick={() => this.sendRequest(Pt.id)}>
                         Request
                       </button>
                       <button onClick={this.sendMessage}>Message</button>
