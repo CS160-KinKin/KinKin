@@ -27,12 +27,88 @@ import {
   EditWorkoutTask,
   CreateWorkoutTask,
 } from './components';
-import { render } from '@testing-library/react';
 
 function App() {
-  return(
-  <Chat />
-  )
+  const [user, setUser] = useState(new User());
+
+  const handleLogout = () => {
+    user.logout();
+    setUser(new User());
+  };
+
+  if (user.token) {
+    return (
+      <Routes>
+        <Route
+          path='/'
+          element={<Home user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/About'
+          element={<About user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/Profile'
+          element={<Profile user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/Marketplace'
+          element={<Marketplace user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/UserDashboard'
+          element={<UserDashboard user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/requests'
+          element={<Request user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/workouts'
+          exact
+          element={<WorkoutList user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/workouts/add'
+          element={
+            <CreateWorkoutTask user={user} handleLogout={handleLogout} />
+          }
+        />
+        <Route
+          path='/workouts/update'
+          element={<EditWorkoutTask user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/Chat'
+          element={<Chat user={user} handleLogout={handleLogout} />}
+        />
+        <Route path='*' element={<NotFound user={user} />} />
+      </Routes>
+    );
+  } else {
+    return (
+      <Routes>
+        <Route
+          path='/'
+          element={<Home user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/About'
+          element={<About user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/login'
+          element={
+            <Login user={user} setUser={setUser} handleLogout={handleLogout} />
+          }
+        />
+        <Route
+          path='*'
+          element={<NotFound user={user} handleLogout={handleLogout} />}
+        />
+      </Routes>
+    );
+  }
 }
 
 export default App;
