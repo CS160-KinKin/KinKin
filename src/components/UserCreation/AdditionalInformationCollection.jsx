@@ -22,7 +22,7 @@ const AdditionalInformationCollection = (props) => {
   const [PTbio, setPTbio] = useState('');
   const [specialties, setSpecialties] = useState([]);
   const [availability, setAvailability] = useState([]);
-  const [rate, setRate] = useState('');
+  const [rate, setRate] = useState(0);
 
   //client values
   const [clientBio, setClientBio] = useState('');
@@ -36,6 +36,7 @@ const AdditionalInformationCollection = (props) => {
     e.preventDefault();
 
     const userRes = await createUser({
+      token: props.user.token,
       username,
       publicName,
       email: props.user.email,
@@ -210,7 +211,7 @@ const AdditionalInformationCollection = (props) => {
               availability.length)) ? (
             <input className='btn' type='submit' value='Register' />
           ) : (
-            <input className='btn' type='submit' value='Register' />
+            <input disabled className='btn' type='submit' value='Register' />
           )}
         </div>
       </form>

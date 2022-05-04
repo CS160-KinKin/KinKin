@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { MUTATE_USER_ENDPOINT, STATUS_CODES } from './util/constants';
+import { MUTATE_USER_ENDPOINT, STATUS_CODES } from './constants'
 
 
 const createUser = async (body) => {
@@ -8,7 +8,7 @@ const createUser = async (body) => {
     body,
     {
       headers: {
-        'x-access-token': this.token,
+        'x-access-token': body.token,
         'content-type': 'application/json',
       },
     }
