@@ -43,6 +43,11 @@ function Navigation(props) {
                 </NavLink>
               </li>
               <li className='nav-item'>
+                <NavLink className='nav-link' to='/requests'>
+                  Requests
+                </NavLink>
+              </li>
+              <li className='nav-item'>
                 <NavLink
                   className='nav-link'
                   to='/login'

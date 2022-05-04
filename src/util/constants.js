@@ -12,6 +12,7 @@ const CONVERT = {
 };
 
 const USER_ATTRIBUTES = [
+  'id',
   'token',
   'email',
   'emailVerified',
@@ -27,6 +28,10 @@ const GET_WORKOUTS_ENDPOINT = '/workouts/get';
 const MUTATE_WORKOUTS_ENDPOINT = '/workouts';
 const SEARCH_PT_ENDPOINT = '/pt/search';
 const GET_CLIENT_ENDPOINT = '/client/get';
+const POST_REQUEST_ENDPOINT = '/pt/request';
+const GET_REQUESTS_ENDPOINT = '/pt/getrequests';
+const ACCEPT_REQUEST_ENDPOINT = '/pt/acceptrequest';
+const DELETE_REQUEST_ENDPOINT = '/pt/deleterequest';
 
 const DAYS_OF_WEEK = [
   { label: 'Monday', value: 'MON' },
@@ -62,5 +67,9 @@ export {
   GET_CLIENT_ENDPOINT,
   DAYS_OF_WEEK,
   SPECIALTIES,
-  LANGUAGES
+  LANGUAGES,
+  POST_REQUEST_ENDPOINT,
+  GET_REQUESTS_ENDPOINT,
+  ACCEPT_REQUEST_ENDPOINT,
+  DELETE_REQUEST_ENDPOINT,
 };

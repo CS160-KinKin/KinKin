@@ -3,7 +3,8 @@ const router = express.Router();
 const { verifyToken } = require('../util/auth');
 const User = require('../models/User');
 const Pt = require('../models/Pt');
-const { OK, BAD_REQUEST, NOT_FOUND } =
+const Client = require('../models/Client');
+const { OK, BAD_REQUEST, NOT_FOUND, UNAUTHORIZED, CONFLICT } =
   require('../util/constants').STATUS_CODES;
 
 router.put('/', verifyToken, async (req, res) => {
@@ -17,7 +18,7 @@ router.put('/', verifyToken, async (req, res) => {
       location,
       specialties,
       rate,
-      availableTimes
+      availableTimes,
     });
     res.status(OK).send(doc);
   } catch (err) {
@@ -74,16 +75,27 @@ router.get('/get/:username', verifyToken, async (req, res) => {
     return res.status(BAD_REQUEST).send(err.message);
   }
 });
-
 router.post('/search', verifyToken, async (req, res) => {
   try {
-    const { location, maxDistance, minRate, maxRate, availability } = req.body.query;
+    const { location, maxDistance, minRate, maxRate, availability } =
+      req.body.query;
     const filters = {};
-    if (req.body.query.language) filters.languages = req.body.query.language.toUpperCase();
-    if (req.body.query.specialty) filters.specialties = req.body.query.specialty.toUpperCase();
-    if (availability && availability.length) filters.availableDays = { $in: availability };
-    if (location) filters.location = { $near: { $geometry: location, $maxDistance: maxDistance, $minDistance: 0 } };
-    if (minRate && maxRate && minRate <= maxRate) filters.rate = { $gte: minRate, $lte: maxRate };
+    if (req.body.query.language)
+      filters.languages = req.body.query.language.toUpperCase();
+    if (req.body.query.specialty)
+      filters.specialties = req.body.query.specialty.toUpperCase();
+    if (availability && availability.length)
+      filters.availableDays = { $in: availability };
+    if (location)
+      filters.location = {
+        $near: {
+          $geometry: location,
+          $maxDistance: maxDistance,
+          $minDistance: 0,
+        },
+      };
+    if (minRate && maxRate && minRate <= maxRate)
+      filters.rate = { $gte: minRate, $lte: maxRate };
     else if (minRate) filters.rate = { $gte: minRate };
     else if (maxRate) filters.rate = { $lte: maxRate };
     const matchDocs = [];
@@ -91,6 +103,7 @@ router.post('/search', verifyToken, async (req, res) => {
       try {
         const user = await User.findById(doc._id);
         matchDocs.push({
+          id: doc._id,
           name: user.publicName,
           languages: doc.languages,
           specialties: doc.specialties,
@@ -99,16 +112,123 @@ router.post('/search', verifyToken, async (req, res) => {
           rate: doc.rate,
           availableDays: doc.availableDays,
           positiveRatingCount: doc.positiveRatingCount,
-          negativeRatingCount: doc.negativeRatingCount
+          negativeRatingCount: doc.negativeRatingCount,
         });
       } catch (error) {
-        console.error(
-          'routes/pt.js found missing User doc: ' +
-          error.message
-        );
+        console.error('routes/pt.js found missing User doc: ' + error.message);
       }
     }
     return res.status(OK).send(matchDocs);
+  } catch (err) {
+    return res.status(BAD_REQUEST).send(err.message);
+  }
+});
+
+router.post('/request', verifyToken, async (req, res) => {
+  try {
+    const pt_id = req.body.pt_id; // ID of PT that was requested
+    const client_id = req.user.userId; // ID of client that made request
+
+    if (pt_id === client_id) {
+      return res.status(BAD_REQUEST).send('Client and PT are the same user.');
+    }
+
+    const pt = await Pt.findById(pt_id);
+    const client = await Client.findById(client_id);
+    if (!pt || !client) {
+      return res.status(NOT_FOUND).send();
+    }
+    if (client.pt === pt._id && pt.clients.indexOf(client._id) !== -1) {
+      return res.status(CONFLICT).send("PT already has user as a client.");
+    }
+    if (pt.requests.indexOf(client._id) === -1) {
+      pt.requests.push(client._id);
+    }
+    if (client.requests.indexOf(pt._id) === -1) {
+      client.requests.push(pt._id);
+    }
+    await pt.save();
+    await client.save();
+    return res.status(OK).send();
+  } catch (err) {
+    return res.status(BAD_REQUEST).send(err.message);
+  }
+});
+
+router.post('/getrequests', verifyToken, async (req, res) => {
+  try {
+    const id = req.user.userId;
+    const doc = await Pt.findById(id);
+    if (!doc) return res.status(NOT_FOUND).send();
+
+    const requests = doc.requests;
+    const clients = [];
+
+    for await (const user of User.find({ _id: { $in: requests } })) {
+      try {
+        clients.push({ name: user.publicName, id: user._id });
+      } catch (err) {
+        console.error('/getrequests found missing User doc: ' + err.message);
+      }
+    }
+
+    return res.status(OK).send(clients);
+  } catch (err) {
+    return res.status(BAD_REQUEST).send(err.message);
+  }
+});
+
+router.post('/acceptrequest', verifyToken, async (req, res) => {
+  try {
+    const ptId = req.user.userId;
+    const clientId = req.body.id;
+
+    if (ptId === clientId) {
+      return res.status(BAD_REQUEST).send('PT and client are same user');
+    }
+
+    const pt = await Pt.findById(ptId);
+    const client = await Client.findById(clientId);
+    if (!pt || !client) {
+      return res.status(NOT_FOUND).send();
+    }
+    if (client.pt && client.pt.length()) {
+      return res.status(UNAUTHORIZED).send('Client has a pt already');
+    }
+    client.pt = pt._id;
+    for (const id of client.requests) {
+      if (id !== pt._id)
+        await Pt.findByIdAndUpdate(id, { $pullAll: { requests: client._id } });
+    }
+    client.requests = [];
+    pt.requests.splice(pt.requests.indexOf(client._id), 1);
+    if (pt.clients.indexOf(client._id) === -1) pt.clients.push(client._id);
+    await client.save();
+    await pt.save();
+    return res.status(OK).send();
+  } catch (err) {
+    return res.status(BAD_REQUEST).send(err.message);
+  }
+});
+
+router.post('/deleterequest', verifyToken, async (req, res) => {
+  try {
+    const ptId = req.user.userId;
+    const clientId = req.body.id;
+
+    const pt = await Pt.findById(ptId);
+    if (pt && pt.requests.indexOf(clientId) !== -1) {
+      pt.requests.splice(pt.requests.indexOf(clientId), 1);
+      await pt.save();
+    }
+
+    const client = await Client.findById(clientId);
+    if (client && client.requests.indexOf(ptId) !== -1) {
+      client.requests.splice(client.requests.indexOf(ptId), 1);
+      await client.save();
+    }
+
+    return res.status(OK).send();
   } catch (err) {
     return res.status(BAD_REQUEST).send(err.message);
   }

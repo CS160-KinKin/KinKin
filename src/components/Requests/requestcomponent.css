@@ -1,6 +1,5 @@
 button {
     color:#fff;
-	background-color:dodgerblue;
 	outline: 4px;
     border: 0;
 	padding:10px 20px;
@@ -8,22 +7,41 @@ button {
 	border-radius:2px;
 	cursor:pointer;
 	position:relative;
-    margin-left: 50px; /*ALTER TO SIT IN THE MIDDLE OF THE WIDTH*/
-    margin-bottom: 10px;
+    
+    
 }
 
 .reject-btn {
     background-color: red;
+    
+    margin-left: 20px;
 }
 .accept-btn {
     background-color: green;
+    
+}
+
+.buttons {
+    position: relative;
+    font-size: 15px;
+    margin-top: 23px;
+    
 }
 
 .request-container {
-    border: 2px solid black;
+    border: 2px solid #DCDCDC;
     border-radius: 3px;
-    width: fit-content; /*GIVE FIXED WIDTH SO ALL BOXES ARE SAME SIZE*/
+    width: 300px; /*GIVE FIXED WIDTH SO ALL BOXES ARE SAME SIZE*/
+    height: 125px;
     margin: 10px 10px 10px 10px;
-    background-color: #E8E8E8;
-    background-position: center;
+    background-color: #F0F0F0;
+    position: relative;
+    text-align: center;
 }
+
+.client-name {
+    position: relative;
+    top: 10%;
+   
+}
+
