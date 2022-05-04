@@ -17,9 +17,14 @@ const logoutUrl =
   process.env.REACT_APP_CONTROL_SERVER_URL + POST_LOGOUT_ENDPOINT;
 
 export default class User {
-  constructor() {
+  constructor(attributes = {}) {
     USER_ATTRIBUTES.forEach((att) => {
-      this[att] = cookies.get(att);
+      if (attributes[att]) {
+        this[att] = attributes[att];
+        cookies.set(att, attributes[att]);
+      } else {
+        this[att] = cookies.get(att);
+      }
     });
   }
 

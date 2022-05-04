@@ -3,13 +3,17 @@ const router = express.Router();
 const { verifyToken } = require('../util/auth');
 const User = require('../models/User');
 const Client = require('../models/Client');
-const { OK, BAD_REQUEST, NOT_FOUND } =
+const { OK, BAD_REQUEST, NOT_FOUND, CONFLICT } =
   require('../util/constants').STATUS_CODES;
 
 router.put('/', verifyToken, async (req, res) => {
   try {
     const { bio, languages, location, interests, trainingGoals } =
       req.body;
+    const dup = await Client.findById(req.user.userId);
+    if (dup) {
+      return res.status(CONFLICT).send();
+    }
     const doc = await Client.create({
       _id: req.user.userId,
       bio,
@@ -17,10 +21,12 @@ router.put('/', verifyToken, async (req, res) => {
       location,
       interests,
       trainingGoals,
+      negativeRatingCount: 0,
+      positiveRatingCount: 0,
     });
-    res.status(OK).send(doc);
+    return res.status(OK).send(doc);
   } catch (err) {
-    res.status(BAD_REQUEST).send(err.message);
+    return res.status(BAD_REQUEST).send(err.message);
   }
 });
 

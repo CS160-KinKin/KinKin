@@ -9,7 +9,6 @@ import {
   Outlet,
   Router,
 } from 'react-router-dom';
-
 import User from './util/User';
 import {
   About,
@@ -20,12 +19,11 @@ import {
   Chat,
   Profile,
   Marketplace,
-  Request
-} from './components';
-import {
+  Request,
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
+  AdditionalInformationCollection,
 } from './components';
 
 function App() {
@@ -35,6 +33,15 @@ function App() {
     user.logout();
     setUser(new User());
   };
+
+  if (user.newUser) {
+    return (
+      <AdditionalInformationCollection
+        user={user}
+        setUser={(o) => setUser(o)}
+      />
+    );
+  }
 
   if (user.token) {
     return (

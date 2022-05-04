@@ -24,10 +24,18 @@ const USER_ATTRIBUTES = [
 
 const POST_AUTH_ENDPOINT = '/auth';
 const POST_LOGOUT_ENDPOINT = '/logout';
+
+const MUTATE_USER_ENDPOINT = '/user';
+
 const GET_WORKOUTS_ENDPOINT = '/workouts/get';
 const MUTATE_WORKOUTS_ENDPOINT = '/workouts';
-const SEARCH_PT_ENDPOINT = '/pt/search';
+
+const MUTATE_CLIENT_ENDPOINT = '/client';
 const GET_CLIENT_ENDPOINT = '/client/get';
+
+const MUTATE_PT_ENDPOINT = '/pt'
+const GET_PT_ENDPOINT = '/pt/get'
+const SEARCH_PT_ENDPOINT = '/pt/search';
 const POST_REQUEST_ENDPOINT = '/pt/request';
 const GET_REQUESTS_ENDPOINT = '/pt/getrequests';
 const ACCEPT_REQUEST_ENDPOINT = '/pt/acceptrequest';
@@ -61,9 +69,13 @@ export {
   USER_ATTRIBUTES,
   POST_AUTH_ENDPOINT,
   POST_LOGOUT_ENDPOINT,
+  MUTATE_USER_ENDPOINT,
   GET_WORKOUTS_ENDPOINT,
   MUTATE_WORKOUTS_ENDPOINT,
+  GET_PT_ENDPOINT,
+  MUTATE_PT_ENDPOINT,
   SEARCH_PT_ENDPOINT,
+  MUTATE_CLIENT_ENDPOINT,
   GET_CLIENT_ENDPOINT,
   DAYS_OF_WEEK,
   SPECIALTIES,
