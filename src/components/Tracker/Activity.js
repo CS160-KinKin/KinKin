@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Navigation, Footer } from "../index";
+import { getHealth } from "../../util/healthdata";
 import "./activity.css";
 import {
     VictoryPie,
@@ -28,6 +29,7 @@ const navy = "#143F6B";
 const red = "#F55353";
 const orange = "#FEB139";
 const grey = "#EEEEEE";
+const currDate = new Date();
 
 const weeklyData = [
     { day: new Date(2020, 3, 1), calories: 300, walked: 3.5, ran: 0, cycled: 0, minutes: 45 },
@@ -414,10 +416,30 @@ const MinutesMonthly = (props) => (
 export default class Activity extends Component {
     constructor(props) {
         super(props);
+        this.getHealthData = this.getHealthData.bind(this);
+
+        this.state = {
+            todaysData: [],
+            weeklyData: [],
+            monthlyData: [],
+        }
     }
 
     componentDidMount() {
-        //TODO
+        if (this.props.user.token) this.getHealthData();
+    }
+
+    async getHealthData() {
+        try {
+            // let weekAgoMS = Date.now()-604800000; // 7 days ago
+            // let monthAgoMS = Date.now()-2592000000; // 30 days ago
+            // console.log(todaysData);
+            const data = await getHealth(this.props.user.token);
+            console.log( data );
+            this.setState({ healthData: data });
+        } catch (err) {
+            console.error(err.message);
+        }
     }
 
     // will need to create a flexbox to align the charts

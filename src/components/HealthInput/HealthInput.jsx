@@ -2,12 +2,14 @@ import './HealthInput.css';
 import React, {useState, useEffect} from 'react';
 import { Footer, Navigation } from '../index';
 import {Link, useLocation} from "react-router-dom";
-import { createHealthData } from "../../util/healthdata";
+import { createHealthData, getHealth } from "../../util/healthdata";
 // import Button from '@material-ui/core/Button';
 
 const HealthInput = (props) => {
     const [calories, setCalories] = useState("");
-    const [distance, setDistance] = useState("");
+    const [distanceWalked, setDistanceWalked] = useState("");
+    const [distanceRan, setDistanceRan] = useState("");
+    const [distanceCycled, setDistanceCycled] = useState("");
     const [minutes, setMinutes] = useState("");
     
     
@@ -16,7 +18,7 @@ const HealthInput = (props) => {
     // It then gets the result from that to know if it was successful or not
     const inputCheck = async () => {
         try {
-            const response = await createHealthData(props.user.token, calories, distance, minutes);
+            const response = await createHealthData(props.user.token, calories, distanceWalked, distanceRan, distanceCycled, minutes);
             console.log(response);
             alert("Health Data Uploaded");
         }
@@ -40,13 +42,26 @@ const HealthInput = (props) => {
                     </div>	
                 </div>
                 <div className="posting-input-container">
-                    <label className='label-minutes'>Distance Walked, Ran, or Cycled</label>	
+                    <label className='label-minutes'>Distance Walked</label>	
                     <div className='health-input'>
-                        <input type="text" name="distance" required="" value={distance} onChange={(e) => setDistance(e.target.value)}/>
+                        <input type="text" name="distance" required="" value={distanceWalked} onChange={(e) => setDistanceWalked(e.target.value)}/>
                         <label>Miles</label>
                     </div>
                 </div>
-            
+                <div className="posting-input-container">
+                    <label className='label-minutes'>Distance Ran</label>	
+                    <div className='health-input'>
+                        <input type="text" name="distance" required="" value={distanceRan} onChange={(e) => setDistanceRan(e.target.value)}/>
+                        <label>Miles</label>
+                    </div>
+                </div>
+                <div className="posting-input-container">
+                    <label className='label-minutes'>Distance Cycled</label>	
+                    <div className='health-input'>
+                        <input type="text" name="distance" required="" value={distanceCycled} onChange={(e) => setDistanceCycled(e.target.value)}/>
+                        <label>Miles</label>
+                    </div>
+                </div>
                 <div className="posting-input-container">
                     <label className='label-minutes'>Minutes Spent Working Out</label>
                     <div className='health-input'>	

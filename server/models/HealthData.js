@@ -10,21 +10,26 @@ const HealthDataSchema = new Schema(
       required: true,
     },
     calories: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     },
-    
-    distance: {
-        type: Number,
-        required: true
+    distanceWalked: {
+      type: Number,
+      required: true
     },
-
+    distanceRan: {
+      type: Number,
+      required: true
+    },
+    distanceCycled: {
+      type: Number,
+      required: true
+    },
     minutes: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     },
-
-    date: {type: Date, default: Date.now()}
+    date: { type: Date, default: Date.now() }
   },
   {
     collection: 'HealthData',
