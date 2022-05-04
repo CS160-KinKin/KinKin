@@ -7,9 +7,13 @@ function Home(props) {
     <>
       <Navigation {...props} />
       <div className='home row content'>
-        
-              <h1 className='welcome'>Welcome!</h1>
-            
+        <div className='container'>
+          <div className='row align-items-center my-5'>
+            <div className='col-lg-5'>
+              <h1 className='font-weight-light'>Welcome!</h1>
+            </div>
+          </div>
+        </div>
       </div>
       <Footer />
     </>
