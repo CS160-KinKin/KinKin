@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Navigation, Footer } from "../index";
-import { getHealth } from "../../util/healthdata";
+import { getWeeklyHealth, getMonthlyHealth, getDailyHealth } from "../../util/healthdata";
 import "./activity.css";
 import {
     VictoryPie,
@@ -431,12 +431,22 @@ export default class Activity extends Component {
 
     async getHealthData() {
         try {
-            // let weekAgoMS = Date.now()-604800000; // 7 days ago
+            //const weekAgoMS = Date.now()-604800000; // 7 days ago
+            const weekAgoMS = 22;
+            //console.log("weekAgoMS: " + weekAgoMS);
             // let monthAgoMS = Date.now()-2592000000; // 30 days ago
             // console.log(todaysData);
-            const data = await getHealth(this.props.user.token);
-            console.log( data );
-            this.setState({ healthData: data });
+
+            const dailyData = await getDailyHealth(this.props.user.token);
+            console.log( dailyData );
+
+            const weekData = await getWeeklyHealth(this.props.user.token);
+            console.log( weekData );
+
+            const monthData = await getMonthlyHealth(this.props.user.token);
+            console.log( monthData );
+
+            this.setState({ healthData: weekData });
         } catch (err) {
             console.error(err.message);
         }

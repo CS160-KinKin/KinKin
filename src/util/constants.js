@@ -25,7 +25,9 @@ const GET_REQUESTS_ENDPOINT = '/pt/getrequests';
 const ACCEPT_REQUEST_ENDPOINT = '/pt/acceptrequest';
 const DELETE_REQUEST_ENDPOINT = '/pt/deleterequest';
 const CREATE_HEALTH_DATA_ENDPOINT = '/healthdata/create';
-const GET_HEALTH_DATA_ENDPOINT = '/healthdata/get';
+const GET_WEEKLY_HEALTH_DATA_ENDPOINT = '/healthdata/getweeklydata';
+const GET_MONTHLY_HEALTH_DATA_ENDPOINT = '/healthdata/getmonthlydata';
+const GET_DAILY_HEALTH_DATA_ENDPOINT = '/healthdata/getdailydata';
 
 const DAYS_OF_WEEK = [
   { label: 'Monday', value: 'MON' },
@@ -54,5 +56,7 @@ export {
   ACCEPT_REQUEST_ENDPOINT,
   DELETE_REQUEST_ENDPOINT,
   CREATE_HEALTH_DATA_ENDPOINT,
-  GET_HEALTH_DATA_ENDPOINT
+  GET_WEEKLY_HEALTH_DATA_ENDPOINT,
+  GET_MONTHLY_HEALTH_DATA_ENDPOINT,
+  GET_DAILY_HEALTH_DATA_ENDPOINT
 };
