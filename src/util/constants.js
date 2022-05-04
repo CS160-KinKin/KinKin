@@ -61,6 +61,9 @@ const LANGUAGES = [
   { label: 'English', value: 'English' },
   { label: 'Spanish', value: 'Spanish' },
   { label: 'French', value: 'French' },
+  { label: 'Portuguese', value: 'Portuguese' },
+  { label: 'Hindi', value: 'Hindi' },
+  { label: 'Javascript', value: 'Javascript' },
 ];
 
 export {
