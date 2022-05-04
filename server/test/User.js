@@ -25,9 +25,16 @@ let app = null
 let test = null
 
 describe('User', () => {
-  initializeTokenMock() //not sure this is gonna work
-  chai.request(server)
-  before(done => {
-    app = 
-  })
+  // initializeTokenMock() //not sure this is gonna work
+  // chai.request(server)
+  // before(done => {
+  //   app = 
+  // })
+  beforeEach((done) => { 
+    User.remove({}, (err) => { 
+       done();           
+    });        
+  });
+
+  describe()
 })
