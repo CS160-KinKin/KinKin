@@ -10,6 +10,9 @@ const {
   resetTokenMock,
   restoreTokenMock,
 } = require('../test/util/TokenUtil');
+const {
+  initServer, clearSchema, closeServer
+} = require('./util/util');
 const ApiTester = require('./util/ApiTester');
 
 const chai = require('chai');
@@ -18,37 +21,33 @@ const expect = chai.expect;
 chai.should();
 chai.use(chaiHttp);
 
-let server = require('../server'); //<-- should i create server instances instead
 const { TestWatcher } = require('jest');
 
 let app = null
-let test = null
+let testServer = null
 const token = ''
 
 describe('User', () => {
   // replace this with clearSchema at some point
   before((done) => { 
-    initializeTokenMock() //not sure this is gonna work
-    // app = server;
-    // tester = new ApiTester(app);
-
+    testServer = initServer();
+    //emptySchema(User); // do not run
+    
     done()    
   });
 
-  // beforeEach((done) => {
-  //   User.remove({}, (err) => { 
-  //     done();           
-  //   });
-  // });
-
   after(done => {
-    restoreTokenMock();
+    closeServer()
     done();
   });
 
+  // afterEach(() => {
+  //   resetTokenMock();
+  // });
+
   describe('/GET all users in db', () => {
     it('should get all users', async(done) => {
-      chai.request(server)
+      chai.request(testServer)
         .get('/user/users')
         .end((err,res) => {
           res.should.have.status(200)
@@ -71,13 +70,15 @@ describe('User', () => {
 
       // const response = await TestWatcher.sendPostRequest('/user/', user);
 
-      chai.request(server)
+      chai.request(testServer)
       .put('/user/')
       .then(next => {
         verifyTokenMock = sinon.stub(Auth, 'verifyToken')
         .callsFake(async(req,res,next) => {
           return next();
         });
+
+        next();
       })
       .send(user)
       .end((err, res) => {

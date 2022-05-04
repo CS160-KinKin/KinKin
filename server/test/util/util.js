@@ -1,10 +1,12 @@
-const { server } = require('../../server')
+const { testServer } = require('../../testServer')
 
-let serverInstance = null;
+let testServerInstance = null;
 
 // needs to be fixed this is off
-const initServer = (path, port=9999) => {
-  serverInstance = new server(path,port)
+const initServer = () => {
+  testServerInstance = new testServer();
+  testServerInstance.openConnection();
+  return testServerInstance.getServer();
 }
 
 const clearSchema = (schema) => {
@@ -15,6 +17,10 @@ const clearSchema = (schema) => {
   })
 }
 
+const closeServer = (done) => {
+  testServerInstance.closeConnection(done)
+}
+
 module.exports = {
-  clearSchema,
+  initServer, clearSchema, closeServer
 }

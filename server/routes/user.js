@@ -56,9 +56,9 @@ router.post('/get', verifyToken, async (req, res) => {
   }
 });
 
-router.get('/users', verifyToken, async (req, res) => {
+router.get('/users', async (req, res) => {
   try {
-    const doc = await User.find({}).then(userss => res.status(OK)).send(users);
+    const doc = await User.find({}).then(userss => res.status(STATUS_CODES.OK)).send(users);
   } catch(e) {}
     
 });

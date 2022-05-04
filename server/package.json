@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "export NODE_ENV=test mocha --timeout 10000"
+    "test-server": "nodemon devServer.js",
+    "test": "mocha --timeout 10000"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "google-auth-library": "^7.14.1",
+    "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^10.0.0",
     "mongodb": "^4.4.1",
