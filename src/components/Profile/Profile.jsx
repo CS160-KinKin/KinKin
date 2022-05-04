@@ -3,7 +3,7 @@ import ClientProfile from './ClientProfile';
 import PTProfile from './PTProfile';
 import { Navigation, Footer } from '../index';
 import EditClient from './EditClient';
-import EditPT from './EditPT';
+import EditPt from './EditPt';
 
 function Profile(props) {
   return (
@@ -38,7 +38,7 @@ function Profile(props) {
               <EditClient />
               <br />
               This is the edit page of the PT profile.
-              <EditPT />
+              <EditPt />
             </div>
           </div>
         </div>

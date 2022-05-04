@@ -35,45 +35,53 @@ const AdditionalInformationCollection = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const userRes = await createUser({
-      token: props.user.token,
-      username,
-      publicName,
-      email: props.user.email,
-      pictureUrl: props.user.pictureUrl,
-    });
-    if (userRes.status !== STATUS_CODES.OK) {
-      alert('Server error');
+    try {
+      const userRes = await createUser(props.user.token, {
+        username,
+        publicName,
+        email: props.user.email,
+        pictureUrl: props.user.pictureUrl,
+      });
+      if (userRes.status !== STATUS_CODES.OK) {
+        if (userRes.status === STATUS_CODES.CONFLICT) {
+          alert('Username is taken');
+        } else {
+          alert('Server error');
+        }
+        return;
+      }
+      if (isPT) {
+        const res = await createPt(props.user.token, {
+          bio: PTbio,
+          specialties,
+          availableDays: availability,
+          rate,
+          location,
+          languages,
+        });
+        if (res.status !== STATUS_CODES.OK) {
+          console.error('PT profile not created');
+        }
+      }
+      if (isClient) {
+        const res = await createClient(props.user.token, {
+          bio: clientBio,
+          languages,
+          location,
+          interests,
+        });
+        if (res.status !== STATUS_CODES.OK) {
+          console.error('Client profile not created');
+        }
+      }
+
+      const user = new User(userRes.data);
+      user.newUser = false;
+      props.setUser(user);
+    } catch (err) {
+      console.error(err);
       return;
     }
-
-    if (isPT) {
-      const res = await createPt(props.user.token, {
-        bio: PTbio,
-        specialties,
-        availableDays: availability,
-        rate,
-        location,
-        languages,
-      });
-      if (res.status !== STATUS_CODES.OK) {
-        console.error('PT profile not created');
-      }
-    }
-    if (isClient) {
-      const res = await createClient(props.user.token, {
-        bio: clientBio,
-        languages,
-        location,
-        interests,
-      });
-      if (res.status !== STATUS_CODES.OK) {
-        console.error('Client profile not created');
-      }
-    }
-
-    const user = new User(userRes.data);
-    props.setUser(user);
   };
 
   return (
@@ -193,22 +201,7 @@ const AdditionalInformationCollection = (props) => {
           )}
         </div>
         <div className='btn-container'>
-          {username &&
-          publicName &&
-          languages.length &&
-          ((isPT &&
-            PTbio &&
-            specialties.length &&
-            availability.length &&
-            !isClient) ||
-            (isClient && clientBio && interests.length && !isPT) ||
-            (isPT &&
-              isClient &&
-              clientBio &&
-              interests.length &&
-              PTbio &&
-              specialties.length &&
-              availability.length)) ? (
+          {username && publicName ? (
             <input className='btn' type='submit' value='Register' />
           ) : (
             <input disabled className='btn' type='submit' value='Register' />
