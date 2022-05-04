@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom';
 
 import User from './util/User';
+import { getClient } from './util/client';
 import {
   About,
   Home,
@@ -27,16 +28,19 @@ import {
   EditWorkoutTask,
   CreateWorkoutTask,
 } from './components';
+import AdditionalInformationCollection from './components/UserCreation/AdditionalInformationCollection'
+import { STATUS_CODES } from './util/constants';
 
 function App() {
   const [user, setUser] = useState(new User());
-
   const handleLogout = () => {
     user.logout();
     setUser(new User());
   };
 
   if (user.token) {
+    if(!getClient(user.token))
+        return <AdditionalInformationCollection user = { user }/>
     return (
       <Routes>
         <Route

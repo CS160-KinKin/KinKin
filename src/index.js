@@ -8,7 +8,7 @@ import "./index.css"
 
 ReactDOM.render(
     <BrowserRouter>
-      <AdditionalInformationCollection />
+      <App />
     </BrowserRouter>,
   document.getElementById("root")
 );
