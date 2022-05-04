@@ -12,8 +12,7 @@ const cookies = Cookies.withAttributes({
   sameSite: 'strict',
 });
 
-const authUrl =
-  process.env.REACT_APP_CONTROL_SERVER_URL + POST_AUTH_ENDPOINT;
+const authUrl = process.env.REACT_APP_CONTROL_SERVER_URL + POST_AUTH_ENDPOINT;
 const logoutUrl =
   process.env.REACT_APP_CONTROL_SERVER_URL + POST_LOGOUT_ENDPOINT;
 
@@ -25,9 +24,7 @@ export default class User {
   }
 
   logout() {
-    USER_ATTRIBUTES.forEach((att) => {
-      cookies.remove(att, this[att]);
-    });
+    USER_ATTRIBUTES.forEach((att) => cookies.remove(att));
     fetch(logoutUrl, {
       method: 'POST',
       mode: 'cors',
@@ -38,12 +35,14 @@ export default class User {
     });
   }
 
-  async fetchInfo(googleTokenId) {
+  async login(googleTokenId) {
     const res = await fetch(authUrl, {
       method: 'POST',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tokenId: googleTokenId }),
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': googleTokenId,
+      },
     });
     if (res.ok) {
       const data = await res.json();
@@ -51,8 +50,6 @@ export default class User {
       USER_ATTRIBUTES.forEach((att) => {
         cookies.set(att, data[att]);
       });
-    } else if (res.statusText === 'Email not verified with Google') {
-      console.log('block 1');
     } else {
       console.log('invalid login');
     }

@@ -11,7 +11,16 @@ const CONVERT = {
   WEEK_TO_SECONDS: 604800,
 };
 
-const USER_ATTRIBUTES = ['id', 'token', 'email', 'publicName', 'username', 'pictureUrl'];
+const USER_ATTRIBUTES = [
+  'id',
+  'token',
+  'email',
+  'emailVerified',
+  'publicName',
+  'username',
+  'pictureUrl',
+  'newUser',
+];
 
 const POST_AUTH_ENDPOINT = '/auth';
 const POST_LOGOUT_ENDPOINT = '/logout';
