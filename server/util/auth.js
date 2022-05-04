@@ -93,6 +93,7 @@ const handleLogin = async (req, res) => {
       userDoc.pictureUrl = googleTokenInfo.pictureUrl;
       await userDoc.save();
       return res.status(STATUS_CODES.OK).send({
+        id,
         email: googleTokenInfo.email,
         username: userDoc.username,
         publicName: googleTokenInfo.name,
@@ -102,6 +103,7 @@ const handleLogin = async (req, res) => {
       });
     } else {
       return res.status(STATUS_CODES.OK).send({
+        id,
         email: googleTokenInfo.email,
         publicName: googleTokenInfo.name,
         pictureUrl: googleTokenInfo.picture,

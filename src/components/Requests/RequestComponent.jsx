@@ -7,30 +7,28 @@ const RequestComponent = (props) => {
   
     const onAcceptRequest = async () => {
         try {
-            const response = await acceptRequest(props.user.token, props.name);
+            const response = await acceptRequest(props.user.token, props.client.id);
             alert("Request Accepted");
         }
         catch (err) {
             alert("Could not accept request");
-            console.log("not working" + err.message);
         }
     }
 
     const onRejectRequest = async () => {
         try {
-            const response = await deleteRequest(props.user.token, props.name);
+            const response = await deleteRequest(props.user.token, props.client.id);
             alert("Request Rejected");
         }
         catch (err) {
             alert("Could not reject request");
-            console.log("not working" + err.message);
         }
     }
 
     return (
         <div className="request-container">
             <div className="client-name">
-                <h1>{props.name}</h1>
+                <h1>{props.client.name || "No name"}</h1>
             </div>
             <div className="buttons">
                 <button type="button" className="accept-btn" onClick={onAcceptRequest}>Accept</button>
