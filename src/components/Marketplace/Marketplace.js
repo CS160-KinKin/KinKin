@@ -25,7 +25,7 @@ export default class Marketplace extends Component {
   }
 
   sendMessage() {
-    alert("Request sent to PT.");
+    alert("Message sent to PT.");
     // Message routing to be implemented
   }
 
