@@ -1,9 +1,12 @@
 /*
  Note: Source SCE Core-v4
 */
+const {
+  initializeTokenMock,
+} = require('./TokenUtil');
 
 const chai = require('chai');
-const chaiHttp = require('chat-http');
+const chaiHttp = require('chai-http');
 chai.should()
 chai.use(chaiHttp)
 
@@ -12,12 +15,13 @@ class ApiTester {
     this.app = app
   }
 
-  async sendPostRequestWithToken(token, endpoint) {
+  async sendPostRequest(endpoint, object) {
     let response = null;
     await chai
       .request(this.app)
       .post(endpoint)
-      .send({ token, ...params })
+      .then(initializeTokenMock())
+      .send({ object })
       .then(function (res) {
         response = res;
       })
@@ -27,12 +31,12 @@ class ApiTester {
     return response;
   }
 
-  async sendGetRequestWithToken(token, endpoint) {
+  async sendGetRequest(endpoint) {
     let response = null;
     await chai
       .request(this.app)
       .get(endpoint)
-      .send({ token: token })
+      .then(initializeTokenMock())
       .then(function (res) {
         response = res;
       })

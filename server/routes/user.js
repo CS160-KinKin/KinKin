@@ -56,4 +56,11 @@ router.post('/get', verifyToken, async (req, res) => {
   }
 });
 
+router.get('/users', verifyToken, async (req, res) => {
+  try {
+    const doc = await User.find({}).then(userss => res.status(OK)).send(users);
+  } catch(e) {}
+    
+});
+
 module.exports = router;

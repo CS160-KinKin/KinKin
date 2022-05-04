@@ -1,11 +1,12 @@
 // token verification function
 const Auth = require('../../util/auth');
-const TokenValidation = require('../../../api/util/token-verification');
 const sinon = require('sinon');
 
-
 const initializeTokenMock = () => {
-  verifyTokenMock = sinon.stub(Auth, 'verifyToken');
+  verifyTokenMock = sinon.stub(Auth, 'verifyToken')
+    .callsFake(async(req,res,next) => {
+      return next();
+    });
 }
 
 const restoreTokenMock = () => {

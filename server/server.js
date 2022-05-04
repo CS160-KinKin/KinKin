@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const { handleLogin, verifyToken, handleLogout } = require('./util/auth');
+const env = process.env.NODE_ENV || 'development';
+
 
 require('dotenv').config({ path: './config.env' });
 
@@ -21,7 +23,13 @@ app.use('/user', userRouter);
 app.use('/client', clientRouter);
 app.use('/pt', pTRouter);
 
+// if(env === 'test'){
+//   process.env.MONGODB_URI = 'mongodb://localhost:27017/kinkin-test-db'
+// } else {
+//   process.env.MONGODB_URI = 'mongodb://localhost:27017/myFirstDatabase'
+// }
 const db = process.env.ATLAS_URI;
+
 mongoose.connect(db, { useNewUrlParser: true });
 
 const connection = mongoose.connection;
