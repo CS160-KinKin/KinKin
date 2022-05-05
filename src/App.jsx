@@ -36,13 +36,10 @@ function App() {
 
   if (user.token && user.newUser) {
     return (
-      <>
-        <Navigation user={user} handleLogout={handleLogout} />
-        <AdditionalInformationCollection
-          user={user}
-          setUser={(o) => setUser(o)}
-        />
-      </>
+      <AdditionalInformationCollection
+        user={user}
+        setUser={(o) => setUser(o)}
+      />
     );
   }
 

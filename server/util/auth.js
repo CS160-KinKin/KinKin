@@ -42,7 +42,6 @@ const verifyToken = async (req, res, next) => {
     if (doc) req.user = decoded;
     else return res.status(STATUS_CODES.FORBIDDEN).json('User is logged out');
   } catch (err) {
-    console.error(token);
     return res.status(STATUS_CODES.BAD_REQUEST).send('Invalid Token');
   }
   return next();

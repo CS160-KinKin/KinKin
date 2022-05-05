@@ -54,7 +54,6 @@ export default class User {
       }
     );
     if (res.status === STATUS_CODES.OK) {
-      console.log(res.data);
       Object.assign(this, res.data);
       USER_ATTRIBUTES.forEach((att) => {
         if (att !== 'newUser') cookies.set(att, res.data[att]);
