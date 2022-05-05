@@ -11,10 +11,10 @@ function About(props) {
             <div className='col-lg-5'>
               <h1 className='font-weight-light'>About</h1>
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
+                This is a project for CS 160 at SJSU. It was developed by Christina Ng, Eunice Oh, Joshua Lawson, Thi Bui, Isita Bagayatkar, Charlotte Zhuang, and Isabella Piziali.
+                <br></br>
+                KinKin aims to help people who would like to start working out find a personal trainer to guide them. It provides a marketplace for users to find personal trainers,
+                the ability to request a personal trainer, and to receive custom made workouts on our platform.
               </p>
             </div>
           </div>
