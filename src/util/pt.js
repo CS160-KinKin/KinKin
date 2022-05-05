@@ -1,12 +1,40 @@
 import axios from 'axios';
 import {
+  GET_PT_ENDPOINT,
   SEARCH_PT_ENDPOINT,
   POST_REQUEST_ENDPOINT,
-  GET_CLIENT_ENDPOINT,
   ACCEPT_REQUEST_ENDPOINT,
   DELETE_REQUEST_ENDPOINT,
   GET_REQUESTS_ENDPOINT,
+  MUTATE_PT_ENDPOINT,
 } from './constants';
+
+/**
+ * Queries the user's PT profile.
+ * @param {string} token JWT.
+ * @returns [Promise<AxiosResponse>] status: OK, NOT_FOUND, or BAD_REQUEST;
+ * data: client profile, if it exists
+ */
+ const getPt = (token) => {
+  return axios.post(
+    process.env.REACT_APP_CONTROL_SERVER_URL + GET_PT_ENDPOINT,
+    {},
+    { headers: { 'x-access-token': token, 'content-type': 'application/json' } }
+  );
+};
+
+const createPt = async (token, body) => {
+  if (body.rate) {
+    body.rate = parseInt(body.rate);
+    if (isNaN(body.rate)) body.rate = undefined;
+  }
+  const res = await axios.put(
+    process.env.REACT_APP_CONTROL_SERVER_URL + MUTATE_PT_ENDPOINT,
+    body,
+    { headers: { 'x-access-token': token, 'content-type': 'application/json' } }
+  );
+  return res;
+};
 
 /**
  * Queries PTs based on filters.
@@ -61,6 +89,8 @@ const deleteRequest = async (token, id) => {
 };
 
 export {
+  getPt,
+  createPt,
   getPTsByFilters,
   addRequest,
   getRequests,

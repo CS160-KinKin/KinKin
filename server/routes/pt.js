@@ -11,6 +11,10 @@ router.put('/', verifyToken, async (req, res) => {
   try {
     const { bio, languages, location, specialties, rate, availableTimes } =
       req.body;
+    const dup = await Pt.findById(req.user.userId);
+    if (dup) {
+      return res.status(CONFLICT).send();
+    }
     const doc = await Pt.create({
       _id: req.user.userId,
       bio,
@@ -22,6 +26,7 @@ router.put('/', verifyToken, async (req, res) => {
     });
     res.status(OK).send(doc);
   } catch (err) {
+    console.error(err);
     res.status(BAD_REQUEST).send(err.message);
   }
 });

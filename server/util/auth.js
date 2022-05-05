@@ -79,13 +79,15 @@ const handleLogin = async (req, res) => {
     }
 
     const id = googleTokenInfo.sub;
-    const token = await createTokens(id, { email: googleTokenInfo.email });
     const userDoc = await User.findById(id);
     if (userDoc) {
       userDoc.publicName = googleTokenInfo.name;
-      if (googleTokenInfo.email_verified) userDoc.email = googleTokenInfo.email;
+      if (googleTokenInfo.email_verified) {
+        userDoc.email = googleTokenInfo.email;
+      }
       userDoc.pictureUrl = googleTokenInfo.picture;
       await userDoc.save();
+      const token = await createTokens(id, { email: userDoc.email });
       return res.status(STATUS_CODES.OK).send({
         id,
         email: googleTokenInfo.email,
@@ -97,6 +99,11 @@ const handleLogin = async (req, res) => {
         newUser: false,
       });
     } else {
+      const token = await createTokens(id, {
+        email: googleTokenInfo.email_verified
+          ? googleTokenInfo.email
+          : undefined,
+      });
       return res.status(STATUS_CODES.OK).send({
         id,
         email: googleTokenInfo.email,
