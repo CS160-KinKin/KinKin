@@ -34,7 +34,7 @@ import {
           {/* <div className = 'sendbird-channel-header sendbird-channel-header__right-icon'> */}
           <ChannelList 
           onChannelSelect={(channel) => {
-                if(channel != undefined) {
+                if(channel) {
                     setChannelUrl(channel.url)
                 }
             }}
