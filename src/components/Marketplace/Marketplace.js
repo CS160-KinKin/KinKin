@@ -4,6 +4,7 @@ import PTProfile from '../Profile/PTProfile';
 import FilterSearch from './FilterSearch';
 import { getPTsByFilters } from '../../util/pt';
 import { addRequest } from '../../util/pt';
+import ChatButton from '../Chat/ChatButton' 
 import './marketplace.css';
 
 export default class Marketplace extends Component {
@@ -30,12 +31,7 @@ export default class Marketplace extends Component {
       console.log(err.message);
     }
   }
-
-  sendMessage() {
-    alert('Go to messaging tbd');
-    // Message routing to be implemented
-  }
-
+  
   async getMarketplace(filters = {}) {
     // get PT data from database using filters
     try {
@@ -71,7 +67,7 @@ export default class Marketplace extends Component {
                             <button className='request-btn' onClick={() => this.sendRequest(PT.id)}>
                               Request
                             </button>
-                            <button className='message-btn' onClick={this.sendMessage}>Message</button>
+                            <ChatButton user={this.props.user} pt={PT} />
                           </div>
                           <br />
                           <br />
