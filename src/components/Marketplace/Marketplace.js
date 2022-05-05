@@ -25,11 +25,6 @@ export default class Marketplace extends Component {
     // Request routing to be implemented
   }
 
-  sendMessage() {
-    alert("Message sent to PT.");
-    // Message routing to be implemented
-  }
-
   async getMarketplace(filters={}) {
     // get PT data from database using filters
     try {
@@ -54,7 +49,7 @@ export default class Marketplace extends Component {
                 return (<div>
                   <PTProfile {...PT} />
                   <button onClick={this.sendRequest}>Request</button>
-                  <ChatButton user={this.props.user} pt={PT} message={"hi i am interested"}/>
+                  <ChatButton user={this.props.user} pt={PT} />
                   <br /><br />
                 </div>)
               })}

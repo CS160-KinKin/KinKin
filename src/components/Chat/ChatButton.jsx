@@ -2,11 +2,9 @@ import {
   SendBirdProvider, 
   withSendBird,
   sendBirdSelectors, 
-  Channel,
-  ChannelList,
 } from 'sendbird-uikit';
 import 'sendbird-uikit/dist/index.css';
-import {React, useState, useContext} from 'react';
+import {React, useContext} from 'react';
 import ChatContext from './ChatContext'
 
 const appId = process.env.REACT_APP_SENDBIRD_ID
@@ -19,7 +17,6 @@ const CustomChannel = ({createChannel, sdk, sendMessage}) => {
       <button onClick={() => {
         let message = prompt("Send an intial message:", "Hi! I am interested in being your client...")
         console.log(message)
-
         console.log(props.pt.name)
 
         let channelParams = new sdk.GroupChannelParams()
@@ -47,7 +44,7 @@ const CustomChannel = ({createChannel, sdk, sendMessage}) => {
           .then(message => {
             console.warn(message)
           })
-          .catch(c => console.warn(cancelAnimationFrame))
+          .catch(c => console.warn(c))
         })
         .catch(c => console.warn(c))
       }}>
