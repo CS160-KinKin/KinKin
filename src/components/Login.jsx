@@ -7,11 +7,11 @@ import User from '../util/User';
 function Login(props) {
   const navigate = useNavigate();
   const handleFailure = (result) => {
-    console.log(result);
+    console.error(result);
   };
   const handleLogin = async (googleData) => {
     const user = new User();
-    await user.fetchInfo(googleData.tokenId);
+    await user.login(googleData.tokenId);
     props.setUser(user);
     navigate(-1);
   };

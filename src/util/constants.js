@@ -11,7 +11,16 @@ const CONVERT = {
   WEEK_TO_SECONDS: 604800,
 };
 
-const USER_ATTRIBUTES = ['token', 'email', 'publicName', 'username', 'pictureUrl'];
+const USER_ATTRIBUTES = [
+  'id',
+  'token',
+  'email',
+  'emailVerified',
+  'publicName',
+  'username',
+  'pictureUrl',
+  'newUser',
+];
 
 const POST_AUTH_ENDPOINT = '/auth';
 const POST_LOGOUT_ENDPOINT = '/logout';
@@ -21,6 +30,7 @@ const SEARCH_PT_ENDPOINT = '/pt/search';
 const GET_CLIENT_ENDPOINT = '/client/get';
 const ADD_PTREQUEST_ENDPOINT = '/pt/addptrequest';
 const ADD_CLIENT_REQUEST_ENDPOINT = '/pt/addclientrequest';
+const POST_REQUEST_ENDPOINT = '/pt/request';
 const GET_REQUESTS_ENDPOINT = '/pt/getrequests';
 const ACCEPT_REQUEST_ENDPOINT = '/pt/acceptrequest';
 const DELETE_REQUEST_ENDPOINT = '/pt/deleterequest';
@@ -58,5 +68,6 @@ export {
   CREATE_HEALTH_DATA_ENDPOINT,
   GET_WEEKLY_HEALTH_DATA_ENDPOINT,
   GET_MONTHLY_HEALTH_DATA_ENDPOINT,
-  GET_DAILY_HEALTH_DATA_ENDPOINT
+  GET_DAILY_HEALTH_DATA_ENDPOINT,
+  POST_REQUEST_ENDPOINT
 };

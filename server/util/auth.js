@@ -68,19 +68,13 @@ const getGoogleTokenInfo = async (tokenId) => {
 
 const handleLogin = async (req, res) => {
   try {
-    if (!req.body) {
-      res.status(STATUS_CODES.BAD_REQUEST).send('Missing tokenId');
-      return;
+    const googleTokenId = req.headers['x-access-token'];
+    if (!googleTokenId) {
+      return res.status(STATUS_CODES.BAD_REQUEST).json('Missing token');
     }
-    const googleTokenInfo = await getGoogleTokenInfo(req.body.tokenId);
+    const googleTokenInfo = await getGoogleTokenInfo(googleTokenId);
     if (!googleTokenInfo) {
-      res.status(STATUS_CODES.UNAUTHORIZED).send('Invalid token');
-      return;
-    }
-    if (!googleTokenInfo.email_verified) {
-      res
-        .status(STATUS_CODES.UNAUTHORIZED)
-        .send('Email not verified with Google');
+      res.status(STATUS_CODES.FORBIDDEN).send('Invalid token');
       return;
     }
 
@@ -89,11 +83,13 @@ const handleLogin = async (req, res) => {
     const userDoc = await User.findById(id);
     if (userDoc) {
       userDoc.publicName = googleTokenInfo.name;
-      userDoc.email = googleTokenInfo.email;
-      userDoc.pictureUrl = googleTokenInfo.pictureUrl;
+      if (googleTokenInfo.email_verified) userDoc.email = googleTokenInfo.email;
+      userDoc.pictureUrl = googleTokenInfo.picture;
       await userDoc.save();
       return res.status(STATUS_CODES.OK).send({
+        id,
         email: googleTokenInfo.email,
+        emailVerified: true,
         username: userDoc.username,
         publicName: googleTokenInfo.name,
         pictureUrl: googleTokenInfo.picture,
@@ -102,7 +98,9 @@ const handleLogin = async (req, res) => {
       });
     } else {
       return res.status(STATUS_CODES.OK).send({
+        id,
         email: googleTokenInfo.email,
+        emailVerified: googleTokenInfo.email_verified,
         publicName: googleTokenInfo.name,
         pictureUrl: googleTokenInfo.picture,
         token,
