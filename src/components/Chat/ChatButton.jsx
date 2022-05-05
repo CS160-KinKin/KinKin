@@ -17,14 +17,15 @@ const CustomChannel = ({createChannel, sdk, sendMessage}) => {
       <button onClick={() => {
         let message = prompt("Send an intial message:", "Hi! I am interested in being your client...")
         console.log(message)
-        console.log(props.pt.name)
+        console.log(props.pt)
 
         let channelParams = new sdk.GroupChannelParams()
         channelParams.isPublic = false
         channelParams.isEphemeral = false
         channelParams.isDistinct = true 
       
-        var userIds = [props.pt.name]
+        const ptId = props.pt.id
+        var userIds = [ptId]
         channelParams.addUserIds(userIds) 
 
         createChannel(channelParams) 
@@ -63,12 +64,13 @@ const CustomChannelWithSendBird = withSendBird(CustomChannel, (state) => {
 })
 
 const ChatButton = (props) => {
+  const userId = props.user.id
 
   return (
     <>
     <SendBirdProvider 
       appId={appId}
-      userId={props.user.publicName} 
+      userId={userId} 
       nickname={props.user.publicName}
       profileUrl={props.user.pictureUrl}
     >

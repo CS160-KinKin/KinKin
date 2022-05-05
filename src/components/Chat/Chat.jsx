@@ -10,6 +10,8 @@ import {
   const appId = process.env.REACT_APP_SENDBIRD_ID
   
   const ChatApp = (props) => {
+
+    const userId = props.user.id
     const [channelUrl, setChannelUrl] = useState('')
     const [queries] = useState({
       applicationUserListQuery: {
@@ -23,7 +25,7 @@ import {
       <Navigation {...props}/>
       <SendBirdProvider 
         appId={appId}
-        userId={props.user.publicName} 
+        userId={userId} 
         nickname={props.user.publicName}
         profileUrl={props.user.pictureUrl}
         userListQuery={[]}
