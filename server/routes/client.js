@@ -21,11 +21,10 @@ router.put('/', verifyToken, async (req, res) => {
       location,
       interests,
       trainingGoals,
-      negativeRatingCount: 0,
-      positiveRatingCount: 0,
     });
     return res.status(OK).send(doc);
   } catch (err) {
+    console.error(err);
     return res.status(BAD_REQUEST).send(err.message);
   }
 });

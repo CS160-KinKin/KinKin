@@ -11,15 +11,18 @@ const PtSchema = new Schema(
     languages: {
       type: Array,
       of: String,
+      default: [],
     },
     bio: {
       type: String,
     },
     positiveRatingCount: {
       type: Number,
+      default: 0,
     },
     negativeRatingCount: {
       type: Number,
+      default: 0,
     },
     location: {
       type: PointSchema,
@@ -29,26 +32,30 @@ const PtSchema = new Schema(
       type: Array,
       of: String,
       ref: 'User',
+      default: [],
     },
     requests: {
       type: Array,
       of: String,
       ref: 'Client',
+      default: [],
     },
     specialties: {
       type: Array,
       of: String,
+      default: [],
     },
     rate: {
       type: Number,
     },
     availableDays: {
       type: Array,
-      of: { 
-        type: String, 
+      of: {
+        type: String,
         required: true,
-        enum: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] 
+        enum: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
       },
+      default: [],
     },
   },
   {

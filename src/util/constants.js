@@ -52,18 +52,18 @@ const DAYS_OF_WEEK = [
 ];
 
 const SPECIALTIES = [
-  { label: 'Free Weights', value: 'Free Weights' },
-  { label: 'Jogging', value: 'Jogging' },
-  { label: 'Yoga', value: 'Yoga' },
+  { label: 'Free Weights', value: 'FREE WEIGHTS' },
+  { label: 'Jogging', value: 'JOGGING' },
+  { label: 'Yoga', value: 'YOGA' },
 ];
 
 const LANGUAGES = [
-  { label: 'English', value: 'English' },
-  { label: 'Spanish', value: 'Spanish' },
-  { label: 'French', value: 'French' },
-  { label: 'Portuguese', value: 'Portuguese' },
-  { label: 'Hindi', value: 'Hindi' },
-  { label: 'Javascript', value: 'Javascript' },
+  { label: 'English', value: 'ENGLISH' },
+  { label: 'Spanish', value: 'SPANISH' },
+  { label: 'French', value: 'FRENCH' },
+  { label: 'Portuguese', value: 'PORTUGUESE' },
+  { label: 'Hindi', value: 'HINDI' },
+  { label: 'Javascript', value: 'JAVASCRIPT' },
 ];
 
 export {

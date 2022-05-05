@@ -25,6 +25,7 @@ router.put('/', verifyToken, async (req, res) => {
     });
     return res.status(STATUS_CODES.OK).send(doc);
   } catch (err) {
+    console.error(err);
     return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
   }
 });

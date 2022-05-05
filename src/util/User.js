@@ -1,8 +1,10 @@
+import axios from 'axios';
 import {
   CONVERT,
   USER_ATTRIBUTES,
   POST_LOGOUT_ENDPOINT,
   POST_AUTH_ENDPOINT,
+  STATUS_CODES,
 } from './constants';
 import Cookies from 'js-cookie';
 
@@ -22,7 +24,7 @@ export default class User {
       if (attributes[att]) {
         this[att] = attributes[att];
         cookies.set(att, attributes[att]);
-      } else {
+      } else if (att !== 'newUser') {
         this[att] = cookies.get(att);
       }
     });
@@ -41,22 +43,24 @@ export default class User {
   }
 
   async login(googleTokenId) {
-    const res = await fetch(authUrl, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': googleTokenId,
-      },
-    });
-    if (res.ok) {
-      const data = await res.json();
-      Object.assign(this, data);
+    const res = await axios.post(
+      authUrl,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': googleTokenId,
+        },
+      }
+    );
+    if (res.status === STATUS_CODES.OK) {
+      console.log(res.data);
+      Object.assign(this, res.data);
       USER_ATTRIBUTES.forEach((att) => {
-        cookies.set(att, data[att]);
+        if (att !== 'newUser') cookies.set(att, res.data[att]);
       });
     } else {
-      console.log('invalid login');
+      console.error('invalid login');
     }
   }
 }

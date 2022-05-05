@@ -24,6 +24,7 @@ import {
   EditWorkoutTask,
   CreateWorkoutTask,
   AdditionalInformationCollection,
+  Navigation,
 } from './components';
 
 function App() {
@@ -33,12 +34,15 @@ function App() {
     setUser(new User());
   };
 
-  if (user.newUser) {
+  if (user.token && user.newUser) {
     return (
-      <AdditionalInformationCollection
-        user={user}
-        setUser={(o) => setUser(o)}
-      />
+      <>
+        <Navigation user={user} handleLogout={handleLogout} />
+        <AdditionalInformationCollection
+          user={user}
+          setUser={(o) => setUser(o)}
+        />
+      </>
     );
   }
 

@@ -53,11 +53,11 @@ const AdditionalInformationCollection = (props) => {
       if (isPT) {
         const res = await createPt(props.user.token, {
           bio: PTbio,
-          specialties,
-          availableDays: availability,
+          specialties: specialties.map((o) => o.value),
+          availableDays: availability.map((o) => o.value),
           rate,
           location,
-          languages,
+          languages: languages.map((o) => o.value),
         });
         if (res.status !== STATUS_CODES.OK) {
           console.error('PT profile not created');
@@ -66,9 +66,9 @@ const AdditionalInformationCollection = (props) => {
       if (isClient) {
         const res = await createClient(props.user.token, {
           bio: clientBio,
-          languages,
+          languages: languages.map((o) => o.value),
           location,
-          interests,
+          interests: interests.map((o) => o.value),
         });
         if (res.status !== STATUS_CODES.OK) {
           console.error('Client profile not created');
@@ -85,7 +85,7 @@ const AdditionalInformationCollection = (props) => {
   };
 
   return (
-    <div className='infobox'>
+    <div className='row content infobox'>
       <div className='header'>Let's finish your account setup!</div>
       <form className='user-form' onSubmit={onSubmit}>
         <div className='form-info'>
