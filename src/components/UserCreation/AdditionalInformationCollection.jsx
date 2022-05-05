@@ -159,7 +159,7 @@ const AdditionalInformationCollection = (props) => {
                 <input
                   type='number'
                   value={rate}
-                  onChange={(e) => setRate(e)}
+                  onChange={(e) => setRate(e.target.value)}
                 />
               </div>
             </>
