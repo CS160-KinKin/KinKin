@@ -22,7 +22,7 @@ const AdditionalInformationCollection = (props) => {
   const [PTbio, setPTbio] = useState('');
   const [specialties, setSpecialties] = useState([]);
   const [availability, setAvailability] = useState([]);
-  const [rate, setRate] = useState(0);
+  const [rate, setRate] = useState('');
 
   //client values
   const [clientBio, setClientBio] = useState('');
@@ -159,7 +159,7 @@ const AdditionalInformationCollection = (props) => {
                 <input
                   type='number'
                   value={rate}
-                  onChange={(e) => setRate(e)}
+                  onChange={(e) => setRate(e.target.value)}
                 />
               </div>
             </>
