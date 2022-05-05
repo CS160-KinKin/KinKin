@@ -43,7 +43,7 @@ router.post('/getdailydata', verifyToken, async (req, res) => {
 router.post('/getweeklydata', verifyToken, async (req, res) => {
   try {
     
-    const doc = await HealthData.find({ client_id: req.user.userId, date: { $gte: Date.now()-604800000 }}); //1651038626122
+    const doc = await HealthData.find({ client_id: req.user.userId, date: { $gte: Date.now()-604800000 }}).sort({date:1}); //1651038626122
     if (!doc) return res.status(NOT_FOUND).send();
     return res.status(OK).send(doc);
   } catch (err) {
@@ -54,7 +54,7 @@ router.post('/getweeklydata', verifyToken, async (req, res) => {
 router.post('/getmonthlydata', verifyToken, async (req, res) => {
   try {
     
-    const doc = await HealthData.find({ client_id: req.user.userId, date: { $gte: Date.now()-2592000000 }}); //1651038626122
+    const doc = await HealthData.find({ client_id: req.user.userId, date: { $gte: Date.now()-2592000000 }}).sort({date:1}); //1651038626122
     if (!doc) return res.status(NOT_FOUND).send();
     return res.status(OK).send(doc);
   } catch (err) {

@@ -29,50 +29,6 @@ const navy = "#143F6B";
 const red = "#F55353";
 const orange = "#FEB139";
 const grey = "#EEEEEE";
-const currDate = new Date();
-
-const weeklyData = [
-    { day: new Date(2020, 3, 1), calories: 300, walked: 3.5, ran: 0, cycled: 0, minutes: 45 },
-    { day: new Date(2020, 3, 2), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 20 },
-    { day: new Date(2020, 3, 3), calories: 300, walked: 0, ran: 4, cycled: 3, minutes: 60 },
-    { day: new Date(2020, 3, 4), calories: 450, walked: 1, ran: 0, cycled: 3, minutes: 100 },
-    { day: new Date(2020, 3, 5), calories: 150, walked: 0.5, ran: 1.5, cycled: 0, minutes: 50 },
-    { day: new Date(2020, 3, 6), calories: 30, walked: 0, ran: 0, cycled: 2, minutes: 60 },
-    { day: new Date(2020, 3, 7), calories: 170, walked: 2, ran: 2, cycled: 1, minutes: 70 },
-];
-
-const monthlyData = [
-    { day: new Date(2020, 3, 1), calories: 300, walked: 3.5, ran: 1, cycled: 0, minutes: 45 },
-    { day: new Date(2020, 3, 2), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 50 },
-    { day: new Date(2020, 3, 3), calories: 300, walked: 3, ran: 4, cycled: 3, minutes: 60 },
-    { day: new Date(2020, 3, 4), calories: 450, walked: 1, ran: 0.5, cycled: 0, minutes: 100 },
-    { day: new Date(2020, 3, 5), calories: 150, walked: 0.5, ran: 1.5, cycled: 0, minutes: 80 },
-    { day: new Date(2020, 3, 6), calories: 30, walked: 0.75, ran: 0.5, cycled: 0, minutes: 70 },
-    { day: new Date(2020, 3, 7), calories: 170, walked: 2, ran: 2, cycled: 1, minutes: 70 },
-    { day: new Date(2020, 3, 8), calories: 300, walked: 3.5, ran: 0.75, cycled: 2, minutes: 65 },
-    { day: new Date(2020, 3, 9), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 30 },
-    { day: new Date(2020, 3, 10), calories: 300, walked: 0.75, ran: 4, cycled: 3, minutes: 30 },
-    { day: new Date(2020, 3, 11), calories: 450, walked: 1, ran: 0.75, cycled: 3, minutes: 40 },
-    { day: new Date(2020, 3, 12), calories: 150, walked: 0.5, ran: 1.5, cycled: 4, minutes: 45 },
-    { day: new Date(2020, 3, 13), calories: 30, walked: 0.75, ran: 0.5, cycled: 2, minutes: 50 },
-    { day: new Date(2020, 3, 14), calories: 170, walked: 2, ran: 2, cycled: 1, minutes: 70 },
-    { day: new Date(2020, 3, 15), calories: 300, walked: 3.5, ran: 0.75, cycled: 1, minutes: 85 },
-    { day: new Date(2020, 3, 16), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 60 },
-    { day: new Date(2020, 3, 17), calories: 300, walked: 0.75, ran: 4, cycled: 3, minutes: 15 },
-    { day: new Date(2020, 3, 18), calories: 450, walked: 1, ran: 3, cycled: 3, minutes: 15 },
-    { day: new Date(2020, 3, 19), calories: 150, walked: 0.5, ran: 1.5, cycled: 0.5, minutes: 50 },
-    { day: new Date(2020, 3, 20), calories: 30, walked: 0.75, ran: 1, cycled: 2, minutes: 60 },
-    { day: new Date(2020, 3, 21), calories: 170, walked: 2, ran: 2, cycled: 1, minutes: 70 },
-    { day: new Date(2020, 3, 22), calories: 300, walked: 3.5, ran: 0.25, cycled: 0.5, minutes: 35 },
-    { day: new Date(2020, 3, 23), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 20 },
-    { day: new Date(2020, 3, 24), calories: 300, walked: 0.5, ran: 4, cycled: 3, minutes: 60 },
-    { day: new Date(2020, 3, 25), calories: 450, walked: 1.5, ran: 3.75, cycled: 3, minutes: 100 },
-    { day: new Date(2020, 3, 26), calories: 150, walked: 0.5, ran: 1.5, cycled: 1.5, minutes: 80 },
-    { day: new Date(2020, 3, 27), calories: 30, walked: 3, ran: 2, cycled: 2, minutes: 60 },
-    { day: new Date(2020, 3, 28), calories: 170, walked: 2, ran: 2, cycled: 1, minutes: 70 },
-    { day: new Date(2020, 3, 29), calories: 300, walked: 3.5, ran: 1, cycled: 0.5, minutes: 45 },
-    { day: new Date(2020, 3, 30), calories: 400, walked: 1, ran: 2, cycled: 3, minutes: 20 }
-];
 
 // calories burned daily
 const CaloriesDaily = (props) => (
@@ -149,45 +105,48 @@ const MinutesDaily = (props) => (
     </svg>
 );
 
-const CaloriesWeekly = (props) => (
-    <VictoryChart scale={{ x: "time" }}
-        domainPadding={30}
-        padding={{ top: 50, bottom: 50, left: 100, right: 10 }}
-        width={650} height={450}
-    >
-        <VictoryLabel
-            x={300}
-            y={10}
-            style={[{ fontSize: 30 }]}
-            textAnchor="middle"
-            text="Calories in the last week"
-        />
-        <VictoryBar
-            barRatio={0.7}
-            style={{
-                data: { fill: navy },
-            }}
-            data={props.data}
-            x="day"
-            y="calories"
-        />
-        <VictoryAxis
-            tickCount={7}
-            tickFormat={date => days[date.getDay()]}
-            style={sharedAxisStyles}
-        />
-        <VictoryAxis
-            dependentAxis
-            label="Calories Burned"
-            style={sharedAxisStyles}
-        />
-    </VictoryChart>
-);
+const CaloriesWeekly = (props) => {
+
+    return (
+        <VictoryChart scale={{ x: "time" }}
+            domainPadding={30}
+            padding={{ top: 50, bottom: 50, left: 100, right: 50 }}
+            width={650} height={450}
+        >
+            <VictoryLabel
+                x={300}
+                y={10}
+                style={[{ fontSize: 30 }]}
+                textAnchor="middle"
+                text="Calories in the last 7 days"
+            />
+            <VictoryBar
+                barRatio={0.7}
+                style={{
+                    data: { fill: navy },
+                }}
+                data={props.data}
+                x="date"
+                y="calories"
+            />
+            <VictoryAxis
+                tickCount={props.data.length}
+                tickFormat={date => days[(new Date(date)).getDay()]}
+                style={sharedAxisStyles}
+            />
+            <VictoryAxis
+                dependentAxis
+                label="Calories Burned"
+                style={sharedAxisStyles}
+            />
+        </VictoryChart>
+    );
+};
 
 const DistanceWeekly = (props) => (
     <VictoryChart scale={{ x: "time" }}
         domainPadding={30}
-        padding={{ top: 50, bottom: 50, left: 100, right: 10 }}
+        padding={{ top: 50, bottom: 50, left: 100, right: 50 }}
         width={650} height={450}
     >
         <VictoryLabel
@@ -195,7 +154,7 @@ const DistanceWeekly = (props) => (
             y={10}
             style={[{ fontSize: 30 }]}
             textAnchor="middle"
-            text="Distance in the last week"
+            text="Distance in the last 7 days"
         />
         <VictoryStack offset={20}
         >
@@ -205,8 +164,8 @@ const DistanceWeekly = (props) => (
                     data: { fill: navy },
                 }}
                 data={props.data}
-                x="day"
-                y="walked"
+                x="date"
+                y="distanceWalked"
             />
             <VictoryBar
                 barRatio={0.7}
@@ -214,8 +173,8 @@ const DistanceWeekly = (props) => (
                     data: { fill: red },
                 }}
                 data={props.data}
-                x="day"
-                y="ran"
+                x="date"
+                y="distanceRan"
             />
             <VictoryBar
                 barRatio={0.7}
@@ -223,20 +182,21 @@ const DistanceWeekly = (props) => (
                     data: { fill: orange },
                 }}
                 data={props.data}
-                x="day"
-                y="cycled"
+                x="date"
+                y="distanceCycled"
             />
-            <VictoryAxis
-                tickCount={7}
-                tickFormat={date => days[date.getDay()]}
-                style={sharedAxisStyles}
-            />
-            <VictoryAxis
-                dependentAxis
-                label="Distance in miles"
-                style={sharedAxisStyles}
-            />
+
         </VictoryStack>
+        <VictoryAxis
+            tickCount={props.data.length}
+            tickFormat={date => days[(new Date(date)).getDay()]}
+            style={sharedAxisStyles}
+        />
+        <VictoryAxis
+            dependentAxis
+            label="Distance in miles"
+            style={sharedAxisStyles}
+        />
         <VictoryLegend x={270} y={60}
             standalone={false}
             orientation="horizontal"
@@ -253,7 +213,7 @@ const DistanceWeekly = (props) => (
 const MinutesWeekly = (props) => (
     <VictoryChart scale={{ x: "time" }}
         domainPadding={30}
-        padding={{ top: 50, bottom: 50, left: 100, right: 10 }}
+        padding={{ top: 50, bottom: 50, left: 100, right: 50 }}
         width={650} height={450}
     >
         <VictoryLabel
@@ -261,7 +221,7 @@ const MinutesWeekly = (props) => (
             y={10}
             style={[{ fontSize: 30 }]}
             textAnchor="middle"
-            text="Minutes in the last week"
+            text="Minutes in the last 7 days"
         />
         <VictoryBar
             barRatio={0.7}
@@ -269,12 +229,12 @@ const MinutesWeekly = (props) => (
                 data: { fill: navy },
             }}
             data={props.data}
-            x="day"
+            x="date"
             y="minutes"
         />
         <VictoryAxis
-            tickCount={7}
-            tickFormat={date => days[date.getDay()]}
+            tickCount={props.data.length}
+            tickFormat={date => days[(new Date(date)).getDay()]}
             style={sharedAxisStyles}
         />
         <VictoryAxis
@@ -285,38 +245,39 @@ const MinutesWeekly = (props) => (
     </VictoryChart>
 );
 
-const CaloriesMonthly = (props) => (
-    <VictoryChart scale={{ x: "time" }}
-        padding={{ top: 50, bottom: 50, left: 100, right: 10 }}
-        width={1000} height={450}
-    >
-        <VictoryLabel
-            x={300}
-            y={10}
-            style={[{ fontSize: 30 }]}
-            textAnchor="middle"
-            text="Calories in the last month"
-        />
-        <VictoryArea
-            style={{
-                data: { fill: navy },
-            }}
-            data={props.data}
-            x="day"
-            y="calories"
-        />
-        <VictoryAxis
-            tickCount={31}
-            tickFormat={date => date.getDate()}
-            style={sharedAxisStyles}
-        />
-        <VictoryAxis
-            dependentAxis
-            label="Calories Burned"
-            style={sharedAxisStyles}
-        />
-    </VictoryChart>
-);
+const CaloriesMonthly = (props) => {
+    return (
+        <VictoryChart scale={{ x: "time" }}
+            padding={{ top: 50, bottom: 50, left: 100, right: 10 }}
+            width={1000} height={450}
+        >
+            <VictoryLabel
+                x={300}
+                y={10}
+                style={[{ fontSize: 30 }]}
+                textAnchor="middle"
+                text="Calories in the last 30 days"
+            />
+            <VictoryArea
+                style={{
+                    data: { fill: navy },
+                }}
+                data={props.data}
+                x="date"
+                y="calories"
+            />
+            <VictoryAxis
+                tickCount={props.data.length}
+                tickFormat={date => (new Date(date)).getDate()}
+                style={sharedAxisStyles}
+            />
+            <VictoryAxis
+                dependentAxis
+                label="Calories Burned"
+                style={sharedAxisStyles}
+            />
+        </VictoryChart>);
+};
 
 const DistanceMonthly = (props) => (
     <VictoryChart scale={{ x: "time" }}
@@ -328,7 +289,7 @@ const DistanceMonthly = (props) => (
             y={10}
             style={[{ fontSize: 30 }]}
             textAnchor="middle"
-            text="Distance in the last month"
+            text="Distance in the last 30 days"
         />
         <VictoryStack offset={20}
         >
@@ -337,36 +298,37 @@ const DistanceMonthly = (props) => (
                     data: { fill: navy },
                 }}
                 data={props.data}
-                x="day"
-                y="walked"
+                x="date"
+                y="distanceWalked"
             />
             <VictoryArea
                 style={{
                     data: { fill: red },
                 }}
                 data={props.data}
-                x="day"
-                y="ran"
+                x="date"
+                y="distanceRan"
             />
             <VictoryArea
                 style={{
                     data: { fill: orange },
                 }}
                 data={props.data}
-                x="day"
-                y="cycled"
+                x="date"
+                y="distanceCycled"
             />
-            <VictoryAxis
-                tickCount={31}
-                tickFormat={date => date.getDate()}
-                style={sharedAxisStyles}
-            />
-            <VictoryAxis
-                dependentAxis
-                label="Distance in miles"
-                style={sharedAxisStyles}
-            />
+
         </VictoryStack>
+        <VictoryAxis
+            tickCount={props.data.length}
+            tickFormat={date => (new Date(date)).getDate()}
+            style={sharedAxisStyles}
+        />
+        <VictoryAxis
+            dependentAxis
+            label="Distance in miles"
+            style={sharedAxisStyles}
+        />
         <VictoryLegend x={270} y={60}
             standalone={false}
             orientation="horizontal"
@@ -390,19 +352,19 @@ const MinutesMonthly = (props) => (
             y={10}
             style={[{ fontSize: 30 }]}
             textAnchor="middle"
-            text="Minutes in the last month"
+            text="Minutes in the last 30 days"
         />
         <VictoryArea
             style={{
                 data: { fill: navy },
             }}
             data={props.data}
-            x="day"
+            x="date"
             y="minutes"
         />
         <VictoryAxis
-            tickCount={31}
-            tickFormat={date => date.getDate()}
+            tickCount={props.data.length}
+            tickFormat={date => (new Date(date)).getDate()}
             style={sharedAxisStyles}
         />
         <VictoryAxis
@@ -431,22 +393,13 @@ export default class Activity extends Component {
 
     async getHealthData() {
         try {
-            //const weekAgoMS = Date.now()-604800000; // 7 days ago
-            const weekAgoMS = 22;
-            //console.log("weekAgoMS: " + weekAgoMS);
-            // let monthAgoMS = Date.now()-2592000000; // 30 days ago
-            // console.log(todaysData);
-
             const dailyData = await getDailyHealth(this.props.user.token);
-            console.log( dailyData );
-
             const weekData = await getWeeklyHealth(this.props.user.token);
-            console.log( weekData );
-
             const monthData = await getMonthlyHealth(this.props.user.token);
-            console.log( monthData );
+            console.log(weekData);
+            console.log(monthData);
 
-            this.setState({ healthData: weekData });
+            this.setState({ todaysData: dailyData, weeklyData: weekData, monthlyData: monthData });
         } catch (err) {
             console.error(err.message);
         }
@@ -461,65 +414,53 @@ export default class Activity extends Component {
                     <div className="container">
                         <div className="pie">
                             <CaloriesDaily
-                                burned={250}
+                                burned={this.state.todaysData.length > 0 ? this.state.todaysData[0].calories : 0}
                                 goal={1000}
                             />
                         </div>
                         <div className="pie">
                             <DistanceDaily
-                                walked={350}
-                                ran={100}
-                                cycled={200}
-                                goal={1000}
+                                walked={this.state.todaysData.length > 0 ? this.state.todaysData[0].distanceWalked : 0}
+                                ran={this.state.todaysData.length > 0 ? this.state.todaysData[0].distanceRan : 0}
+                                cycled={this.state.todaysData.length > 0 ? this.state.todaysData[0].distanceCycled : 0}
+                                goal={15}
                             />
                         </div>
                         <div className="pie">
                             <MinutesDaily
-                                minutes={45}
+                                minutes={this.state.todaysData.length > 0 ? this.state.todaysData[0].minutes : 0}
                                 goal={75}
                             />
                         </div>
                     </div>
                     <div>
                         <CaloriesWeekly
-                            startDate="3/1"
-                            endDate="3/7"
-                            data={weeklyData}
+                            data={this.state.weeklyData.length > 0 ? this.state.weeklyData : 0}
                         />
                     </div>
                     <div>
                         <DistanceWeekly
-                            startDate="3/1"
-                            endDate="3/7"
-                            data={weeklyData}
+                            data={this.state.weeklyData.length > 0 ? this.state.weeklyData : 0}
                         />
                     </div>
                     <div>
                         <MinutesWeekly
-                            startDate="3/1"
-                            endDate="3/7"
-                            data={weeklyData}
+                            data={this.state.weeklyData.length > 0 ? this.state.weeklyData : 0}
                         />
                     </div>
                     <div>
                         <CaloriesMonthly
-                            startDate="3/1"
-                            endDate="3/7"
-                            data={monthlyData}
+                            data={this.state.monthlyData.length > 0 ? this.state.monthlyData : 0}
                         />
                     </div>
                     <div>
                         <DistanceMonthly
-                            startDate="3/1"
-                            endDate="3/7"
-                            data={monthlyData}
+                            data={this.state.monthlyData.length > 0 ? this.state.monthlyData : 0}
                         />
                     </div>
                     <div>
                         <MinutesMonthly
-                            startDate="3/1"
-                            endDate="3/7"
-                            data={monthlyData}
+                            data={this.state.monthlyData.length > 0 ? this.state.monthlyData : 0}
                         />
                     </div>
                 </div>
