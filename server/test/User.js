@@ -1,19 +1,18 @@
 const User = require('../models/User');
+const Auth = require('../util/auth');
 const {
   OK,
   BAD_REQUEST,
   UNAUTHORIZED,
   CONFLICT
 } = require('../util/constants').STATUS_CODES;
-const {
-  initializeTokenMock,
-  resetTokenMock,
-  restoreTokenMock,
-} = require('../test/util/TokenUtil');
+
 const {
   initServer, clearSchema, closeServer
 } = require('./util/util');
 const ApiTester = require('./util/ApiTester');
+const sinon = require('sinon');
+var sandbox = require("sinon").createSandbox();
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -31,33 +30,40 @@ describe('User', () => {
   // replace this with clearSchema at some point
   before((done) => { 
     testServer = initServer();
-    //emptySchema(User); // do not run
-    
     done()    
   });
 
-  after(done => {
-    closeServer()
+  beforeEach((done) => {
+    sandbox.stub(Auth, 'verifyToken')
+      .callsFake((req, res, next) => { return next(); });
+      
     done();
   });
 
-  // afterEach(() => {
-  //   resetTokenMock();
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  // after((done) => {
+  //   closeServer(done)
   // });
 
-  describe('/GET all users in db', () => {
-    it('should get all users', async(done) => {
-      chai.request(testServer)
-        .get('/user/users')
-        .end((err,res) => {
-          res.should.have.status(200)
-          res.body.should.be.a('array');
-          done();
-        })
-    })
-  })
+  
 
-  describe('/PUT user object in db', () => {
+  // describe('/GET all users in db', () => {
+  //   it('should get all users', async() => {
+  //     chai.request(testServer)
+  //       .get('/user/users')
+  //       .end((err,res) => {
+  //         res.should.have.status(200);
+  //         res.body.should.be.a('array');
+
+  //         if(err) {console.log(err)}
+  //       })
+  //   })
+  // })
+
+  describe('/PUT user object in db', async(done) => {
     it('it should put user in db', async() => {
 
       const user = {
@@ -72,14 +78,6 @@ describe('User', () => {
 
       chai.request(testServer)
       .put('/user/')
-      .then(next => {
-        verifyTokenMock = sinon.stub(Auth, 'verifyToken')
-        .callsFake(async(req,res,next) => {
-          return next();
-        });
-
-        next();
-      })
       .send(user)
       .end((err, res) => {
         res.should.have.status(200);
@@ -87,5 +85,6 @@ describe('User', () => {
       );
 
     })
+    done();
   })
 })
