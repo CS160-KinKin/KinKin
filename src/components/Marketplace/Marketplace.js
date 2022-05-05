@@ -50,7 +50,7 @@ export default class Marketplace extends Component {
     return (
       <>
         <Navigation {...this.props} />
-        <div className='container'>
+        <div className='marketplace'>
           <div className='row align-items-center my-5'>
             <div className='col-lg-5'>
               <FilterSearch
