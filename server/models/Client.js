@@ -11,15 +11,18 @@ const ClientSchema = new Schema(
     languages: {
       type: Array,
       of: String,
+      default: [],
     },
     bio: {
       type: String,
     },
     positiveRatingCount: {
       type: Number,
+      default: 0,
     },
     negativeRatingCount: {
       type: Number,
+      default: 0,
     },
     location: {
       type: PointSchema,
@@ -28,6 +31,7 @@ const ClientSchema = new Schema(
     interests: {
       type: Array,
       of: String,
+      default: [],
     },
     trainingGoals: {
       type: String,
@@ -40,6 +44,7 @@ const ClientSchema = new Schema(
       type: Array,
       of: String,
       ref: 'Pt',
+      default: [],
     },
   },
   {

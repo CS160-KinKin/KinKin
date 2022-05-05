@@ -6,6 +6,7 @@ import {
   ACCEPT_REQUEST_ENDPOINT,
   DELETE_REQUEST_ENDPOINT,
   GET_REQUESTS_ENDPOINT,
+  MUTATE_PT_ENDPOINT,
 } from './constants';
 
 /**
@@ -20,6 +21,19 @@ const getPt = (token) => {
     {},
     { headers: { 'x-access-token': token, 'content-type': 'application/json' } }
   );
+};
+
+const createPt = async (token, body) => {
+  if (body.rate) {
+    body.rate = parseInt(body.rate);
+    if (isNaN(body.rate)) body.rate = undefined;
+  }
+  const res = await axios.put(
+    process.env.REACT_APP_CONTROL_SERVER_URL + MUTATE_PT_ENDPOINT,
+    body,
+    { headers: { 'x-access-token': token, 'content-type': 'application/json' } }
+  );
+  return res;
 };
 
 /**
@@ -76,6 +90,7 @@ const deleteRequest = async (token, id) => {
 
 export {
   getPt,
+  createPt,
   getPTsByFilters,
   addRequest,
   getRequests,

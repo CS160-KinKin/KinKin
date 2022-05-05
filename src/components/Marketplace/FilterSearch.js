@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import { getClient } from '../../util/client';
 import { DAYS_OF_WEEK } from '../../util/constants';
+import './filtersearch.css';
 
 export default class FilterSearch extends Component {
   constructor(props) {
@@ -101,51 +102,65 @@ export default class FilterSearch extends Component {
   render() {
     return (
       <>
+      <div className='filters-container'>
         <h4>PT Search Filters</h4>
         <form onSubmit={this.onSubmit}>
-          <label>Select a language: </label>
-          <select value={this.state.language} onChange={this.onChangeLanguage}>
-            <option value='' defaultChecked={true}>
-              Any
-            </option>
-            <option value='english'>English</option>
-            <option value='french'>French</option>
-            <option value='german'>German</option>
-            <option value='japanese'>Japanese</option>
-            <option value='mandarin'>Mandarin</option>
-            <option value='spanish'>Spanish</option>
-          </select>
-          <br />
+          <div className='wrapper'>
+            <label>Select a language: </label>
+            <select value={this.state.language} onChange={this.onChangeLanguage}>
+              <option value='' defaultChecked={true}>
+                Any
+              </option>
+              <option value='english'>English</option>
+              <option value='french'>French</option>
+              <option value='german'>German</option>
+              <option value='japanese'>Japanese</option>
+              <option value='mandarin'>Mandarin</option>
+              <option value='spanish'>Spanish</option>
+            </select>
+            <br />
+          </div>
+
+          <div className='wrapper'>
           <label>Maximum Distance (km): </label>
           <input
             type='number'
             value={this.state.maxDistance}
             onChange={this.onChangeMaxDistance}
           />
-
+          </div>
           <br />
-          <label>Specialty: </label>
-          <input
-            type='text'
-            value={this.state.specialty}
-            onChange={this.onChangeSpecialty}
-          />
 
+          <div className='wrapper'>
+            <label>Specialty: </label>
+            <input
+              type='text'
+              value={this.state.specialty}
+              onChange={this.onChangeSpecialty}
+            />
+
+          </div>      
           <br />
+
+          <div className='wrapper'>
           <label>Minimum Rate ($): </label>
           <input
             type='number'
             value={this.state.minRate}
             onChange={this.onChangeMinRate}
           />
+          </div>
           <br />
+          <div className='wrapper'>
           <label>Maximum Rate ($): </label>
           <input
             type='number'
             value={this.state.maxRate}
             onChange={this.onChangeMaxRate}
           />
+          </div>
           <br />
+          <div className='wrapper'>
           <label>Select available days: </label>
           <Select
             isMulti
@@ -154,9 +169,11 @@ export default class FilterSearch extends Component {
             value={this.state.availability}
             onChange={this.onChangeAvailability}
           />
+          </div>
           <br />
-          <input type='submit' value='Search PTs' />
+          <input className="submit-button" type='submit' value='Search PTs' />
         </form>
+        </div>
       </>
     );
   }
