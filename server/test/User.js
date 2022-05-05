@@ -33,11 +33,9 @@ describe('User', () => {
     done()    
   });
 
-  beforeEach((done) => {
+  beforeEach(() => {
     sandbox.stub(Auth, 'verifyToken')
-      .callsFake((req, res, next) => { return next(); });
-      
-    done();
+      .callsFake((req, res, next) => { return {}; });
   });
 
   afterEach(() => {
@@ -50,18 +48,18 @@ describe('User', () => {
 
   
 
-  // describe('/GET all users in db', () => {
-  //   it('should get all users', async() => {
-  //     chai.request(testServer)
-  //       .get('/user/users')
-  //       .end((err,res) => {
-  //         res.should.have.status(200);
-  //         res.body.should.be.a('array');
+  describe('/GET all users in db', () => {
+    it('should get all users', async() => {
+      chai.request(testServer)
+        .get('/user/users')
+        .end((err,res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
 
-  //         if(err) {console.log(err)}
-  //       })
-  //   })
-  // })
+          if(err) {console.log(err)}
+        })
+    })
+  })
 
   describe('/PUT user object in db', async(done) => {
     it('it should put user in db', async() => {
