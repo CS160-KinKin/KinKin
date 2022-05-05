@@ -9,10 +9,10 @@ router.put('/', verifyToken, async (req, res) => {
     const { publicName, pictureUrl } = req.body;
     const username = req.body.username.toLowerCase();
 
-    const dup = await User.find({
+    const dup = await User.findOne({
       $or: [{ _id: req.user.userId }, { username }],
     });
-    if (dup && dup.length > 0) {
+    if (dup) {
       return res.status(STATUS_CODES.CONFLICT).send();
     }
 
