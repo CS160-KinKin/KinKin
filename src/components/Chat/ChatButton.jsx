@@ -25,7 +25,7 @@ const CustomChannel = ({createChannel, sdk, sendMessage}) => {
         channelParams.isDistinct = true 
       
         const ptId = props.pt.id
-        var userIds = [ptId]
+        const userIds = [ptId]
         channelParams.addUserIds(userIds) 
 
         createChannel(channelParams) 
