@@ -18,7 +18,7 @@ class testServer {
     this.clientRouter = require('./routes/client');
     this.pTRouter = require('./routes/pt');
     this.port = 8080 //use for test stuff
-    this.db = process.env.ATLAS_URI;
+    this.db = process.env.ATLAS_URI_TEST;
 
     this.app.use(express.json());
     this.app.use(cors());
