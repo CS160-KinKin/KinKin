@@ -19,10 +19,18 @@ const ClientSchema = new Schema(
     positiveRatingCount: {
       type: Number,
       default: 0,
+      validate: {
+        validator: (e) => Number.isInteger(e) && e >= 0,
+        message: '{VALUE} is not a non-negative integer value',
+      },
     },
     negativeRatingCount: {
       type: Number,
       default: 0,
+      validate: {
+        validator: (e) => Number.isInteger(e) && e >= 0,
+        message: '{VALUE} is not a non-negative integer value',
+      },
     },
     location: {
       type: PointSchema,

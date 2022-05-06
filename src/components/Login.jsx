@@ -18,7 +18,7 @@ function Login(props) {
   return (
     <>
       <Navigation {...props} />
-      <div className='row content'>
+      <div className='content'>
         <div className='center'>
           <GoogleLogin
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}

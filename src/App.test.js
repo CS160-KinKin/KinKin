@@ -4,17 +4,12 @@ import App from './App.jsx';
 import {
   About,
   Home,
-  Login,
   NotFound,
-  UserDashboard,
-  Chat,
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
   Navigation,
   Footer,
-  Marketplace,
-  Request,
 } from './components';
 
 describe('app renders', function () {
@@ -49,15 +44,10 @@ describe('Notfound renders', function () {
   });
 });
 
-describe('UserDashboard renders', function () {
-  it('should render!', function () {
-    const wrapper = shallow(<UserDashboard />);
-  });
-});
-
 describe('WorkoutList renders', function () {
+  const user = { token: '0' };
   it('should render!', function () {
-    const wrapper = shallow(<WorkoutList />);
+    const wrapper = shallow(<WorkoutList user={user} />);
   });
 });
 
@@ -76,11 +66,5 @@ describe('Footer renders', function () {
 describe('CreateWorkoutTask renders', function () {
   it('should render!', function () {
     const wrapper = shallow(<CreateWorkoutTask />);
-  });
-});
-
-describe('Request renders', function () {
-  it('should render!', function () {
-    const wrapper = shallow(<Request />);
   });
 });

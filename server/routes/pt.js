@@ -26,7 +26,6 @@ router.put('/', verifyToken, async (req, res) => {
     });
     res.status(OK).send(doc);
   } catch (err) {
-    console.error(err);
     res.status(BAD_REQUEST).send(err.message);
   }
 });
@@ -144,7 +143,7 @@ router.post('/request', verifyToken, async (req, res) => {
       return res.status(NOT_FOUND).send();
     }
     if (client.pt === pt._id && pt.clients.indexOf(client._id) !== -1) {
-      return res.status(CONFLICT).send("PT already has user as a client.");
+      return res.status(CONFLICT).send('PT already has user as a client.');
     }
     if (pt.requests.indexOf(client._id) === -1) {
       pt.requests.push(client._id);
