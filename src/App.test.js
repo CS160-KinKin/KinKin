@@ -5,12 +5,19 @@ import {
   About,
   Home,
   NotFound,
+  UserDashboard,
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
   Navigation,
   Footer,
+  AdditionalInformationCollection,
+  Profile,
+  Chat
 } from './components';
+
+import ClientProfile from './components/Profile/ClientProfile.jsx';
+import EditClient from './components/Profile/EditClient.jsx';
 
 describe('app renders', function () {
   it('should render!', function () {
@@ -66,5 +73,35 @@ describe('Footer renders', function () {
 describe('CreateWorkoutTask renders', function () {
   it('should render!', function () {
     const wrapper = shallow(<CreateWorkoutTask />);
+  });
+});
+
+describe('Info collection page renders', function () {
+  it('should render!', function () {
+    const wrapper = shallow(<AdditionalInformationCollection />);
+  });
+});
+
+describe('Profile renders', function () {
+  it('should render!', function () {
+    const wrapper = shallow(<Profile />);
+  });
+});
+
+describe('ClientProfile renders', function () {
+  it('should render!', function () {
+    const wrapper = shallow(<ClientProfile />);
+  });
+});
+
+describe('Request Component renders', function () {
+  it('should render!', function () {
+    const wrapper = shallow(<CreateWorkoutTask />);
+  });
+});
+
+describe('EditClient renders', function () {
+  it('should render!', function () {
+    const wrapper = shallow(<EditClient />);
   });
 });
