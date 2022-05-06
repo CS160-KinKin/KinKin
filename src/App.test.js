@@ -4,18 +4,24 @@ import App from './App.jsx';
 import {
   About,
   Home,
-  Login,
   NotFound,
   UserDashboard,
-  Chat,
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
   Navigation,
   Footer,
-  Marketplace,
   Request,
+  AdditionalInformationCollection,
+  Profile,
+  Chat
 } from './components';
+
+import ClientProfile from './components/Profile/ClientProfile.jsx';
+import PTProfile from './components/Profile/PTProfile.jsx';
+import EditClient from './components/Profile/EditClient.jsx';
+import ChatContext from './components/Chat/ChatContext.jsx';
+import RequestComponent from './components/Requests/RequestComponent.jsx';
 
 describe('app renders', function () {
   it('should render!', function () {
@@ -79,8 +85,33 @@ describe('CreateWorkoutTask renders', function () {
   });
 });
 
-describe('Request renders', function () {
+describe('Info collection page renders', function () {
   it('should render!', function () {
-    const wrapper = shallow(<Request />);
+    const wrapper = shallow(<AdditionalInformationCollection />);
+  });
+});
+
+describe('Profile renders', function () {
+  it('should render!', function () {
+    const wrapper = shallow(<Profile />);
+  });
+});
+
+describe('ClientProfile renders', function () {
+  it('should render!', function () {
+    const wrapper = shallow(<ClientProfile />);
+  });
+});
+
+describe('Request Component renders', function () {
+  it('should render!', function () {
+    const wrapper = shallow(<CreateWorkoutTask />);
+  });
+});
+
+
+describe('EditClient renders', function () {
+  it('should render!', function () {
+    const wrapper = shallow(<EditClient />);
   });
 });
