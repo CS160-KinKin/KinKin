@@ -4,7 +4,6 @@ import {
   USER_ATTRIBUTES,
   POST_LOGOUT_ENDPOINT,
   POST_AUTH_ENDPOINT,
-  STATUS_CODES,
 } from './constants';
 import Cookies from 'js-cookie';
 
@@ -53,13 +52,9 @@ export default class User {
         },
       }
     );
-    if (res.status === STATUS_CODES.OK) {
-      Object.assign(this, res.data);
-      USER_ATTRIBUTES.forEach((att) => {
-        if (att !== 'newUser') cookies.set(att, res.data[att]);
-      });
-    } else {
-      console.error('invalid login');
-    }
+    Object.assign(this, res.data);
+    USER_ATTRIBUTES.forEach((att) => {
+      if (att !== 'newUser') cookies.set(att, res.data[att]);
+    });
   }
 }

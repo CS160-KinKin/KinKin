@@ -6,7 +6,7 @@ function Home(props) {
   return (
     <>
       <Navigation {...props} />
-      <div className='home row content'>
+      <div className='home content'>
         <div className='container'>
           <div className='row align-items-center my-5'>
             <div className='col-lg-5'>

@@ -1,29 +1,30 @@
-import React from "react";
-import './PTProfile.css';
+import React from 'react';
+import './Profile.css';
 
 function PTProfile(props) {
   return (
-    <div className="card">
-
-      <p className="name">
-        <img className="image" src="blank-profile.png" alt="Profile" />
-        {props.name}
+    <div className='card'>
+      <p className='name'>
+        <img
+          className='image'
+          src={props.pictureUrl || 'blank-profile.png'}
+          alt='Profile'
+        />
+        {props.name ? props.name : 'no name'}
       </p>
-      
-      {/* <hr size="1" width="100%" color="black" /> */}
-      <div className="info">
+      <div className='info'>
         <h4>Bio</h4>
-        <p>{props.bio}</p>
+        <p>{props.bio || ''}</p>
         <h4>Languages</h4>
-        <p>{props.languages.join(', ')}</p>
-        <h4>Specialites</h4>
-        <p>{props.specialties.join(', ')}</p>
+        <p>{props.languages ? props.languages.join(', ') : ''}</p>
+        <h4>Specialties</h4>
+        <p>{props.specialties ? props.specialties.join(', ') : ''}</p>
         <h4>Rate</h4>
-        <p>${props.rate}</p>
+        <p>{props.rate ? `$${props.rate}` : 'no set rate'}</p>
         <h4>Available Days</h4>
-        <p>{props.availableDays.join(', ')}</p>
+        <p>{props.availableDays ? props.availableDays.join(', ') : ''}</p>
         <h4>Location</h4>
-        <p>{props.location}</p>
+        <p>{/* todo */}</p>
       </div>
     </div>
   );

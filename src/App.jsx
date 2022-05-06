@@ -1,30 +1,22 @@
 import React, { useState } from 'react';
-import {
-  Routes,
-  Route,
-  Link,
-  useNavigate,
-  useLocation,
-  Navigate,
-  Outlet,
-  Router,
-} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import User from './util/User';
 import {
   About,
   Home,
   Login,
   NotFound,
-  UserDashboard,
+  PtDashboard,
   Chat,
-  Profile,
   Marketplace,
-  Request,
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
   AdditionalInformationCollection,
-  Navigation,
+  Request,
+  ClientDashboard,
+  Activity,
+  HealthInput,
 } from './components';
 
 function App() {
@@ -51,42 +43,54 @@ function App() {
           element={<Home user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/About'
+          path='/about'
           element={<About user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/Profile'
-          element={<Profile user={user} handleLogout={handleLogout} />}
+          path='/pt'
+          exact
+          element={<PtDashboard user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/Marketplace'
+          path='/pt/requests'
+          element={
+            <Request user={user} type='PT' handleLogout={handleLogout} />
+          }
+        />
+        <Route
+          path='/client'
+          exact
+          element={<ClientDashboard user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/client/activity'
+          element={<Activity user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='client/healthinput'
+          element={<HealthInput user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/client/marketplace'
           element={<Marketplace user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/UserDashboard'
-          element={<UserDashboard user={user} handleLogout={handleLogout} />}
-        />
-        <Route
-          path='/requests'
-          element={<Request user={user} handleLogout={handleLogout} />}
-        />
-        <Route
-          path='/workouts'
+          path='client/workouts'
           exact
           element={<WorkoutList user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/workouts/add'
+          path='client/workouts/add'
           element={
             <CreateWorkoutTask user={user} handleLogout={handleLogout} />
           }
         />
         <Route
-          path='/workouts/update'
+          path='client/workouts/update'
           element={<EditWorkoutTask user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/Chat'
+          path='/chat'
           element={<Chat user={user} handleLogout={handleLogout} />}
         />
         <Route path='*' element={<NotFound user={user} />} />
@@ -100,7 +104,7 @@ function App() {
           element={<Home user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/About'
+          path='/about'
           element={<About user={user} handleLogout={handleLogout} />}
         />
         <Route

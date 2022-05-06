@@ -8,7 +8,7 @@ import '@testing-library/jest-dom'
 describe('chat', () => {
     test('render chat component', () => {
         
-        const user = {name: "First Last"};
+        const user = {publicName: "First Last", id: "0"};
 
         render(
             <BrowserRouter>

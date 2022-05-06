@@ -85,7 +85,7 @@ const AdditionalInformationCollection = (props) => {
   };
 
   return (
-    <div className='row content infobox'>
+    <div className='content infobox'>
       <div className='header'>Let's finish your account setup!</div>
       <form className='user-form' onSubmit={onSubmit}>
         <div className='form-info'>

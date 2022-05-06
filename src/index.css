@@ -30,26 +30,17 @@ code {
   text-align: center;
 }
 
-.navbar-brand {
-  font-size: 40px;
-}
-
-.nav-item {
-  font-size: 30px;
-}
-
-.row {
+.header {
   margin: 0;
-}
-
-.row.header {
   flex: 0 1 auto;
 }
 
-.row.content {
+.content {
+  margin: 0;
   flex: 1 1 auto;
 }
 
-.row.footer {
+.footer {
+  margin: 0;
   flex: 0 1 40px;
 }

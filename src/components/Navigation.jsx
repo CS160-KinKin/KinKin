@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 function Navigation(props) {
   return (
-    <nav className='row header navbar navbar-expand navbar-dark blue'>
+    <nav className='header navbar navbar-expand navbar-dark blue'>
       <div className='container'>
         <NavLink className='navbar-brand' to='/'>
           <b>Kin Kin</b>
@@ -22,29 +22,19 @@ function Navigation(props) {
           </li>
           {props.user && props.user.token ? (
             <>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/profile">
-                  Profile
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/marketplace">
-                  Marketplace
+              <li className='nav-item'>
+                <NavLink className='nav-link' to='/pt'>
+                  PT
                 </NavLink>
               </li>
               <li className='nav-item'>
-                <NavLink className='nav-link' to='/workouts'>
-                  Workout
+                <NavLink className='nav-link' to='/client'>
+                  Client
                 </NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/chat'>
                   Chat
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link' to='/requests'>
-                  Requests
                 </NavLink>
               </li>
               <li className='nav-item'>

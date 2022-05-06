@@ -51,15 +51,10 @@ describe('Notfound renders', function () {
   });
 });
 
-describe('UserDashboard renders', function () {
-  it('should render!', function () {
-    const wrapper = shallow(<UserDashboard />);
-  });
-});
-
 describe('WorkoutList renders', function () {
+  const user = { token: '0' };
   it('should render!', function () {
-    const wrapper = shallow(<WorkoutList />);
+    const wrapper = shallow(<WorkoutList user={user} />);
   });
 });
 
