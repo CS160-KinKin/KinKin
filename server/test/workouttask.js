@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const workouttask = require('../models/workouttask.model');
 const Auth = require('../util/auth');
 const {
   OK,
@@ -11,8 +11,6 @@ const {
 const {
   initServer, clearSchema, closeServer
 } = require('./util/util');
-const ApiTester = require('./util/ApiTester');
-const sinon = require('sinon');
 var sandbox = require("sinon").createSandbox();
 
 const chai = require('chai');
@@ -21,9 +19,10 @@ const expect = chai.expect;
 chai.should();
 chai.use(chaiHttp);
 
+
 let testServer = null
 
-describe('User', () => {
+describe('Workout Task', () => {
   // replace this with clearSchema at some point
   before((done) => { 
     testServer = initServer();
@@ -33,9 +32,10 @@ describe('User', () => {
   beforeEach(() => {
     sandbox.stub(Auth, 'verifyToken')
       .callsFake((req, res, next) => { 
-        req.user = {userId: '01234'} 
-        return next(); 
-      });
+        req.user = {
+          userId: '01234'
+        }
+        return next(); });
   });
 
   afterEach(() => {
@@ -46,32 +46,21 @@ describe('User', () => {
     closeServer(testServer)
   })
 
-  describe('/GET all users in db', () => {
-    it('should get all users', async() => {
-      chai.request(testServer)
-        .get('/user/users')
-        .end((err,res) => {
-          res.should.have.status(OK);
-          res.body.should.be.a('array');
-          if(err) {console.log(err)}
-        })
-    })
-  })
-
   describe('/PUT user object in db', async(done) => {
     it('it should put user in db', async() => {
 
-      const user = {
+      const workout = {
         _id: '01234',
-        username: 'isitab',
-        publicName: 'isita',
-        email: 'isitab@gmail.com',
-        pictureUrl: 'www.google.com',
+        title: 'Upper body',
+        clientId: '01234',
+        description: 'A dumbell workout targeting bis and tris',
+        duration: 10,
+        date: '2016-05-18T16:00:00Z'
       }
 
       chai.request(testServer)
-      .put('/user/')
-      .send(user)
+      .put('/workouts/')
+      .send(workout)
       .end((err, res) => {
         res.should.have.status(OK);
       }
@@ -80,31 +69,28 @@ describe('User', () => {
     done();
   })
 
-  describe('/GET user object by id', () => {
-    it('it should get user given id. expect 200', async() => {
-      const user = {
+  describe('/GET workout task object by id', () => {
+    it('/GET it should get workouttask given id', async() => {
+      const workout = {
         _id: '01234'
       }
       chai.request(testServer)
-      .post('/user/get')
-      .send(user)
+      .post('/workouts/get')
       .end((err, res) => {
         res.should.have.status(OK);
         res.body.should.be.a('object')
-        // done()
       })
     })
 
     it('/GET given user id that does not exist. expect 404', async() => {
-      const user = {
+      const workout = {
         _id: '012345'
       }
       chai.request(testServer)
-      .get('/user')
-      .send(user)
+      .get('/workouts')
+      .send(workout)
       .end((err, res) => {
         res.should.have.status(NOT_FOUND);
-        
       })
     })
   })
