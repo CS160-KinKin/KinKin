@@ -11,7 +11,6 @@ const {
 const {
   initServer, clearSchema, closeServer
 } = require('./util/util');
-const ApiTester = require('./util/ApiTester');
 const sinon = require('sinon');
 var sandbox = require("sinon").createSandbox();
 
