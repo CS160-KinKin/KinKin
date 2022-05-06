@@ -32,7 +32,8 @@ const MUTATE_WORKOUTS_ENDPOINT = '/workouts';
 
 const MUTATE_CLIENT_ENDPOINT = '/client';
 const GET_CLIENT_ENDPOINT = '/client/get';
-
+const ADD_PTREQUEST_ENDPOINT = '/pt/addptrequest';
+const ADD_CLIENT_REQUEST_ENDPOINT = '/pt/addclientrequest';
 const MUTATE_PT_ENDPOINT = '/pt'
 const GET_PT_ENDPOINT = '/pt/get'
 const SEARCH_PT_ENDPOINT = '/pt/search';
@@ -40,6 +41,10 @@ const POST_REQUEST_ENDPOINT = '/pt/request';
 const GET_REQUESTS_ENDPOINT = '/pt/getrequests';
 const ACCEPT_REQUEST_ENDPOINT = '/pt/acceptrequest';
 const DELETE_REQUEST_ENDPOINT = '/pt/deleterequest';
+const CREATE_HEALTH_DATA_ENDPOINT = '/healthdata/create';
+const GET_WEEKLY_HEALTH_DATA_ENDPOINT = '/healthdata/getweeklydata';
+const GET_MONTHLY_HEALTH_DATA_ENDPOINT = '/healthdata/getmonthlydata';
+const GET_DAILY_HEALTH_DATA_ENDPOINT = '/healthdata/getdailydata';
 
 const DAYS_OF_WEEK = [
   { label: 'Monday', value: 'MON' },
@@ -81,10 +86,16 @@ export {
   MUTATE_CLIENT_ENDPOINT,
   GET_CLIENT_ENDPOINT,
   DAYS_OF_WEEK,
-  SPECIALTIES,
-  LANGUAGES,
-  POST_REQUEST_ENDPOINT,
+  ADD_PTREQUEST_ENDPOINT,
+  ADD_CLIENT_REQUEST_ENDPOINT,
   GET_REQUESTS_ENDPOINT,
   ACCEPT_REQUEST_ENDPOINT,
   DELETE_REQUEST_ENDPOINT,
+  CREATE_HEALTH_DATA_ENDPOINT,
+  GET_WEEKLY_HEALTH_DATA_ENDPOINT,
+  GET_MONTHLY_HEALTH_DATA_ENDPOINT,
+  GET_DAILY_HEALTH_DATA_ENDPOINT,
+  POST_REQUEST_ENDPOINT,
+  SPECIALTIES,
+  LANGUAGES
 };

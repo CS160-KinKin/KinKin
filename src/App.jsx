@@ -20,6 +20,10 @@ import {
   Profile,
   Marketplace,
   Request,
+  Activity,
+  HealthInput
+} from './components';
+import {
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
@@ -63,6 +67,10 @@ function App() {
           element={<Marketplace user={user} handleLogout={handleLogout} />}
         />
         <Route
+          path='/Activity'
+          element={<Activity user={user} handleLogout={handleLogout} />}
+        />
+        <Route
           path='/UserDashboard'
           element={<UserDashboard user={user} handleLogout={handleLogout} />}
         />
@@ -88,6 +96,10 @@ function App() {
         <Route
           path='/Chat'
           element={<Chat user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/healthinput'
+          element={<HealthInput user={user} handleLogout={handleLogout} />}
         />
         <Route path='*' element={<NotFound user={user} />} />
       </Routes>

@@ -32,6 +32,11 @@ function Navigation(props) {
                   Marketplace
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/activity">
+                  Activity
+                </NavLink>
+              </li>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/workouts'>
                   Workout
@@ -40,6 +45,11 @@ function Navigation(props) {
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/chat'>
                   Chat
+                </NavLink>
+              </li>                
+              <li className='nav-item'>
+                <NavLink className='nav-link' to='/healthinput'>
+                  Input
                 </NavLink>
               </li>
               <li className='nav-item'>
@@ -51,8 +61,7 @@ function Navigation(props) {
                 <NavLink
                   className='nav-link'
                   to='/login'
-                  onClick={props.handleLogout}
-                >
+                  onClick={props.handleLogout}>
                   Logout
                 </NavLink>
               </li>
