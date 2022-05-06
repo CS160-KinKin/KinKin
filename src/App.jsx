@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Routes,
-  Route,
-} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import User from './util/User';
 import {
   About,
@@ -16,6 +13,8 @@ import {
   EditWorkoutTask,
   CreateWorkoutTask,
   AdditionalInformationCollection,
+  Request,
+  ClientDashboard,
 } from './components';
 
 function App() {
@@ -51,7 +50,19 @@ function App() {
         />
         <Route
           path='/pt'
+          exact
           element={<PtDashboard user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/pt/requests'
+          element={
+            <Request user={user} type='PT' handleLogout={handleLogout} />
+          }
+        />
+        <Route
+          path='/client'
+          exact
+          element={<ClientDashboard user={user} handleLogout={handleLogout} />}
         />
         <Route
           path='/workouts'
