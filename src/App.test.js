@@ -11,17 +11,13 @@ import {
   CreateWorkoutTask,
   Navigation,
   Footer,
-  Request,
   AdditionalInformationCollection,
   Profile,
   Chat
 } from './components';
 
 import ClientProfile from './components/Profile/ClientProfile.jsx';
-import PTProfile from './components/Profile/PTProfile.jsx';
 import EditClient from './components/Profile/EditClient.jsx';
-import ChatContext from './components/Chat/ChatContext.jsx';
-import RequestComponent from './components/Requests/RequestComponent.jsx';
 
 describe('app renders', function () {
   it('should render!', function () {
@@ -108,7 +104,6 @@ describe('Request Component renders', function () {
     const wrapper = shallow(<CreateWorkoutTask />);
   });
 });
-
 
 describe('EditClient renders', function () {
   it('should render!', function () {
