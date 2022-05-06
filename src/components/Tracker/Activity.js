@@ -407,6 +407,8 @@ export default class Activity extends Component {
 
     // will need to create a flexbox to align the charts
     render() {
+    const index = this.state.todaysData.length - 1
+
         return (
             <>
                 <Navigation {...this.props} />
