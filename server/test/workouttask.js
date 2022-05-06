@@ -82,7 +82,7 @@ describe('Workout Task', () => {
       })
     })
 
-    it('/GET given user id that does not exist. expect 404', async() => {
+    it('/GET given workout task id that does not exist. expect 404', async() => {
       const workout = {
         _id: '012345'
       }
@@ -95,37 +95,35 @@ describe('Workout Task', () => {
     })
   })
 
-  describe('/POST user object in db to edit it', async(done) => {
-    it('/POST it should edit user', async() => {
+  describe('/POST workout task object in db to edit it', async(done) => {
+    it('/POST edit workout task should pass. return 200', async() => {
 
-      const user = {
+      const workout = {
         _id: '01234',
-        username: 'isitab',
-        publicName: 'isita bagayatkar',
+        description: 'this is a new description'
       }
 
       chai.request(testServer)
-      .put('/user/')
-      .send(user)
+      .put('/workouts')
+      .send(workout)
       .end((err, res) => {
         res.should.have.status(OK);
+        res.body.should.be.a('object');
         done();
       });
     })
 
-    it('/POST edit user should fail. return 404 error', async() => {
+    it('/POST edit workout task should fail. return 404', async() => {
 
       const user = {
         _id: '01233',
-        username: 'isitab',
-        publicName: 'isita bagayatkar',
       }
 
       chai.request(testServer)
       .put('/user/')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(OK);
+        res.should.have.status(NOT_FOUND);
         done();
       });
     })
@@ -134,17 +132,13 @@ describe('Workout Task', () => {
   describe('/DELETE user object in db', async(done) => {
     it('it should delete user in db', async() => {
 
-      const user = {
+      const workout = {
         _id: '01234',
-        username: 'isitab',
-        publicName: 'isita',
-        email: 'isitab@gmail.com',
-        pictureUrl: 'www.google.com',
       }
 
       chai.request(testServer)
-      .delete('/user/')
-      .send(user)
+      .delete('/workout')
+      .send(workout)
       .end((err, res) => {
         res.should.have.status(OK);
       }
@@ -152,13 +146,13 @@ describe('Workout Task', () => {
     })
 
     it('/DELETE user given id that does not exist. should return 404', async() => {
-      const user = {
+      const workout = {
         _id: '01234',
       }
 
       chai.request(testServer)
-      .delete('/user/')
-      .send(user)
+      .delete('/workout')
+      .send(workout)
       .end((err, res) => {
         res.should.have.status(OK);
       }

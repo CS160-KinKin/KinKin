@@ -139,7 +139,7 @@ describe('User', () => {
       .put('/user/')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(OK);
+        res.should.have.status(NOT_FOUND);
         done();
       });
     })
