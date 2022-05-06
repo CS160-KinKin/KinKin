@@ -18,9 +18,15 @@ const HealthInput = (props) => {
     // It then gets the result from that to know if it was successful or not
     const inputCheck = async () => {
         try {
-            const response = await createHealthData(props.user.token, calories, distanceWalked, distanceRan, distanceCycled, minutes);
-            console.log(response);
-            alert("Health Data Uploaded");
+            if(calories == "" || distanceWalked == "" || distanceRan == "" || distanceCycled == "" || minutes == "")
+            {
+                alert("Missing input");
+            }
+            else {
+                const response = await createHealthData(props.user.token, calories, distanceWalked, distanceRan, distanceCycled, minutes);
+                console.log(response);
+                alert("Health Data Uploaded");
+            }
         }
         catch(err) {
             console.log(err.message);
