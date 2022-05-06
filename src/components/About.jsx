@@ -5,7 +5,7 @@ function About(props) {
   return (
     <>
       <Navigation {...props} />
-      <div className='row content'>
+      <div className='content'>
         <div className='container'>
           <div className='row align-items-center my-5'>
             <div className='col-lg-5'>

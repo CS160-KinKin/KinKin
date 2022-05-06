@@ -36,6 +36,19 @@ const createPt = async (token, body) => {
   return res;
 };
 
+const editPt = async (token, body) => {
+  if (body.rate) {
+    body.rate = parseInt(body.rate);
+    if (isNaN(body.rate)) body.rate = undefined;
+  }
+  const res = await axios.post(
+    process.env.REACT_APP_CONTROL_SERVER_URL + MUTATE_PT_ENDPOINT,
+    body,
+    { headers: { 'x-access-token': token, 'content-type': 'application/json' } }
+  );
+  return res;
+};
+
 /**
  * Queries PTs based on filters.
  * @param {string} token JWT.
@@ -91,6 +104,7 @@ const deleteRequest = async (token, id) => {
 export {
   getPt,
   createPt,
+  editPt,
   getPTsByFilters,
   addRequest,
   getRequests,

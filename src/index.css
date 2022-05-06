@@ -38,18 +38,18 @@ code {
   font-size: 30px;
 }
 
-.row {
-  margin: 0;
-}
 
-.row.header {
+.header {
+  margin: 0;
   flex: 0 1 auto;
 }
 
-.row.content {
+.content {
+  margin: 0;
   flex: 1 1 auto;
 }
 
-.row.footer {
+.footer {
+  margin: 0;
   flex: 0 1 40px;
 }

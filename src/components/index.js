@@ -8,7 +8,6 @@ export { default as ClientDashboard } from "./Dashboards/ClientDashboard";
 export { default as PtDashboard } from "./Dashboards/PtDashboard";
 export { default as Marketplace } from "./Marketplace/Marketplace";
 export { default as Request } from "./Requests/Request";
-export { default as UserDashboard } from "./UserDashboard";
 export { default as Chat} from "./Chat/Chat"
 export { default as ChatButton } from "./Chat/ChatButton";
 export { default as CreateWorkoutTask } from './Workout/create-workout-task';

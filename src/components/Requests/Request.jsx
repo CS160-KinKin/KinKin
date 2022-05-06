@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RequestComponent from './RequestComponent';
-import { Footer, Navigation } from '../index';
 import { getRequests } from '../../util/pt';
-import { acceptRequest } from '../../util/pt';
 
 const Request = (props) => {
   const [requests, setRequests] = useState([]);
@@ -17,13 +15,10 @@ const Request = (props) => {
 
   return (
     <>
-      <Navigation {...props} />
-      <div className='row content'>
-        {requests.map((request) => (
-          <RequestComponent user={props.user} client={request} />
-        ))}
-      </div>
-      <Footer />
+      {requests.map((request) => (
+        <RequestComponent user={props.user} client={request} />
+      ))}
+      <button onClick={props.back}>Back</button>
     </>
   );
 };

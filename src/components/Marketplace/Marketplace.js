@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navigation, Footer } from '../index';
-import PTProfile from '../Profile/PtProfilePage';
+import PTProfile from '../Profile/PTProfile';
 import FilterSearch from './FilterSearch';
 import { getPTsByFilters } from '../../util/pt';
 import { addRequest } from '../../util/pt';
@@ -46,7 +46,7 @@ export default class Marketplace extends Component {
     return (
       <>
         <Navigation {...this.props} />
-        <div className='marketplace'>
+        <div className='content marketplace'>
           <div className='row align-items-center my-5'>
             <div className='col-lg-5'>
               <FilterSearch

@@ -15,7 +15,7 @@ const CustomChannel = ({createChannel, sdk, sendMessage}) => {
   return (
     <>
       <button onClick={() => {
-        let message = prompt("Send an intial message:", "Hi! I am interested in being your client...")
+        let message = prompt("Send an initial message:", "Hi! I am interested in being your client...")
         console.log(message)
         console.log(props.pt)
 

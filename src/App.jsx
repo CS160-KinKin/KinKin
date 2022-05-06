@@ -2,12 +2,6 @@ import React, { useState } from 'react';
 import {
   Routes,
   Route,
-  Link,
-  useNavigate,
-  useLocation,
-  Navigate,
-  Outlet,
-  Router,
 } from 'react-router-dom';
 import User from './util/User';
 import {
@@ -15,16 +9,13 @@ import {
   Home,
   Login,
   NotFound,
-  UserDashboard,
+  PtDashboard,
   Chat,
-  Profile,
   Marketplace,
-  Request,
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
   AdditionalInformationCollection,
-  Navigation,
 } from './components';
 
 function App() {
@@ -51,24 +42,16 @@ function App() {
           element={<Home user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/About'
+          path='/about'
           element={<About user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/Profile'
-          element={<Profile user={user} handleLogout={handleLogout} />}
-        />
-        <Route
-          path='/Marketplace'
+          path='/marketplace'
           element={<Marketplace user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/UserDashboard'
-          element={<UserDashboard user={user} handleLogout={handleLogout} />}
-        />
-        <Route
-          path='/requests'
-          element={<Request user={user} handleLogout={handleLogout} />}
+          path='/pt'
+          element={<PtDashboard user={user} handleLogout={handleLogout} />}
         />
         <Route
           path='/workouts'
@@ -86,7 +69,7 @@ function App() {
           element={<EditWorkoutTask user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/Chat'
+          path='/chat'
           element={<Chat user={user} handleLogout={handleLogout} />}
         />
         <Route path='*' element={<NotFound user={user} />} />
@@ -100,7 +83,7 @@ function App() {
           element={<Home user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/About'
+          path='/about'
           element={<About user={user} handleLogout={handleLogout} />}
         />
         <Route

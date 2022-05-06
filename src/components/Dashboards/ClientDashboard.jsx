@@ -5,7 +5,7 @@ import EditPT from '../Profile/EditPT';
 import { getPt, createPt, editPt } from '../../util/pt';
 import { STATUS_CODES } from '../../util/constants';
 
-function PtDashboard(props) {
+function ClientDashboard(props) {
   const [profile, setProfile] = useState({});
   const [content, setContent] = useState('loading');
 
@@ -46,6 +46,7 @@ function PtDashboard(props) {
   useEffect(() => {
     getPt(props.user.token)
       .then((res) => {
+        console.log(res.data);
         if (res.status === STATUS_CODES.OK) {
           res.data.pictureUrl = props.user.pictureUrl;
           res.data.name = props.user.publicName;
@@ -71,10 +72,10 @@ function PtDashboard(props) {
           <div className='center'>
             <PTProfile {...profile} />
             <div>
-              <button className='btn btn-info' onClick={() => setContent('requests')}>
+              <button onClick={() => setContent('requests')}>
                 View your client requests
               </button>
-              <button className='btn btn-light' onClick={() => setContent('edit')}>Edit Profile</button>
+              <button onClick={() => setContent('edit')}>Edit Profile</button>
             </div>
           </div>
         );
@@ -114,4 +115,4 @@ function PtDashboard(props) {
   );
 }
 
-export default PtDashboard;
+export default ClientDashboard;
