@@ -8,6 +8,14 @@ router.put('/', verifyToken, async (req, res) => {
   try {
     const { publicName, pictureUrl } = req.body;
     const username = req.body.username.toLowerCase();
+
+    const dup = await User.findOne({
+      $or: [{ _id: req.user.userId }, { username }],
+    });
+    if (dup) {
+      return res.status(STATUS_CODES.CONFLICT).send();
+    }
+
     const doc = await User.create({
       _id: req.user.userId,
       username,
@@ -15,9 +23,10 @@ router.put('/', verifyToken, async (req, res) => {
       email: req.user.email,
       pictureUrl,
     });
-    res.status(STATUS_CODES.OK).send(doc);
+    return res.status(STATUS_CODES.OK).send(doc);
   } catch (err) {
-    res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
+    console.error(err);
+    return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
   }
 });
 
