@@ -416,7 +416,7 @@ export default class Activity extends Component {
                     <div className="container">
                         <div className="pie">
                             <CaloriesDaily
-                                burned={this.state.todaysData.length > 0 ? this.state.todaysData[0].calories : 0}
+                                burned={this.state.todaysData.length > 0 ? this.state.todaysData[index].calories : 0}
                                 goal={1000}
                             />
                         </div>
