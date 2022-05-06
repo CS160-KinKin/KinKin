@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Footer, Navigation } from '../index';
 import PTProfile from '../Profile/PTProfile';
 import EditPT from '../Profile/EditPT';
@@ -75,11 +75,11 @@ function PtDashboard(props) {
               <div className='col' />
             </div>
             <div>
-              <NavLink className='btn btn-info' to='/pt/requests'>
+              <Link className='btn btn-info' to='requests'>
                 View your client requests
-              </NavLink>
+              </Link>
               <button
-                className='btn btn-light'
+                className='btn btn-warning'
                 onClick={() => setContent('edit')}
               >
                 Edit Profile

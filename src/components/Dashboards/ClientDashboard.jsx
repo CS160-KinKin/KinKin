@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Footer, Navigation } from '../index';
 import ClientProfile from '../Profile/ClientProfile';
 import EditClient from '../Profile/EditClient';
@@ -75,13 +75,21 @@ function ClientDashboard(props) {
               <div className='col' />
             </div>
             <div>
-              <NavLink className='btn btn-primary' to='/workouts'>
+              <Link className='btn btn-primary' to='workouts'>
                 {/* TODO */}
                 View your workouts
-              </NavLink>
-              <NavLink className='btn btn-secondary' to='/marketplace'>
+              </Link>
+              <Link className='btn btn-success' to='healthinput'>
+                {/* TODO */}
+                Input health data
+              </Link>
+              <Link className='btn btn-info' to='activity'>
+                {/* TODO */}
+                View your activity
+              </Link>
+              <Link className='btn btn-secondary' to='marketplace'>
                 View the PT marketplace
-              </NavLink>
+              </Link>
               <button
                 className='btn btn-warning'
                 onClick={() => setContent('edit')}

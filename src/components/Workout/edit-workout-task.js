@@ -65,7 +65,7 @@ export default class EditWorkoutTask extends Component {
 
     // todo
 
-    window.location = "/workouts";
+    window.location = "/client/workouts";
   }
 
   render() {

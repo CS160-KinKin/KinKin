@@ -15,6 +15,8 @@ import {
   AdditionalInformationCollection,
   Request,
   ClientDashboard,
+  Activity,
+  HealthInput,
 } from './components';
 
 function App() {
@@ -45,10 +47,6 @@ function App() {
           element={<About user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/marketplace'
-          element={<Marketplace user={user} handleLogout={handleLogout} />}
-        />
-        <Route
           path='/pt'
           exact
           element={<PtDashboard user={user} handleLogout={handleLogout} />}
@@ -65,18 +63,30 @@ function App() {
           element={<ClientDashboard user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/workouts'
+          path='/client/activity'
+          element={<Activity user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='client/healthinput'
+          element={<HealthInput user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='/client/marketplace'
+          element={<Marketplace user={user} handleLogout={handleLogout} />}
+        />
+        <Route
+          path='client/workouts'
           exact
           element={<WorkoutList user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='/workouts/add'
+          path='client/workouts/add'
           element={
             <CreateWorkoutTask user={user} handleLogout={handleLogout} />
           }
         />
         <Route
-          path='/workouts/update'
+          path='client/workouts/update'
           element={<EditWorkoutTask user={user} handleLogout={handleLogout} />}
         />
         <Route

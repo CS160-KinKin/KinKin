@@ -1,0 +1,70 @@
+/* How do I center this?? */
+.info {
+    font-size: 25px;
+    display:block;
+    
+    margin:10px 10px 0 0;
+    padding:5px 10px
+}
+
+.posting-container {
+    display: block;
+}
+
+.posting-input-container {
+    padding: 16px;
+    margin: 10px;
+    width: 100%;
+    display: block;
+}
+
+.posting-container label {
+    font-size: 20px;
+}
+
+.posting-container input[type=text] {
+    width: 100px;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    /* display: block; */
+    border: none;
+    background: #f1f1f1;
+} 
+
+.posting-container input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+.health-input {
+    position: relative;
+}
+.health-input input[type=text] {
+    margin-right: 20px;
+}
+
+.label-minutes {
+    font-size: 25px !important;
+}
+
+.info {
+    font-size: 30px;
+}
+
+.btn1 {
+	color:#fff;
+	background-color:dodgerblue;
+	outline: 4px;
+    border: 0;
+	padding:10px 20px;
+	text-transform:uppercase;
+	margin-bottom:50px;
+    margin-left: 26px;
+	border-radius:2px;
+	cursor:pointer;
+	position:relative;
+}
+
+.btn1:hover {
+    background: darkblue;
+}
+

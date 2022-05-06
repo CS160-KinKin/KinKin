@@ -11,7 +11,7 @@ const WorkoutTask = (props) => (
     <td>{props.task.duration}</td>
     <td>{props.task.date.substring(0, 10)}</td>
     <td>
-      <Link to={'/edit/' + props.task._id}>edit</Link> |{' '}
+      <Link to={'edit/' + props.task._id}>edit</Link> |{' '}
       <button
         onClick={() => {
           props.deleteWorkoutTask(props.task._id);
