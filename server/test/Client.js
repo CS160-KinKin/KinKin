@@ -1,4 +1,3 @@
-const workouttask = require('../models/workouttask.model');
 const Auth = require('../util/auth');
 const {
   OK,
@@ -22,7 +21,7 @@ chai.use(chaiHttp);
 
 let testServer = null
 
-describe('Workout Task', () => {
+describe('Client', () => {
   // replace this with clearSchema at some point
   before((done) => { 
     testServer = initServer();
@@ -46,21 +45,20 @@ describe('Workout Task', () => {
     closeServer(testServer)
   })
 
-  describe('/PUT workout object in db', async(done) => {
-    it('it should put workout in db', async() => {
+  describe('/PUT client object in db', async(done) => {
+    it('it should put client in db', async() => {
 
-      const workout = {
+      const client = {
         _id: '01234',
-        title: 'Upper body',
-        clientId: '01234',
-        description: 'A dumbell workout targeting bis and tris',
-        duration: 10,
-        date: '2016-05-18T16:00:00Z'
+        bio: 'hi! its me',
+        langauges: ['english','spanish'],
+        interests: ['rock climbing'],
+        trainingGoals: 'bulk'
       }
 
       chai.request(testServer)
-      .put('/workouts/')
-      .send(workout)
+      .put('/client')
+      .send(client)
       .end((err, res) => {
         res.should.have.status(OK);
       }
@@ -69,43 +67,44 @@ describe('Workout Task', () => {
     done();
   })
 
-  describe('/GET workout task object by id', () => {
-    it('/GET it should get workouttask given id', async() => {
-      const workout = {
+  describe('/GET client object by id', () => {
+    it('/GET it should get client given id', async() => {
+      const client = {
         _id: '01234'
       }
       chai.request(testServer)
-      .post('/workouts/get')
+      .post('/client/get')
+      .send(client)
       .end((err, res) => {
         res.should.have.status(OK);
         res.body.should.be.a('object')
       })
     })
 
-    it('/GET given workout task id that does not exist. expect 404', async() => {
-      const workout = {
+    it('/GET given client id that does not exist. expect 404', async() => {
+      const client = {
         _id: '012345'
       }
       chai.request(testServer)
-      .get('/workouts')
-      .send(workout)
+      .post('/client/get')
+      .send(client)
       .end((err, res) => {
         res.should.have.status(NOT_FOUND);
       })
     })
   })
 
-  describe('/POST workout task object in db to edit it', async(done) => {
-    it('/POST edit workout task should pass. return 200', async() => {
+  describe('/POST client object in db to edit it', async(done) => {
+    it('/POST client should pass. return 200', async() => {
 
-      const workout = {
+      const client = {
         _id: '01234',
-        description: 'this is a new description'
+        bio: 'this is a new bio'
       }
 
       chai.request(testServer)
-      .put('/workouts')
-      .send(workout)
+      .post('/client')
+      .send(client)
       .end((err, res) => {
         res.should.have.status(OK);
         res.body.should.be.a('object');
@@ -113,15 +112,15 @@ describe('Workout Task', () => {
       });
     })
 
-    it('/POST edit workout task should fail. return 404', async() => {
+    it('/POST edit client should fail. return 404', async() => {
 
-      const user = {
+      const client = {
         _id: '01233',
       }
 
       chai.request(testServer)
-      .put('/user/')
-      .send(user)
+      .post('/client')
+      .send(client)
       .end((err, res) => {
         res.should.have.status(NOT_FOUND);
         done();
@@ -129,30 +128,30 @@ describe('Workout Task', () => {
     })
   })
 
-  describe('/DELETE workout object in db', async(done) => {
-    it('/DELETE it should delete workout in db', async() => {
+  describe('/DELETE client object in db', async(done) => {
+    it('it should delete client in db', async() => {
 
-      const workout = {
+      const client = {
         _id: '01234',
       }
 
       chai.request(testServer)
-      .delete('/workout')
-      .send(workout)
+      .delete('/client')
+      .send(client)
       .end((err, res) => {
         res.should.have.status(OK);
       }
       );
     })
 
-    it('/DELETE workout given id that does not exist. should return 404', async() => {
-      const workout = {
+    it('/DELETE client given id that does not exist. should return 404', async() => {
+      const client = {
         _id: '01234',
       }
 
       chai.request(testServer)
-      .delete('/workout')
-      .send(workout)
+      .delete('/client')
+      .send(client)
       .end((err, res) => {
         res.should.have.status(OK);
       }
