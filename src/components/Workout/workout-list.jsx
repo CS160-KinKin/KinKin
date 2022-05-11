@@ -11,8 +11,13 @@ const WorkoutTask = (props) => (
     <td>{props.task.duration}</td>
     <td>{new Date(props.task.date).toLocaleDateString()}</td>
     <td>
-      <Link className='btn btn-secondary m-1' to={`edit/${props.task._id}`}>Edit</Link>
-      <button className='btn btn-danger m-1' onClick={() => props.deleteWorkoutTask(props.task._id)}>
+      <Link className='btn btn-secondary m-1' to={`edit/${props.task._id}`}>
+        Edit
+      </Link>
+      <button
+        className='btn btn-danger m-1'
+        onClick={() => props.deleteWorkoutTask(props.task._id)}
+      >
         Delete
       </button>
     </td>

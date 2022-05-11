@@ -17,8 +17,6 @@ const CustomChannel = ({createChannel, sdk, sendMessage}) => {
     <>
       <button className='request-btn' onClick={() => {
         let message = prompt("Send an initial message:", "Hi! I am interested in being your client...")
-        console.log(message)
-        console.log(props.pt)
 
         let channelParams = new sdk.GroupChannelParams()
         channelParams.isPublic = false
@@ -31,13 +29,11 @@ const CustomChannel = ({createChannel, sdk, sendMessage}) => {
 
         createChannel(channelParams) 
         .then(c => {
-          console.log(c.url) 
           return c
         })
         .then(c => {
           let msgParams = new sdk.UserMessageParams()
           msgParams.message = message
-          console.log(c.url)
 
           sendMessage(c.url, msgParams)
           .then((pendingMessage) => {
