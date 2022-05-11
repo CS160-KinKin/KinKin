@@ -43,7 +43,7 @@ export default class WorkoutList extends Component {
   async componentDidMount() {
     const res = await getWorkouts(this.props.user.token);
     if (res.status === STATUS_CODES.OK) {
-      this.setState({ tasks: res.data.pt });
+      this.setState({ tasks: this.props.isPt ? res.data.pt : res.data.client });
     } else {
       console.error('WorkoutList.componentDidMount had an error');
       console.error(res);
