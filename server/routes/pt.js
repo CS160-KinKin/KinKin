@@ -9,8 +9,12 @@ const { OK, BAD_REQUEST, NOT_FOUND, UNAUTHORIZED, CONFLICT } =
 
 router.put('/', verifyToken, async (req, res) => {
   try {
-    const { bio, languages, location, specialties, rate, availableTimes } =
+    const { bio, languages, location, specialties, rate, availableDays } =
       req.body;
+    const dup = await Pt.findById(req.user.userId);
+    if (dup) {
+      return res.status(CONFLICT).send();
+    }
     const doc = await Pt.create({
       _id: req.user.userId,
       bio,
@@ -18,7 +22,7 @@ router.put('/', verifyToken, async (req, res) => {
       location,
       specialties,
       rate,
-      availableTimes,
+      availableDays,
     });
     res.status(OK).send(doc);
   } catch (err) {
@@ -45,7 +49,7 @@ router.route('/').post(verifyToken, async (req, res) => {
     doc.location = req.body.location || doc.location;
     doc.rate = req.body.rate || doc.rate;
     doc.specialties = req.body.specialties || doc.specialties;
-    doc.availableTimes = req.body.availableTimes || doc.availableTimes;
+    doc.availableDays = req.body.availableDays || doc.availableDays;
     await doc.save();
     return res.status(OK).send(doc);
   } catch (err) {
@@ -139,7 +143,7 @@ router.post('/request', verifyToken, async (req, res) => {
       return res.status(NOT_FOUND).send();
     }
     if (client.pt === pt._id && pt.clients.indexOf(client._id) !== -1) {
-      return res.status(CONFLICT).send("PT already has user as a client.");
+      return res.status(CONFLICT).send('PT already has user as a client.');
     }
     if (pt.requests.indexOf(client._id) === -1) {
       pt.requests.push(client._id);

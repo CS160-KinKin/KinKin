@@ -11,15 +11,26 @@ const ClientSchema = new Schema(
     languages: {
       type: Array,
       of: String,
+      default: [],
     },
     bio: {
       type: String,
     },
     positiveRatingCount: {
       type: Number,
+      default: 0,
+      validate: {
+        validator: (e) => Number.isInteger(e) && e >= 0,
+        message: '{VALUE} is not a non-negative integer value',
+      },
     },
     negativeRatingCount: {
       type: Number,
+      default: 0,
+      validate: {
+        validator: (e) => Number.isInteger(e) && e >= 0,
+        message: '{VALUE} is not a non-negative integer value',
+      },
     },
     location: {
       type: PointSchema,
@@ -28,6 +39,7 @@ const ClientSchema = new Schema(
     interests: {
       type: Array,
       of: String,
+      default: [],
     },
     trainingGoals: {
       type: String,
@@ -40,6 +52,7 @@ const ClientSchema = new Schema(
       type: Array,
       of: String,
       ref: 'Pt',
+      default: [],
     },
   },
   {

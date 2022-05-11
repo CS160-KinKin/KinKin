@@ -4,6 +4,8 @@ import PTProfile from '../Profile/PTProfile';
 import FilterSearch from './FilterSearch';
 import { getPTsByFilters } from '../../util/pt';
 import { addRequest } from '../../util/pt';
+import ChatButton from '../Chat/ChatButton' 
+import './marketplace.css';
 
 export default class Marketplace extends Component {
   constructor(props) {
@@ -29,12 +31,7 @@ export default class Marketplace extends Component {
       console.log(err.message);
     }
   }
-
-  sendMessage() {
-    alert('Go to messaging tbd');
-    // Message routing to be implemented
-  }
-
+  
   async getMarketplace(filters = {}) {
     // get PT data from database using filters
     try {
@@ -49,33 +46,34 @@ export default class Marketplace extends Component {
     return (
       <>
         <Navigation {...this.props} />
-        <div className='container'>
+        <div className='content marketplace'>
           <div className='row align-items-center my-5'>
             <div className='col-lg-5'>
-              <h1 className='font-weight-light'>Marketplace</h1>
               <FilterSearch
                 user={this.props.user}
                 getMarketplace={this.getMarketplace}
               />
               <br />
               <h4> List of suggested PT's for you:</h4>
-              {this.state.PTList.map((PT) => {
-                console.log(PT);
-                console.log(this.props.user.id);
-                if (PT.id !== this.props.user.id)
-                  return (
-                    <div>
-                      <PTProfile {...PT} />
-                      <button onClick={() => this.sendRequest(PT.id)}>
-                        Request
-                      </button>
-                      <button onClick={this.sendMessage}>Message</button>
-                      <br />
-                      <br />
-                    </div>
-                  );
-                return <></>;
-              })}
+              <div className="pt-cards">
+                  {this.state.PTList.map((PT) => {
+                    if (PT.id !== this.props.user.id)
+                      return (
+                        <div>
+                          <PTProfile {...PT} />
+                          <div className='buttons'> 
+                            <button className='request-btn' onClick={() => this.sendRequest(PT.id)}>
+                              Request
+                            </button>
+                            <ChatButton user={this.props.user} pt={PT} />
+                          </div>
+                          <br />
+                          <br />
+                        </div>
+                      );
+                    return <></>;
+                  })}
+              </div>
             </div>
           </div>
         </div>

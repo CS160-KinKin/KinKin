@@ -1,0 +1,31 @@
+.submit-button {
+    background-color: dodgerblue;
+    width: 150px;
+    font-size: 20px;
+    border-radius: 7px;
+    margin-bottom: 30px;
+}
+
+.filters-container {
+    height: 515px;
+    background-color: #f9f9f9;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    
+}
+
+label {
+    margin-right: 15px;
+}
+
+.wrapper {
+    margin-top: 10px;
+    font-weight: bold;
+    margin-left: 5px;
+    
+}
+
+h4 {
+    margin-left: 5px;
+    font-size: 35px;
+}

@@ -2,6 +2,7 @@
   position: relative;
 }
 
+/*
 .home:before {
   content: ' ';
   display: block;
@@ -17,3 +18,4 @@
   background-position: 50% 0;
   background-size: cover;
 }
+*/

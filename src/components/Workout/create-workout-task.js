@@ -85,7 +85,7 @@ export default class CreateWorkoutTask extends Component {
 
         createWorkoutTask(this.props.user.token, task);
         
-        window.location = "/workouts";
+        window.location = "/client/workouts";
     }
 
     render() {

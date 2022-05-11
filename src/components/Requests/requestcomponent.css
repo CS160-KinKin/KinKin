@@ -13,12 +13,14 @@ button {
 
 .reject-btn {
     background-color: red;
-    
-    margin-left: 20px;
+    width: 125px;
+    margin-left: 40px;
+    font-size: large;
 }
 .accept-btn {
     background-color: green;
-    
+    width: 125px;
+    font-size: large;
 }
 
 .buttons {
@@ -31,7 +33,7 @@ button {
 .request-container {
     border: 2px solid #DCDCDC;
     border-radius: 3px;
-    width: 300px; /*GIVE FIXED WIDTH SO ALL BOXES ARE SAME SIZE*/
+    width: 350px; 
     height: 125px;
     margin: 10px 10px 10px 10px;
     background-color: #F0F0F0;

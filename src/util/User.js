@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   CONVERT,
   USER_ATTRIBUTES,
@@ -17,9 +18,14 @@ const logoutUrl =
   process.env.REACT_APP_CONTROL_SERVER_URL + POST_LOGOUT_ENDPOINT;
 
 export default class User {
-  constructor() {
+  constructor(attributes = {}) {
     USER_ATTRIBUTES.forEach((att) => {
-      this[att] = cookies.get(att);
+      if (attributes[att]) {
+        this[att] = attributes[att];
+        cookies.set(att, attributes[att]);
+      } else if (att !== 'newUser') {
+        this[att] = cookies.get(att);
+      }
     });
   }
 
@@ -36,22 +42,19 @@ export default class User {
   }
 
   async login(googleTokenId) {
-    const res = await fetch(authUrl, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': googleTokenId,
-      },
+    const res = await axios.post(
+      authUrl,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': googleTokenId,
+        },
+      }
+    );
+    Object.assign(this, res.data);
+    USER_ATTRIBUTES.forEach((att) => {
+      if (att !== 'newUser') cookies.set(att, res.data[att]);
     });
-    if (res.ok) {
-      const data = await res.json();
-      Object.assign(this, data);
-      USER_ATTRIBUTES.forEach((att) => {
-        cookies.set(att, data[att]);
-      });
-    } else {
-      console.log('invalid login');
-    }
   }
 }
