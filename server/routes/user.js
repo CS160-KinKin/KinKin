@@ -65,7 +65,7 @@ router.post('/get', verifyToken, async (req, res) => {
   }
 });
 
-router.get('/get/:id', verifyToken, async (req, res) => {
+router.post('/get/:id', verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
     const userDoc = await User.findById(id);

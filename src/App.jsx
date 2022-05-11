@@ -100,7 +100,7 @@ function App() {
           }
         />
         <Route
-          path='/pt/workouts/update'
+          path='/pt/workouts/edit/:taskId'
           element={<EditWorkoutTask user={user} handleLogout={handleLogout} />}
         />
         <Route

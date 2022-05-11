@@ -7,17 +7,17 @@ import { STATUS_CODES } from '../../util/constants';
 const WorkoutTask = (props) => (
   <tr>
     <td>{props.task.title}</td>
-    <td>{props.task.client}</td>
+    <td>{props.task.client.publicName}</td>
     <td>{props.task.description}</td>
     <td>{props.task.duration}</td>
-    <td>{new Date(props.task.date).toLocaleDateString()}</td>
+    <td>{new Date(Date.parse(props.task.date)).toLocaleDateString()}</td>
     <td>
       <Link className='btn btn-secondary m-1' to={`edit/${props.task._id}`}>
         Edit
       </Link>
       <button
         className='btn btn-danger m-1'
-        onClick={() => props.deleteWorkoutTask(props.task._id)}
+        onClick={() => props.onDelete(props.task._id)}
       >
         Delete
       </button>
@@ -30,7 +30,7 @@ export default class WorkoutList extends Component {
     super(props);
 
     this.componentDidMount = this.componentDidMount.bind(this);
-    this.deleteWorkoutTask = this.deleteWorkoutTask.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.workoutList = this.workoutList.bind(this);
 
     this.state = { tasks: [] };
@@ -46,11 +46,11 @@ export default class WorkoutList extends Component {
     }
   }
 
-  async deleteWorkoutTask(id) {
+  async handleDelete(id) {
     const res = await deleteWorkoutTask(this.props.user.token, id);
     if (res.status === STATUS_CODES.OK) {
       this.setState({
-        tasks: this.state.tasks.filter((el) => el._id === id),
+        tasks: this.state.tasks.filter((el) => el._id !== id),
       });
     } else {
       console.error('WorkoutList.componentDidMount had an error');
@@ -59,13 +59,17 @@ export default class WorkoutList extends Component {
   }
 
   workoutList() {
-    return this.state.tasks.map((currentTask) => (
-      <WorkoutTask
-        task={currentTask}
-        deleteWorkoutTask={this.deleteWorkoutTask}
-        key={currentTask._id}
-      />
-    ));
+    return (
+      <>
+        {this.state.tasks.map((currentTask) => (
+          <WorkoutTask
+            task={currentTask}
+            onDelete={this.handleDelete}
+            key={currentTask._id}
+          />
+        ))}
+      </>
+    );
   }
 
   render() {
@@ -85,6 +89,7 @@ export default class WorkoutList extends Component {
                 <th>Description</th>
                 <th>Duration</th>
                 <th>Date</th>
+                <th />
               </tr>
             </thead>
             <tbody>{this.workoutList()}</tbody>

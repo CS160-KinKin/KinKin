@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 import { createWorkoutTask } from '../../util/workouts';
 import { getClientById } from '../../util/client';
 import { getPt } from '../../util/pt';
@@ -14,7 +14,7 @@ const CreateWorkoutTask = (props) => {
   const pathParts = useLocation().pathname.split('/');
   const taskId = pathParts[pathParts.length - 1];
   const [title, setTitle] = useState('');
-  const [client, setClient] = useState({});
+  const [client, setClient] = useState({ value: {}, label: '' });
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(new Date());
@@ -42,17 +42,22 @@ const CreateWorkoutTask = (props) => {
     [taskId, props.user]
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    createWorkoutTask(props.user.token, {
+    const res = await createWorkoutTask(props.user.token, {
       id: taskId,
       title,
-      client: client._id,
+      client: client.value.id,
       description,
       duration,
       date,
     });
-    navigate(-1);
+    if (res.status === STATUS_CODES.OK) {
+      navigate(-1);
+    } else {
+      alert('Could not create task');
+      console.error(res);
+    }
   };
 
   return (
@@ -65,12 +70,12 @@ const CreateWorkoutTask = (props) => {
           <div className='col-sm-2'>
             <img
               className='rounded mx-auto d-block'
-              src={client.pictureUrl || 'blank-profile.png'}
+              src={client.value.pictureUrl || 'blank-profile.png'}
               alt='Client profile'
             />
           </div>
           <h3 className='col-sm-2 font-weight-light'>
-            {client.publicName || 'no client name'}
+            {client.value.publicName || 'no client name'}
           </h3>
           <div className='col' />
         </div>

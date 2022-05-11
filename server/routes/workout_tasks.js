@@ -14,14 +14,14 @@ router.route('/get').post(verifyToken, async (req, res) => {
     const pt_tasks = [];
     const client_tasks = [];
     for await (const task of WorkoutTask.find({
-      $and: [{ pt: id }, { _id: taskId }],
+      $and: [{ pt: id }, taskId ? { _id: taskId } : {}],
     })) {
       task.pt = await User.findById(task.pt);
       task.client = await User.findById(task.client);
       pt_tasks.push(task);
     }
     for await (const task of WorkoutTask.find({
-      $and: [{ client: id }, { _id: taskId }],
+      $and: [{ client: id }, taskId ? { _id: taskId } : {}],
     })) {
       task.pt = await User.findById(task.pt);
       task.client = await User.findById(task.client);
@@ -35,7 +35,7 @@ router.route('/get').post(verifyToken, async (req, res) => {
 
 router.route('/').put(verifyToken, async (req, res) => {
   try {
-    const { title, clientId, description, duration, date } = req.body;
+    const { title, client, description, duration, date } = req.body;
     const ptId = req.user.userId;
 
     const doc = await Pt.findById(ptId);
@@ -43,13 +43,13 @@ router.route('/').put(verifyToken, async (req, res) => {
     if (!doc) {
       return res.status(NOT_FOUND).send();
     }
-    if (doc.clients.indexOf(clientId) === -1) {
+    if (doc.clients.indexOf(client) === -1) {
       return res.status(UNAUTHORIZED).send();
     }
 
     const task = await WorkoutTask.create({
       title,
-      client: clientId,
+      client,
       pt: ptId,
       description,
       duration,
@@ -61,12 +61,12 @@ router.route('/').put(verifyToken, async (req, res) => {
   }
 });
 
-router.route('/').delete(verifyToken, async (req, res) => {
+router.route('/delete').post(verifyToken, async (req, res) => {
   try {
     const taskId = req.body.id;
     const ptId = req.user.userId;
-    const task = await WorkoutTask.findOneAndDelete({ pt: ptId, _id: taskId });
-    return res.status(OK).send(task);
+    await WorkoutTask.findOneAndRemove({ pt: ptId, _id: taskId });
+    return res.status(OK).send();
   } catch (err) {
     return res.status(BAD_REQUEST).send(err.message);
   }
@@ -78,7 +78,7 @@ router.route('/').post(verifyToken, async (req, res) => {
     const ptId = req.user.userId;
     const pt = await Pt.findById(ptId);
     const task = await WorkoutTask.findOne({ pt: ptId, _id: taskId });
-    const clientId = req.body.client || task.clientId;
+    const clientId = req.body.client || task.client;
     if (pt.clients.indexOf(clientId) === -1) {
       return res.status(UNAUTHORIZED).send();
     }

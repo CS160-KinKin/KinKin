@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 import { updateWorkoutTask, getWorkouts } from '../../util/workouts';
 import { getClientById } from '../../util/client';
 import { STATUS_CODES } from '../../util/constants';
 import { Navigation, Footer } from '..';
+import { getPt } from '../../util/pt';
 
 const EditWorkoutTask = (props) => {
   const navigate = useNavigate();
-  const pathParts = useLocation().pathname.split('/');
-  const taskId = pathParts[pathParts.length - 1];
+  const { taskId } = useParams();
   const [title, setTitle] = useState('');
-  const [client, setClient] = useState({});
+  const [client, setClient] = useState({ value: {}, label: '' });
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState('');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(new Date());
   const [clientList, setClientList] = useState([]);
 
   useEffect(
@@ -28,18 +28,21 @@ const EditWorkoutTask = (props) => {
           setClient({ value: task.client, label: task.client.publicName });
           setDescription(task.description);
           setDuration(task.duration);
-          setDate(task.date);
-          const ourClients = [];
-          for (const clientId of task.pt.clients) {
-            const clientRes = await getClientById(props.user.token, clientId);
-            if (clientRes.status === STATUS_CODES.OK) {
-              ourClients.push({
-                label: clientRes.data.publicName,
-                value: clientRes.data,
-              });
+          setDate(Date.parse(task.date));
+          const ptRes = await getPt(props.user.token);
+          if (ptRes.status === STATUS_CODES.OK) {
+            const ourClients = [];
+            for (const clientId of ptRes.data.clients) {
+              const clientRes = await getClientById(props.user.token, clientId);
+              if (clientRes.status === STATUS_CODES.OK) {
+                ourClients.push({
+                  label: clientRes.data.publicName,
+                  value: clientRes.data,
+                });
+              }
             }
+            setClientList(ourClients);
           }
-          setClientList(ourClients);
         } else {
           console.error(`edit-workout-task had an error: ${res}`);
         }
@@ -47,17 +50,22 @@ const EditWorkoutTask = (props) => {
     [taskId, props.user]
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    updateWorkoutTask(props.user.token, {
+    const res = await updateWorkoutTask(props.user.token, {
       id: taskId,
       title,
-      client: client._id,
+      client: client.value.id,
       description,
       duration,
       date,
     });
-    navigate(-1);
+    if (res.status === STATUS_CODES.OK) {
+      navigate(-1);
+    } else {
+      alert('Could not edit task');
+      console.error(res);
+    }
   };
 
   return (
@@ -70,12 +78,12 @@ const EditWorkoutTask = (props) => {
           <div className='col-sm-2'>
             <img
               className='rounded mx-auto d-block'
-              src={client.pictureUrl || 'blank-profile.png'}
+              src={client.value.pictureUrl || 'blank-profile.png'}
               alt='Client profile'
             />
           </div>
           <h3 className='col-sm-2 font-weight-light'>
-            {client.publicName || 'no client name'}
+            {client.value.publicName || 'no client name'}
           </h3>
           <div className='col' />
         </div>

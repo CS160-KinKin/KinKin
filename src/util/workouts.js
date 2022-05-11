@@ -30,15 +30,25 @@ const getWorkouts = (token, filter = {}) => {
  * Deletes a workout task.
  * @param {string} token JWT of PT.
  * @param {string} taskId WorkoutTask._id
- * @returns Promise<AxiosResponse<any, any>> The deleted WorkoutTask.
+ * @returns Promise<AxiosResponse<any, any>>
  */
-const deleteWorkoutTask = async (token, taskId) => {
-  const res = await axios.delete(
-    process.env.REACT_APP_CONTROL_SERVER_URL + MUTATE_WORKOUTS_ENDPOINT,
-    { id: taskId },
-    { headers: { 'x-access-token': token, 'content-type': 'application/json' } }
-  );
-  return res.data;
+const deleteWorkoutTask = (token, taskId) => {
+  return axios.post(
+      process.env.REACT_APP_CONTROL_SERVER_URL + MUTATE_WORKOUTS_ENDPOINT + '/delete',
+      { id: taskId },
+      {
+        headers: {
+          'x-access-token': token,
+          'content-type': 'application/json',
+        },
+      }
+    )
+    .catch((err) => {
+      if (err.response) {
+        return err.response;
+      }
+      throw err;
+    });
 };
 
 /**

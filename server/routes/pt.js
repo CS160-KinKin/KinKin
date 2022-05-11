@@ -67,18 +67,6 @@ router.post('/get', verifyToken, async (req, res) => {
   }
 });
 
-router.get('/get/:username', verifyToken, async (req, res) => {
-  try {
-    const { username } = req.params;
-    const userDoc = await User.find({ username });
-    if (!userDoc) return res.status(NOT_FOUND).send();
-    const ptDoc = await Pt.findById(userDoc._id);
-    if (!ptDoc) return res.status(NOT_FOUND).send();
-    return res.status(OK).send(ptDoc);
-  } catch (err) {
-    return res.status(BAD_REQUEST).send(err.message);
-  }
-});
 router.post('/search', verifyToken, async (req, res) => {
   try {
     const { location, maxDistance, minRate, maxRate, availability } =
