@@ -396,8 +396,6 @@ export default class Activity extends Component {
             const dailyData = await getDailyHealth(this.props.user.token);
             const weekData = await getWeeklyHealth(this.props.user.token);
             const monthData = await getMonthlyHealth(this.props.user.token);
-            console.log(weekData);
-            console.log(monthData);
 
             this.setState({ todaysData: dailyData, weeklyData: weekData, monthlyData: monthData });
         } catch (err) {

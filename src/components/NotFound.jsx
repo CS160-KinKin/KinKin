@@ -5,7 +5,7 @@ function NotFound(props) {
   return (
     <>
       <Navigation {...props} />
-      <div className='row content'>
+      <div className='content'>
         <div className='container'>
           <div className='col-lg-5'>
             <h1 className='font-weight-light'>Page not found</h1>

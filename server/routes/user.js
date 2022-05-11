@@ -65,4 +65,14 @@ router.post('/get', verifyToken, async (req, res) => {
   }
 });
 
+router.get('/users', verifyToken, async (req, res) => {
+  try {
+    const doc = await User.find({});
+    if (!doc) return res.status(STATUS_CODES.NOT_FOUND).send();
+    return res.status(STATUS_CODES.OK).send(doc);
+  } catch (err) {
+    return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
+  }
+});
+
 module.exports = router;

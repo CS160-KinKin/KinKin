@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import RequestComponent from './RequestComponent';
 import { Footer, Navigation } from '../index';
 import { getRequests } from '../../util/pt';
-import { acceptRequest } from '../../util/pt';
 
 const Request = (props) => {
   const [requests, setRequests] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -18,11 +19,12 @@ const Request = (props) => {
   return (
     <>
       <Navigation {...props} />
-      <div className='row content'>
-        {requests.map((request) => (
-          <RequestComponent user={props.user} client={request} />
-        ))}
-      </div>
+      {requests.map((request) => (
+        <RequestComponent user={props.user} client={request} />
+      ))}
+      <button className='btn btn-light' onClick={() => navigate(-1)}>
+        Back
+      </button>
       <Footer />
     </>
   );

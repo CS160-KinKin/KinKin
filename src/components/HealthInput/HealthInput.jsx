@@ -24,12 +24,11 @@ const HealthInput = (props) => {
             }
             else {
                 const response = await createHealthData(props.user.token, calories, distanceWalked, distanceRan, distanceCycled, minutes);
-                console.log(response);
                 alert("Health Data Uploaded");
             }
         }
         catch(err) {
-            console.log(err.message);
+            console.error(err.message);
         }
         
     }

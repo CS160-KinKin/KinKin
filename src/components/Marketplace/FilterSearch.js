@@ -31,7 +31,7 @@ export default class FilterSearch extends Component {
   }
 
   async componentDidMount() {
-    //const client = await getClient(this.props.user.token);
+    //const client = await getClient(this.props.user.token).data;
     //this.setState({ location: client.location });
   }
 

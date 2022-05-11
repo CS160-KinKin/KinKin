@@ -6,6 +6,7 @@ import {
 import 'sendbird-uikit/dist/index.css';
 import {React, useContext} from 'react';
 import ChatContext from './ChatContext'
+import '../Marketplace/marketplace.css'
 
 const appId = process.env.REACT_APP_SENDBIRD_ID
 
@@ -14,10 +15,8 @@ const CustomChannel = ({createChannel, sdk, sendMessage}) => {
 
   return (
     <>
-      <button onClick={() => {
-        let message = prompt("Send an intial message:", "Hi! I am interested in being your client...")
-        console.log(message)
-        console.log(props.pt)
+      <button className='request-btn' onClick={() => {
+        let message = prompt("Send an initial message:", "Hi! I am interested in being your client...")
 
         let channelParams = new sdk.GroupChannelParams()
         channelParams.isPublic = false
@@ -30,13 +29,11 @@ const CustomChannel = ({createChannel, sdk, sendMessage}) => {
 
         createChannel(channelParams) 
         .then(c => {
-          console.log(c.url) 
           return c
         })
         .then(c => {
           let msgParams = new sdk.UserMessageParams()
           msgParams.message = message
-          console.log(c.url)
 
           sendMessage(c.url, msgParams)
           .then((pendingMessage) => {

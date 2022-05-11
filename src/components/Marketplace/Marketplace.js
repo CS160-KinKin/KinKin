@@ -28,7 +28,7 @@ export default class Marketplace extends Component {
       alert('Request sent to PT.');
     } catch (err) {
       alert('Could not send request.');
-      console.log(err.message);
+      console.error(err.message);
     }
   }
   
@@ -46,7 +46,7 @@ export default class Marketplace extends Component {
     return (
       <>
         <Navigation {...this.props} />
-        <div className='marketplace'>
+        <div className='content marketplace'>
           <div className='row align-items-center my-5'>
             <div className='col-lg-5'>
               <FilterSearch
@@ -57,13 +57,11 @@ export default class Marketplace extends Component {
               <h4> List of suggested PT's for you:</h4>
               <div className="pt-cards">
                   {this.state.PTList.map((PT) => {
-                    console.log(PT);
-                    console.log(this.props.user.id);
                     if (PT.id !== this.props.user.id)
                       return (
                         <div>
                           <PTProfile {...PT} />
-                          <div classname='buttons'> 
+                          <div className='buttons'> 
                             <button className='request-btn' onClick={() => this.sendRequest(PT.id)}>
                               Request
                             </button>

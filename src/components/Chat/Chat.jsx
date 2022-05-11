@@ -28,13 +28,13 @@ import {
         userId={userId} 
         nickname={props.user.publicName}
         profileUrl={props.user.pictureUrl}
-        userListQuery={[]}
+        userListQuery={() => []}
       >
         <div className='sendbird-app__wrap'>
           {/* <div className = 'sendbird-channel-header sendbird-channel-header__right-icon'> */}
           <ChannelList 
           onChannelSelect={(channel) => {
-                if(channel) {
+                if(channel !== undefined) {
                     setChannelUrl(channel.url)
                 }
             }}
