@@ -167,13 +167,13 @@ router.post('/requests/accept', verifyToken, async (req, res) => {
     if (!pt || !client) {
       return res.status(NOT_FOUND).send();
     }
-    if (client.pt && client.pt.length()) {
+    if (client.pt && client.pt.length) {
       return res.status(UNAUTHORIZED).send('Client has a pt already');
     }
     client.pt = pt._id;
     for (const id of client.requests) {
       if (id !== pt._id)
-        await Pt.findByIdAndUpdate(id, { $pullAll: { requests: client._id } });
+        await Pt.findByIdAndUpdate(id, { $pull: { requests: client._id } });
     }
     client.requests = [];
     pt.requests.splice(pt.requests.indexOf(client._id), 1);
@@ -182,6 +182,7 @@ router.post('/requests/accept', verifyToken, async (req, res) => {
     await pt.save();
     return res.status(OK).send();
   } catch (err) {
+    console.log(err);
     return res.status(BAD_REQUEST).send(err.message);
   }
 });
