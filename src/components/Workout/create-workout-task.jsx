@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import { createWorkoutTask } from '../../util/workouts';
 import { getClientById } from '../../util/client';
 import { getPt } from '../../util/pt';
@@ -24,7 +25,7 @@ const CreateWorkoutTask = (props) => {
       getPt(props.user.token).then(async (res) => {
         if (res.status === STATUS_CODES.OK) {
           const ourClients = [];
-          for (const clientId of res.data.pt.clients) {
+          for (const clientId of res.data.clients) {
             const clientRes = await getClientById(props.user.token, clientId);
             if (clientRes.status === STATUS_CODES.OK) {
               ourClients.push({
@@ -58,7 +59,7 @@ const CreateWorkoutTask = (props) => {
     <>
       <Navigation {...props} />
       <form onSubmit={handleSubmit} className='mx-auto col-lg-8'>
-        <h2>Edit client's workout task</h2>
+        <h2>Create a workout task for a client</h2>
         <div className='form-group row'>
           <div className='col' />
           <div className='col-sm-2'>
@@ -75,7 +76,8 @@ const CreateWorkoutTask = (props) => {
         </div>
         <div className='form-group row'>
           <label className='col-sm-2'>Title</label>
-          <textarea
+          <input
+            type='text'
             className='col-sm-6'
             value={title}
             onChange={(e) => setTitle(e.target.value)}

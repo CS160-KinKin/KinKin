@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import { updateWorkoutTask, getWorkouts } from '../../util/workouts';
 import { getClientById } from '../../util/client';
 import { STATUS_CODES } from '../../util/constants';

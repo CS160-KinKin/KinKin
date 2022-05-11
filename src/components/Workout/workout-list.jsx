@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Footer, Navigation } from '../index';
 import { getWorkouts, deleteWorkoutTask } from '../../util/workouts';
+import { STATUS_CODES } from '../../util/constants';
 
 const WorkoutTask = (props) => (
   <tr>
@@ -28,33 +29,32 @@ export default class WorkoutList extends Component {
   constructor(props) {
     super(props);
 
+    this.componentDidMount = this.componentDidMount.bind(this);
     this.deleteWorkoutTask = this.deleteWorkoutTask.bind(this);
+    this.workoutList = this.workoutList.bind(this);
 
     this.state = { tasks: [] };
   }
 
   async componentDidMount() {
-    try {
-      const { pt } = await getWorkouts(this.props.user.token);
-      this.setState({ tasks: pt });
-      throw Error('test');
-    } catch (err) {
-      console.error(
-        `WorkoutList.componentDidMount had an error: ${err.message}`
-      );
+    const res = await getWorkouts(this.props.user.token);
+    if (res.status === STATUS_CODES.OK) {
+      this.setState({ tasks: res.data.pt });
+    } else {
+      console.error('WorkoutList.componentDidMount had an error');
+      console.error(res);
     }
   }
 
   async deleteWorkoutTask(id) {
-    try {
-      await deleteWorkoutTask(this.props.user.token, id);
+    const res = await deleteWorkoutTask(this.props.user.token, id);
+    if (res.status === STATUS_CODES.OK) {
       this.setState({
         tasks: this.state.tasks.filter((el) => el._id === id),
       });
-    } catch (err) {
-      console.error(
-        `WorkoutList.deleteWorkoutTask had an error: ${err.message}`
-      );
+    } else {
+      console.error('WorkoutList.componentDidMount had an error');
+      console.error(res);
     }
   }
 
@@ -78,7 +78,7 @@ export default class WorkoutList extends Component {
           </Link>
           <h3>Workout List</h3>
           <table className='table'>
-            <thread className='thead-light'>
+            <thead className='thead-light'>
               <tr>
                 <th>Title</th>
                 <th>Client</th>
@@ -86,7 +86,7 @@ export default class WorkoutList extends Component {
                 <th>Duration</th>
                 <th>Date</th>
               </tr>
-            </thread>
+            </thead>
             <tbody>{this.workoutList()}</tbody>
           </table>
         </div>
