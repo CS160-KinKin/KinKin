@@ -24,6 +24,7 @@ export default class EditWorkoutTask extends Component {
 
   async componentDidMount() {
     // todo
+    
   }
     
   /* 

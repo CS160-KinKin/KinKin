@@ -1,8 +1,66 @@
-import React, { Component } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { createWorkoutTask } from "../../util/workouts";
+import React, { useState, useEffect } from "react";
+import { createWorkoutTask, getWorkoutTask, editWorkoutTask } from "../../util/workouts";
+import { STATUS_CODES } from '../../util/constants';
 
+function CreateWorkoutTask(props) {
+  const [task, setTask] = useState({});
+  const [content, setContent] = useState('loading');
+
+  const handleCreateSubmit = async (values) => {
+    const res = await createWorkoutTask(props.user.token, values);
+    if (res.status === STATUS_CODES.OK) {
+      setTask(res.data);
+      setContent('workout');
+    } else {
+      setContent('error');
+    }
+  }
+
+  const handleEditSubmit = async (values) => {
+    const res = await editWorkoutTask(props.user.token, values);
+    if (res.status === STATUS_CODES.OK) {
+      setTask(res.data);
+      setContent('workout');
+    } else {
+      setContent('error');
+    }
+  }
+}
+
+useEffect(() => {
+  getPt(props.user.token)
+    .then((res) => {
+      if (res.status === STATUS_CODES.OK && res.clients.contains(props.user.client)) {
+        setTask(res.data);
+        setContent('workout');
+      } else {
+        setContent('error');
+      }
+    })
+    .catch((err) => {
+      console.error('Error in useEffect');
+      console.error(err);
+    });
+}, [props.user]);
+
+const getContent = () => {
+  switch (content) {
+    case 'workout':
+      return <div className="mx-auto col-lg-8">
+        <h4>Create a new workout task</h4>
+        <button className='btn btn-warning'
+          onClick={() => setContent('create')}>
+          Create Task
+        </button>
+      </div>;
+    case 'loading':
+      return <h2>Loading...</h2>;
+    default:
+      return <h2>Internal server error!</h2>
+  }
+}
+
+/*
 export default class CreateWorkoutTask extends Component {
     constructor(props) {
         super(props);
@@ -23,11 +81,23 @@ export default class CreateWorkoutTask extends Component {
         };
     }
 
-    /*
-    We need the user in place to decide how to route programs
-    */
     componentDidMount() {
-        // todo
+      getPt(props.user.token)
+        .then((res) => {
+          if (res.status === STATUS_CODES.OK) {
+            res.data.pictureUrl = props.user.pictureUrl;
+            res.data.name = props.user.publicName;
+          } else if (res.status === STATUS_CODES.NOT_FOUND) {
+            setProfile({ pictureUrl: props.user.pictureUrl });
+            setContent("create");
+          } else {
+            setContent("error");
+          }
+        })
+        .catch((err) => {
+          console.error("Error in create workout task");
+          console.error(err);
+        });    
     }
 
     onChangeTitle(e) {
@@ -140,4 +210,4 @@ export default class CreateWorkoutTask extends Component {
           </div>
         );
     }
-}
+} */
