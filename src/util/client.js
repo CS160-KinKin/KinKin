@@ -72,4 +72,30 @@ const getClient = (token) => {
     });
 };
 
-export { getClient, createClient, editClient };
+/**
+ * Queries the client profile.
+ * @param {string} token JWT.
+ * @param {string} id The client's ID.
+ * @returns [Promise<AxiosResponse>] Client profile of user, if it exists.
+ */
+const getClientById = (token, id) => {
+  return axios
+    .post(
+      process.env.REACT_APP_CONTROL_SERVER_URL + GET_CLIENT_ENDPOINT + '/' + id,
+      {},
+      {
+        headers: {
+          'x-access-token': token,
+          'content-type': 'application/json',
+        },
+      }
+    )
+    .catch((err) => {
+      if (err.response) {
+        return err.response;
+      }
+      throw err;
+    });
+};
+
+export { getClient, createClient, editClient, getClientById };

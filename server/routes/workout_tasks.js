@@ -1,32 +1,50 @@
-const Client = require("../models/Client");
-const express = require("express");
-const WorkoutTask = require("../models/workouttask.model");
-const {STATUS_CODES} = require("../util/constants");
-const { verifyToken } = require("../util/auth");
-const { OK, BAD_REQUEST, NOT_FOUND, UNAUTHORIZED, CONFLICT } =
-require("../util/constants").STATUS_CODES;
+const Pt = require('../models/Pt');
+const express = require('express');
+const WorkoutTask = require('../models/workouttask.model');
+const User = require('../models/User');
+const { verifyToken } = require('../util/auth');
+const { OK, BAD_REQUEST, NOT_FOUND, UNAUTHORIZED } =
+  require('../util/constants').STATUS_CODES;
 const router = express.Router();
 
-router.route("/get").post(verifyToken, async (req, res) => {
-    try {
-        const id = req.user.userId;
-        const tasks = await WorkoutTask.find({ pt: id });
-        const cli_tasks = await WorkoutTask.find({ client: id });
-        return res.status(STATUS_CODES.OK).send({ pt: tasks , client: cli_tasks});
-    } catch (err) {
-        return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
+router.route('/get').post(verifyToken, async (req, res) => {
+  try {
+    const id = req.user.userId;
+    const { taskId } = req.body;
+    const pt_tasks = [];
+    const client_tasks = [];
+    for await (const task of WorkoutTask.find({
+      $and: [{ pt: id }, { _id: taskId }],
+    })) {
+      task.pt = await User.findById(task.pt);
+      task.client = await User.findById(task.client);
+      pt_tasks.push(task);
     }
+    for await (const task of WorkoutTask.find({
+      $and: [{ client: id }, { _id: taskId }],
+    })) {
+      task.pt = await User.findById(task.pt);
+      task.client = await User.findById(task.client);
+      client_tasks.push(task);
+    }
+    return res.status(OK).send({ pt: pt_tasks, client: client_tasks });
+  } catch (err) {
+    return res.status(BAD_REQUEST).send(err.message);
+  }
 });
 
-router.route("/").put(verifyToken, async (req, res) => {
+router.route('/').put(verifyToken, async (req, res) => {
   try {
     const { title, clientId, description, duration, date } = req.body;
     const ptId = req.user.userId;
 
-    const client = await Client.findById(clientId);
+    const doc = await Pt.findById(ptId);
 
-    if (client == null) {
-      return res.status(STATUS_CODES.NOT_FOUND).send("Not a client");
+    if (!doc) {
+      return res.status(NOT_FOUND).send();
+    }
+    if (doc.clients.indexOf(clientId) === -1) {
+      return res.status(UNAUTHORIZED).send();
     }
 
     const task = await WorkoutTask.create({
@@ -37,37 +55,43 @@ router.route("/").put(verifyToken, async (req, res) => {
       duration,
       date,
     });
-    return res.status(STATUS_CODES.OK).send(task);
+    return res.status(OK).send(task);
   } catch (err) {
-    return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
+    return res.status(BAD_REQUEST).send(err.message);
   }
 });
 
-router.route("/").delete(verifyToken, async (req, res) => {
-    try {
-        const taskId = req.body.id;
-        const ptId = req.user.userId;
-        const task = await WorkoutTask.findOneAndDelete({pt : ptId, _id: taskId});
-        return res.status(STATUS_CODES.OK).send(task);
-    } catch (err) {
-        return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
-    }
+router.route('/').delete(verifyToken, async (req, res) => {
+  try {
+    const taskId = req.body.id;
+    const ptId = req.user.userId;
+    const task = await WorkoutTask.findOneAndDelete({ pt: ptId, _id: taskId });
+    return res.status(OK).send(task);
+  } catch (err) {
+    return res.status(BAD_REQUEST).send(err.message);
+  }
 });
 
-router.route("/").post(verifyToken, async (req, res) => {
-    try {
-        const taskId = req.body.id;
-        const ptId = req.user.userId;
-        const task = await WorkoutTask.findOne({pt: ptId, _id: taskId});
-        task.title = req.body.title || task.title;
-        task.description = req.body.description || task.description;
-        task.duration = req.body.duration || task.duration;
-        task.date = req.body.date || task.date;
-        await task.save();
-        return res.status(STATUS_CODES.OK).send(task);
-    } catch (err) {
-        return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
+router.route('/').post(verifyToken, async (req, res) => {
+  try {
+    const taskId = req.body.id;
+    const ptId = req.user.userId;
+    const pt = await Pt.findById(ptId);
+    const task = await WorkoutTask.findOne({ pt: ptId, _id: taskId });
+    const clientId = req.body.client || task.clientId;
+    if (pt.clients.indexOf(clientId) === -1) {
+      return res.status(UNAUTHORIZED).send();
     }
+    task.title = req.body.title || task.title;
+    task.description = req.body.description || task.description;
+    task.duration = req.body.duration || task.duration;
+    task.date = req.body.date || task.date;
+    task.client = clientId;
+    await task.save();
+    return res.status(OK).send(task);
+  } catch (err) {
+    return res.status(BAD_REQUEST).send(err.message);
+  }
 });
 
 module.exports = router;

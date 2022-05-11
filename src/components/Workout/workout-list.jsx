@@ -9,14 +9,10 @@ const WorkoutTask = (props) => (
     <td>{props.task.client}</td>
     <td>{props.task.description}</td>
     <td>{props.task.duration}</td>
-    <td>{props.task.date.substring(0, 10)}</td>
+    <td>{new Date(props.task.date).toLocaleDateString()}</td>
     <td>
-      <Link to={'edit/' + props.task._id}>edit</Link> |{' '}
-      <button
-        onClick={() => {
-          props.deleteWorkoutTask(props.task._id);
-        }}
-      >
+      <Link className='btn btn-secondary m-1' to={`edit/${props.task._id}`}>Edit</Link>
+      <button className='btn btn-danger m-1' onClick={() => props.deleteWorkoutTask(props.task._id)}>
         Delete
       </button>
     </td>
@@ -31,13 +27,16 @@ export default class WorkoutList extends Component {
 
     this.state = { tasks: [] };
   }
-  
+
   async componentDidMount() {
     try {
       const { pt } = await getWorkouts(this.props.user.token);
-      this.setState({ tasks : pt });
+      this.setState({ tasks: pt });
+      throw Error('test');
     } catch (err) {
-      console.log(err.message);
+      console.error(
+        `WorkoutList.componentDidMount had an error: ${err.message}`
+      );
     }
   }
 
@@ -48,20 +47,20 @@ export default class WorkoutList extends Component {
         tasks: this.state.tasks.filter((el) => el._id === id),
       });
     } catch (err) {
-      console.log(err.message);
+      console.error(
+        `WorkoutList.deleteWorkoutTask had an error: ${err.message}`
+      );
     }
   }
 
   workoutList() {
-    return this.state.tasks.map((currenttask) => {
-      return (
-        <WorkoutTask
-          task={currenttask}
-          deleteWorkoutTask={this.deleteWorkoutTask}
-          key={currenttask._id}
-        />
-      );
-    });
+    return this.state.tasks.map((currentTask) => (
+      <WorkoutTask
+        task={currentTask}
+        deleteWorkoutTask={this.deleteWorkoutTask}
+        key={currentTask._id}
+      />
+    ));
   }
 
   render() {
@@ -69,7 +68,10 @@ export default class WorkoutList extends Component {
       <>
         <Navigation {...this.props} />
         <div className='content'>
-          <h3> Workout List </h3>
+          <Link className='btn btn-primary m-2' to='create'>
+            Create Workout Task
+          </Link>
+          <h3>Workout List</h3>
           <table className='table'>
             <thread className='thead-light'>
               <tr>

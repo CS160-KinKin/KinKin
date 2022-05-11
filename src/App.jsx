@@ -75,18 +75,26 @@ function App() {
           element={<Marketplace user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='client/workouts'
-          exact
-          element={<WorkoutList user={user} handleLogout={handleLogout} />}
+          path='/client/workouts'
+          element={
+            <WorkoutList user={user} handleLogout={handleLogout} isPt={false} />
+          }
         />
         <Route
-          path='client/workouts/add'
+          path='/pt/workouts'
+          exact
+          element={
+            <WorkoutList user={user} handleLogout={handleLogout} isPt={true} />
+          }
+        />
+        <Route
+          path='/pt/workouts/create'
           element={
             <CreateWorkoutTask user={user} handleLogout={handleLogout} />
           }
         />
         <Route
-          path='client/workouts/update'
+          path='/pt/workouts/update'
           element={<EditWorkoutTask user={user} handleLogout={handleLogout} />}
         />
         <Route

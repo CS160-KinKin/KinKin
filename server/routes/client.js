@@ -8,8 +8,7 @@ const { OK, BAD_REQUEST, NOT_FOUND, CONFLICT } =
 
 router.put('/', verifyToken, async (req, res) => {
   try {
-    const { bio, languages, location, interests, trainingGoals } =
-      req.body;
+    const { bio, languages, location, interests, trainingGoals } = req.body;
     const dup = await Client.findById(req.user.userId);
     if (dup) {
       return res.status(CONFLICT).send();
@@ -66,14 +65,24 @@ router.post('/get', verifyToken, async (req, res) => {
   }
 });
 
-router.get('/get/:username', verifyToken, async (req, res) => {
+router.get('/get/:id', verifyToken, async (req, res) => {
   try {
-    const { username } = req.params;
-    const userDoc = await User.find({ username });
+    const { id } = req.params;
+    const userDoc = await User.findById(id);
     if (!userDoc) return res.status(NOT_FOUND).send();
-    const clientDoc = await Client.findById(userDoc._id);
+    const clientDoc = await Client.findById(id);
     if (!clientDoc) return res.status(NOT_FOUND).send();
-    return res.status(OK).send(clientDoc);
+    return res.status(OK).send({
+      id: userDoc._id,
+      publicName: userDoc.publicName,
+      pictureUrl: userDoc.pictureUrl,
+      positiveRatingCount: clientDoc.positiveRatingCount,
+      negativeRatingCount: clientDoc.negativeRatingCount,
+      languages: clientDoc.languages,
+      location: clientDoc.location,
+      interests: clientDoc.interests,
+      bio: clientDoc.bio,
+    });
   } catch (err) {
     return res.status(BAD_REQUEST).send(err.message);
   }
