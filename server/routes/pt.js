@@ -128,38 +128,7 @@ router.post('/search', verifyToken, async (req, res) => {
   }
 });
 
-router.post('/request', verifyToken, async (req, res) => {
-  try {
-    const pt_id = req.body.pt_id; // ID of PT that was requested
-    const client_id = req.user.userId; // ID of client that made request
-
-    if (pt_id === client_id) {
-      return res.status(BAD_REQUEST).send('Client and PT are the same user.');
-    }
-
-    const pt = await Pt.findById(pt_id);
-    const client = await Client.findById(client_id);
-    if (!pt || !client) {
-      return res.status(NOT_FOUND).send();
-    }
-    if (client.pt === pt._id && pt.clients.indexOf(client._id) !== -1) {
-      return res.status(CONFLICT).send('PT already has user as a client.');
-    }
-    if (pt.requests.indexOf(client._id) === -1) {
-      pt.requests.push(client._id);
-    }
-    if (client.requests.indexOf(pt._id) === -1) {
-      client.requests.push(pt._id);
-    }
-    await pt.save();
-    await client.save();
-    return res.status(OK).send();
-  } catch (err) {
-    return res.status(BAD_REQUEST).send(err.message);
-  }
-});
-
-router.post('/getrequests', verifyToken, async (req, res) => {
+router.post('/requests/get', verifyToken, async (req, res) => {
   try {
     const id = req.user.userId;
     const doc = await Pt.findById(id);
@@ -172,7 +141,9 @@ router.post('/getrequests', verifyToken, async (req, res) => {
       try {
         clients.push({ name: user.publicName, id: user._id });
       } catch (err) {
-        console.error('/getrequests found missing User doc: ' + err.message);
+        console.error(
+          '/pt/requests/get found missing User doc: ' + err.message
+        );
       }
     }
 
@@ -182,7 +153,7 @@ router.post('/getrequests', verifyToken, async (req, res) => {
   }
 });
 
-router.post('/acceptrequest', verifyToken, async (req, res) => {
+router.post('/requests/accept', verifyToken, async (req, res) => {
   try {
     const ptId = req.user.userId;
     const clientId = req.body.id;
@@ -215,7 +186,7 @@ router.post('/acceptrequest', verifyToken, async (req, res) => {
   }
 });
 
-router.post('/deleterequest', verifyToken, async (req, res) => {
+router.delete('/requests', verifyToken, async (req, res) => {
   try {
     const ptId = req.user.userId;
     const clientId = req.body.id;
