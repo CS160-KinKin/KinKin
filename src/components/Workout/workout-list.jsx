@@ -82,13 +82,24 @@ export default class WorkoutList extends Component {
       <>
         <Navigation {...this.props} />
         <div className='content mx-auto col-lg-8'>
-          {this.props.isPt ? (
-            <Link className='btn btn-primary m-2' to='create'>
-              Create Workout Task
-            </Link>
-          ) : (
-            <></>
-          )}
+          <div className='row m-4'>
+            <div className='col' />
+            {this.props.isPt ? (
+              <>
+                <Link className='btn btn-primary col-md-4' to='create'>
+                  Create Workout Task
+                </Link>
+                <Link className='btn btn-secondary col-md-4' to='/pt'>
+                  Back to dashboard
+                </Link>
+              </>
+            ) : (
+              <Link className='btn btn-primary col-md-4' to='/client'>
+                Back to dashboard
+              </Link>
+            )}
+            <div className='col' />
+          </div>
           <h3>Workout List</h3>
           <table className='table'>
             <thead className='thead-light'>
