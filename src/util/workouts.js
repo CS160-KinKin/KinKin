@@ -9,7 +9,7 @@ import {
  * @param {string} token JWT.
  * @returns [Promise<any>] All tasks from this PT.
  */
-const getWorkoutsByPtId = async (token) => {
+const getWorkouts = async (token) => {
   const res = await axios.post(
     process.env.REACT_APP_CONTROL_SERVER_URL + GET_WORKOUTS_ENDPOINT,
     {},
@@ -65,7 +65,7 @@ const createWorkoutTask = async (token, task) => {
 };
 
 export {
-  getWorkoutsByPtId,
+  getWorkouts,
   deleteWorkoutTask,
   updateWorkoutTask,
   createWorkoutTask,

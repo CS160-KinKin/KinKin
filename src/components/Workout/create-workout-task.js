@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { createWorkoutTask, getWorkoutTask, editWorkoutTask } from "../../util/workouts";
-import { STATUS_CODES } from '../../util/constants';
+import React, { Component } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { createWorkoutTask } from "../../util/workouts";
+import axios from "axios";
 
 function CreateWorkoutTask(props) {
   const [task, setTask] = useState({});
@@ -82,6 +84,7 @@ export default class CreateWorkoutTask extends Component {
     }
 
     componentDidMount() {
+<<<<<<< HEAD
       getPt(props.user.token)
         .then((res) => {
           if (res.status === STATUS_CODES.OK) {
@@ -98,6 +101,23 @@ export default class CreateWorkoutTask extends Component {
           console.error("Error in create workout task");
           console.error(err);
         });    
+=======
+        axios
+          .get(process.env.REACT_APP_CONTROL_SERVER_URL + "/workouts")
+          .then((response) => {
+            this.setState({
+              title: response.data.title,
+              pt: response.data.pt,
+              client: response.data.client,
+              description: response.data.description,
+              duration: response.data.duration,
+              date: response.data.date,
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+>>>>>>> f807a4cc3fbd52e2ad26df7e5e629456cff39ba7
     }
 
     onChangeTitle(e) {
