@@ -12,9 +12,9 @@ const Request = (props) => {
 
   useEffect(() => {
     const getRequests =
-      type === 'pt'
+      type === 'PT'
         ? ptUtil.getRequests
-        : type === 'client'
+        : type === 'CLIENT'
         ? clientUtil.getRequests
         : () => {
             throw Error(`invalid type: ${type}`);
@@ -34,7 +34,7 @@ const Request = (props) => {
         <RequestComponent
           user={props.user}
           other={request}
-          ptSide={type === 'pt'}
+          ptSide={type === 'PT'}
         />
       ))}
       <button className='btn btn-light' onClick={() => navigate(-1)}>

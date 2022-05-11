@@ -37,8 +37,8 @@ const RequestComponent = (props) => {
 
   return (
     <div className='request-container'>
-      <div className='client-name'>
-        <h1>{props.client.name || 'No name'}</h1>
+      <div className='other-name'>
+        <h1>{props.other.name || 'No name'}</h1>
       </div>
       <div className='buttons'>
         {ptSide ? (
