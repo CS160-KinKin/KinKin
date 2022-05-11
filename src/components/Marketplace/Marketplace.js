@@ -28,7 +28,7 @@ export default class Marketplace extends Component {
       alert('Request sent to PT.');
     } catch (err) {
       alert('Could not send request.');
-      console.log(err.message);
+      console.error(err.message);
     }
   }
   

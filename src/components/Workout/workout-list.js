@@ -37,7 +37,7 @@ export default class WorkoutList extends Component {
       const tasks = await getWorkoutsByPtId(this.props.user.token);
       this.setState({ tasks });
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
     }
   }
 
@@ -48,7 +48,7 @@ export default class WorkoutList extends Component {
         tasks: this.state.tasks.filter((el) => el._id === id),
       });
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
     }
   }
 
