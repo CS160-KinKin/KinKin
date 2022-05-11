@@ -1,7 +1,7 @@
 import React from 'react';
 import './requestcomponent.css';
-import ptUtil from '../../util/pt';
-import clientUtil from '../../util/client';
+import * as ptUtil from '../../util/pt';
+import * as clientUtil from '../../util/client';
 
 const RequestComponent = (props) => {
   const { user, other, ptSide } = props;

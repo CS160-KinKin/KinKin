@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RequestComponent from './RequestComponent';
 import { Footer, Navigation } from '../index';
-import ptUtil from '../../util/pt';
-import clientUtil from '../../util/client';
+import * as ptUtil from '../../util/pt';
+import * as clientUtil from '../../util/client';
 
 const Request = (props) => {
   const { user, type } = props;
