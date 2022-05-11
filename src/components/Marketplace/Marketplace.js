@@ -3,7 +3,7 @@ import { Navigation, Footer } from '../index';
 import PTProfile from '../Profile/PTProfile';
 import FilterSearch from './FilterSearch';
 import { getPTsByFilters } from '../../util/pt';
-import { addRequest } from '../../util/pt';
+import { addRequest } from '../../util/client';
 import ChatButton from '../Chat/ChatButton' 
 import './marketplace.css';
 

@@ -63,6 +63,12 @@ function App() {
           element={<ClientDashboard user={user} handleLogout={handleLogout} />}
         />
         <Route
+          path='/client/requests'
+          element={
+            <Request user={user} type='CLIENT' handleLogout={handleLogout} />
+          }
+        />
+        <Route
           path='/client/activity'
           element={<Activity user={user} handleLogout={handleLogout} />}
         />
