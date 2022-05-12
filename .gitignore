@@ -8,7 +8,7 @@ server/node_modules/
 
 # misc
 **/.DS_Store
-.history
+**/.history
 .prettierrc.js
 
 npm-debug.log*
@@ -18,6 +18,6 @@ yarn-error.log*
 coverage/
 
 #IDE
-.idea
-.vscode
-*.code-workspace
+**/.idea
+**/.vscode
+**/.code-workspace

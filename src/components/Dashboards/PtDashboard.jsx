@@ -75,6 +75,9 @@ function PtDashboard(props) {
               <div className='col' />
             </div>
             <div>
+              <Link className='btn btn-secondary' to='workouts'>
+                View your clients' workouts
+              </Link>
               <Link className='btn btn-info' to='requests'>
                 View your client requests
               </Link>

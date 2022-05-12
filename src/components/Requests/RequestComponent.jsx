@@ -1,41 +1,75 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import './requestcomponent.css';
-import { acceptRequest } from "../../util/pt";
-import { deleteRequest } from "../../util/pt";
+import * as ptUtil from '../../util/pt';
+import * as clientUtil from '../../util/client';
 
 const RequestComponent = (props) => {
-  
-    const onAcceptRequest = async () => {
-        try {
-            const response = await acceptRequest(props.user.token, props.client.id);
-            alert("Request Accepted");
-        }
-        catch (err) {
-            alert("Could not accept request");
-        }
-    }
+  const { user, other, ptSide } = props;
 
-    const onRejectRequest = async () => {
-        try {
-            const response = await deleteRequest(props.user.token, props.client.id);
-            alert("Request Rejected");
-        }
-        catch (err) {
-            alert("Could not reject request");
-        }
-    }
+  const acceptRequest = ptSide
+    ? ptUtil.acceptRequest
+    : () => {
+        throw Error('Only the PT can accept the request.');
+      };
+  const deleteRequest = ptSide
+    ? ptUtil.deleteRequest
+    : clientUtil.deleteRequest;
 
-    return (
-        <div className="request-container">
-            <div className="client-name">
-                <h1>{props.client.name || "No name"}</h1>
-            </div>
-            <div className="buttons">
-                <button type="button" className="accept-btn" onClick={onAcceptRequest}>Accept</button>
-                <button type="button" className="reject-btn" onClick={onRejectRequest}>Reject</button>
-            </div>
-        </div>
-    );
-}
+  const handleAcceptRequest = () => {
+    acceptRequest(user.token, other.id)
+      .then(() => alert('Request accepted'))
+      .catch((err) =>
+        console.error(
+          `RequestComponent.handleAcceptRequest had an error: ${err.message}`
+        )
+      );
+  };
+
+  const handleRejectRequest = async () => {
+    deleteRequest(user.token, other.id)
+      .then(() => alert('Request deleted'))
+      .catch((err) =>
+        console.error(
+          `RequestComponent.handleDeleteRequest had an error: ${err.message}`
+        )
+      );
+  };
+
+  return (
+    <div className='request-container'>
+      <div className='other-name'>
+        <h1>{props.other.name || 'No name'}</h1>
+      </div>
+      <div className='buttons'>
+        {ptSide ? (
+          <>
+            <button
+              type='button'
+              className='accept-btn'
+              onClick={handleAcceptRequest}
+            >
+              Accept
+            </button>
+            <button
+              type='button'
+              className='reject-btn'
+              onClick={handleRejectRequest}
+            >
+              Reject
+            </button>
+          </>
+        ) : (
+          <button
+            type='button'
+            className='reject-btn'
+            onClick={handleRejectRequest}
+          >
+            Delete
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default RequestComponent;

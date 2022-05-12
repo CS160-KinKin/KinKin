@@ -46,28 +46,28 @@ describe('Workout Task', () => {
     closeServer(testServer)
   })
 
-  describe('/PUT workout object in db', async(done) => {
-    it('it should put workout in db', async() => {
+  // describe('/PUT workout object in db', async(done) => {
+  //   it('it should put workout in db', async() => {
 
-      const workout = {
-        _id: '01234',
-        title: 'Upper body',
-        clientId: '01234',
-        description: 'A dumbell workout targeting bis and tris',
-        duration: 10,
-        date: '2016-05-18T16:00:00Z'
-      }
+  //     const workout = {
+  //       _id: '01234',
+  //       title: 'Upper body',
+  //       clientId: '01234',
+  //       description: 'A dumbell workout targeting bis and tris',
+  //       duration: 10,
+  //       date: '2016-05-18T16:00:00Z'
+  //     }
 
-      chai.request(testServer)
-      .put('/workouts/')
-      .send(workout)
-      .end((err, res) => {
-        res.should.have.status(OK);
-      }
-      );
-    })
-    done();
-  })
+  //     chai.request(testServer)
+  //     .put('/workouts/')
+  //     .send(workout)
+  //     .end((err, res) => {
+  //       res.should.have.status(OK);
+  //     }
+  //     );
+  //   })
+  //   done();
+  // })
 
   describe('/GET workout task object by id', () => {
     it('/GET it should get workouttask given id', async() => {

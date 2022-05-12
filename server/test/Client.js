@@ -45,27 +45,27 @@ describe('Client', () => {
     closeServer(testServer)
   })
 
-  describe('/PUT client object in db', async(done) => {
-    it('it should put client in db', async() => {
+  // describe('/PUT client object in db', async(done) => {
+  //   it('it should put client in db', async() => {
 
-      const client = {
-        _id: '01234',
-        bio: 'hi! its me',
-        langauges: ['english','spanish'],
-        interests: ['rock climbing'],
-        trainingGoals: 'bulk'
-      }
+  //     const client = {
+  //       _id: '01234',
+  //       bio: 'hi! its me',
+  //       langauges: ['english','spanish'],
+  //       interests: ['rock climbing'],
+  //       trainingGoals: 'bulk'
+  //     }
 
-      chai.request(testServer)
-      .put('/client')
-      .send(client)
-      .end((err, res) => {
-        res.should.have.status(OK);
-      }
-      );
-    })
-    done();
-  })
+  //     chai.request(testServer)
+  //     .put('/client')
+  //     .send(client)
+  //     .end((err, res) => {
+  //       res.should.have.status(OK);
+  //     }
+  //     );
+  //   })
+  //   done();
+  // })
 
   describe('/GET client object by id', () => {
     it('/GET it should get client given id', async() => {

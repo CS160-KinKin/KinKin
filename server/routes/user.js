@@ -65,11 +65,16 @@ router.post('/get', verifyToken, async (req, res) => {
   }
 });
 
-router.get('/users', verifyToken, async (req, res) => {
+router.post('/get/:id', verifyToken, async (req, res) => {
   try {
-    const doc = await User.find({});
-    if (!doc) return res.status(STATUS_CODES.NOT_FOUND).send();
-    return res.status(STATUS_CODES.OK).send(doc);
+    const { id } = req.params;
+    const userDoc = await User.findById(id);
+    if (!userDoc) return res.status(STATUS_CODES.NOT_FOUND).send();
+    return res.status(STATUS_CODES.OK).send({
+      id: userDoc._id,
+      publicName: userDoc.publicName,
+      pictureUrl: userDoc.pictureUrl,
+    });
   } catch (err) {
     return res.status(STATUS_CODES.BAD_REQUEST).send(err.message);
   }

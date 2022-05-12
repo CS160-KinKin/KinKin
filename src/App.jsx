@@ -63,6 +63,12 @@ function App() {
           element={<ClientDashboard user={user} handleLogout={handleLogout} />}
         />
         <Route
+          path='/client/requests'
+          element={
+            <Request user={user} type='CLIENT' handleLogout={handleLogout} />
+          }
+        />
+        <Route
           path='/client/activity'
           element={<Activity user={user} handleLogout={handleLogout} />}
         />
@@ -75,18 +81,26 @@ function App() {
           element={<Marketplace user={user} handleLogout={handleLogout} />}
         />
         <Route
-          path='client/workouts'
-          exact
-          element={<WorkoutList user={user} handleLogout={handleLogout} />}
+          path='/client/workouts'
+          element={
+            <WorkoutList user={user} handleLogout={handleLogout} isPt={false} />
+          }
         />
         <Route
-          path='client/workouts/add'
+          path='/pt/workouts'
+          exact
+          element={
+            <WorkoutList user={user} handleLogout={handleLogout} isPt={true} />
+          }
+        />
+        <Route
+          path='/pt/workouts/create'
           element={
             <CreateWorkoutTask user={user} handleLogout={handleLogout} />
           }
         />
         <Route
-          path='client/workouts/update'
+          path='/pt/workouts/edit/:taskId'
           element={<EditWorkoutTask user={user} handleLogout={handleLogout} />}
         />
         <Route

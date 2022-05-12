@@ -5,15 +5,12 @@ import {
   About,
   Home,
   NotFound,
-  UserDashboard,
   WorkoutList,
   EditWorkoutTask,
   CreateWorkoutTask,
   Navigation,
   Footer,
   AdditionalInformationCollection,
-  Profile,
-  Chat
 } from './components';
 
 import ClientProfile from './components/Profile/ClientProfile.jsx';
@@ -51,28 +48,9 @@ describe('Notfound renders', function () {
   });
 });
 
-describe('WorkoutList renders', function () {
-  const user = { token: '0' };
-  it('should render!', function () {
-    const wrapper = shallow(<WorkoutList user={user} />);
-  });
-});
-
-describe('EditWorkoutTask renders', function () {
-  it('should render!', function () {
-    const wrapper = shallow(<EditWorkoutTask />);
-  });
-});
-
 describe('Footer renders', function () {
   it('should render!', function () {
     const wrapper = shallow(<Footer />);
-  });
-});
-
-describe('CreateWorkoutTask renders', function () {
-  it('should render!', function () {
-    const wrapper = shallow(<CreateWorkoutTask />);
   });
 });
 
@@ -82,26 +60,14 @@ describe('Info collection page renders', function () {
   });
 });
 
-describe('Profile renders', function () {
-  it('should render!', function () {
-    const wrapper = shallow(<Profile />);
-  });
-});
-
 describe('ClientProfile renders', function () {
   it('should render!', function () {
     const wrapper = shallow(<ClientProfile />);
   });
 });
 
-describe('Request Component renders', function () {
-  it('should render!', function () {
-    const wrapper = shallow(<CreateWorkoutTask />);
-  });
-});
-
 describe('EditClient renders', function () {
   it('should render!', function () {
-    const wrapper = shallow(<EditClient />);
+    const wrapper = shallow(<EditClient profile={{bio: ''}} />);
   });
 });

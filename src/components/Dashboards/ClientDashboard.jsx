@@ -76,7 +76,6 @@ function ClientDashboard(props) {
             </div>
             <div>
               <Link className='btn btn-primary' to='workouts'>
-                {/* TODO */}
                 View your workouts
               </Link>
               <Link className='btn btn-success' to='healthinput'>

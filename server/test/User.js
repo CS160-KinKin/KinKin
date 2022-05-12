@@ -45,18 +45,6 @@ describe('User', () => {
     closeServer(testServer)
   })
 
-  describe('/GET all users in db', () => {
-    it('should get all users', async() => {
-      chai.request(testServer)
-        .get('/user/users')
-        .end((err,res) => {
-          res.should.have.status(OK);
-          res.body.should.be.a('array');
-          if(err) {console.log(err)}
-        })
-    })
-  })
-
   describe('/PUT user object in db', async(done) => {
     it('it should put user in db', async() => {
 
