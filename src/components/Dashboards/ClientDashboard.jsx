@@ -6,7 +6,7 @@ import EditClient from '../Profile/EditClient';
 import { getClient, createClient, editClient } from '../../util/client';
 import { STATUS_CODES } from '../../util/constants';
 
-function ClientDashboard(props) {
+const ClientDashboard = (props) => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState({});
   const [content, setContent] = useState('loading');
@@ -78,16 +78,17 @@ function ClientDashboard(props) {
               <Link className='btn btn-primary' to='workouts'>
                 View your workouts
               </Link>
-              <Link className='btn btn-success' to='healthinput'>
-                {/* TODO */}
+              <Link className='btn btn-info' to='healthinput'>
                 Input health data
               </Link>
               <Link className='btn btn-info' to='activity'>
-                {/* TODO */}
                 View your activity
               </Link>
               <Link className='btn btn-secondary' to='marketplace'>
                 View the PT marketplace
+              </Link>
+              <Link className='btn btn-secondary' to='requests'>
+                View your PT requests
               </Link>
               <button
                 className='btn btn-warning'

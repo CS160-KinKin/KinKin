@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import { SPECIALTIES, DAYS_OF_WEEK, LANGUAGES } from '../../util/constants';
+import { SPECIALTIES, LANGUAGES } from '../../util/constants';
 
 class EditClient extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class EditClient extends Component {
 
     this.state = {
       bio: bio || '',
-      specialties: SPECIALTIES.filter((e) => interests.indexOf(e.value) !== -1),
+      interests: SPECIALTIES.filter((e) => interests.indexOf(e.value) !== -1),
       location: '', // TODO
       languages: LANGUAGES.filter((e) => languages.indexOf(e.value) !== -1),
     };
@@ -61,7 +61,7 @@ class EditClient extends Component {
     const { bio, interests, location, languages } = this.state;
     return (
       <form onSubmit={this.handleSubmit} className='mx-auto col-lg-8'>
-        <h2>Edit your PT profile</h2>
+        <h2>Edit your client profile</h2>
         <div className='form-group row'>
           <div className='col' />
           <div className='col-sm-2'>
