@@ -97,6 +97,7 @@ router.post('/search', verifyToken, async (req, res) => {
         matchDocs.push({
           id: doc._id,
           name: user.publicName,
+          pictureUrl: user.pictureUrl,
           languages: doc.languages,
           specialties: doc.specialties,
           bio: doc.bio,
