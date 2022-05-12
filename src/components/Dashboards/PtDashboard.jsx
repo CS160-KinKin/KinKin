@@ -6,7 +6,7 @@ import EditPT from '../Profile/EditPT';
 import { getPt, createPt, editPt } from '../../util/pt';
 import { STATUS_CODES } from '../../util/constants';
 
-function PtDashboard(props) {
+const PtDashboard = (props) => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState({});
   const [content, setContent] = useState('loading');
@@ -75,7 +75,7 @@ function PtDashboard(props) {
               <div className='col' />
             </div>
             <div>
-              <Link className='btn btn-secondary' to='workouts'>
+              <Link className='btn btn-primary' to='workouts'>
                 View your clients' workouts
               </Link>
               <Link className='btn btn-info' to='requests'>

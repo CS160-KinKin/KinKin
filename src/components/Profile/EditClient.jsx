@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import { SPECIALTIES, DAYS_OF_WEEK, LANGUAGES } from '../../util/constants';
+import { SPECIALTIES, LANGUAGES } from '../../util/constants';
 
 class EditClient extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class EditClient extends Component {
 
     this.state = {
       bio: bio || '',
-      specialties: SPECIALTIES.filter((e) => interests.indexOf(e.value) !== -1),
+      interests: SPECIALTIES.filter((e) => interests.indexOf(e.value) !== -1),
       location: '', // TODO
       languages: LANGUAGES.filter((e) => languages.indexOf(e.value) !== -1),
     };
