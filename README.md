@@ -1,5 +1,7 @@
 # Kin Kin
 
+This project is no longer maintained.
+
 ## Local Setup Instructions
 
 1. Install [npm](https://www.npmjs.com)
